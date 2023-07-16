@@ -1,0 +1,32 @@
+name: Build LaTeX document
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+     - 'README.*'
+     - 'LICENSE.*'
+
+jobs:
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone 📥
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+
+      - name: Build PDF ⚙️
+        uses: xu-cheng/latex-action@v2
+        if: success()
+        with:
+          root_file: '*.tex'
+          glob_root_file: true
+      
+      - name: Store 📦
+        uses: actions/upload-artifact@v3.1.2
+        if: success()
+        with:
+          name: Document
+          path: '*.pdf'
