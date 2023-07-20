@@ -1,24 +1,23 @@
 %allgemeine Formatangaben
 \documentclass[
- a4paper, 										% Papierformat
- 12pt,												% Schriftgröße
- ngerman, 										% für Umlaute, Silbentrennung etc.
- titlepage,										% es wird eine Titelseite verwendet
- bibliography=totoc,					% Literaturverzeichnis im Inhaltsverzeichnis aufführen
- listof=totoc,								% Verzeichnisse im Inhaltsverzeichnis aufführen
- oneside, 										% einseitiges Dokument
- captions=nooneline,					% einzeilige Gleitobjekttitel ohne Sonderbehandlung wie mehrzeilige Gleitobjekttitel behandeln
- numbers=noenddot,						% Überschriften-??Nummerierung ohne Punkt am Ende
- parskip=half									% zwischen Absätzen wird eine halbe Zeile eingefügt
- ]{scrbook}
+ a4paper, 					% Papierformat
+ 11pt,						% Schriftgröße
+ ngerman, 					% für Umlaute, Silbentrennung etc.
+ titlepage,					% es wird eine Titelseite verwendet
+ bibliography=totoc,		% Literaturverzeichnis im Inhaltsverzeichnis aufführen
+ listof=totoc,				% Verzeichnisse im Inhaltsverzeichnis aufführen
+ oneside, 					% einseitiges Dokument
+ captions=nooneline,		% einzeilige Gleitobjekttitel ohne Sonderbehandlung wie mehrzeilige Gleitobjekttitel behandeln
+ numbers=noenddot,			% Überschriften-??Nummerierung ohne Punkt am Ende
+ parskip=half				% zwischen Absätzen wird eine halbe Zeile eingefügt
+ ]{scrreprt}
 
+\input{Header/Metadaten} 	% einbinden von persönlichen Daten
 
-\input{Header/Metadaten} 			% einbinden von persönlichen Daten
+\input{Header/Pakete}		% einbinden der verwendeten Latex-Pakete
 
-\input{Header/Pakete}					% einbinden der verwendeten Latex-Pakete
-
-
-\onehalfspacing 							% 1,5facher Zeilenabstand
+\singlespacing				% einfacher Zeilenabstand
+%\onehalfspacing 			% 1,5facher Zeilenabstand
 
 \definecolor{InterneLinkfarbe}{rgb}{0.1,0.1,0.3} 	% Farbliche Absetzung von externen Links
 \definecolor{ExterneLinkfarbe}{rgb}{0.1,0.1,0.7}	% Farbliche Absetzung von internen Links
@@ -75,4 +74,14 @@
 % \input{Header/Glossar}
 
 
-\areaset[0.5cm]{16cm}{24cm}
+% --------- Seitenlayout -----------
+
+% Zwischenabgabe
+\geometry{
+	top=2cm,
+	left=3cm,
+	right=3cm
+}
+
+% Endabgabe
+%\areaset[0.5cm]{16cm}{24cm}
