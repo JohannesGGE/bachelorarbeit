@@ -16,6 +16,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
+          
+      - name: Find and Replace @onine with @misc
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "@online"
+          replace: "@misc"
+          include: "Literatur/**"
+          regex: false
 
       - name: Build PDF ⚙️
         uses: xu-cheng/latex-action@v2
