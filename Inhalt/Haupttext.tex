@@ -6,7 +6,7 @@
 
 Viele stehen vor dem Problem, dass ihr E-Mail Posteingang \hl{(im folgenden INBOX genannt)} überfüllt ist mit E-Mails, welche noch beantwortet werden müssen. Das E-Mail Postfach öffnen führt zu Stress, und es werden immer mehr E-Mails obwohl man sein bestes gibt diese zu bearbeiten. Es scheint so, als ob die Fähigkeit mit der Masse an E-Mails klar zu kommen, entscheided ist über den Erfolg, den man vorallem im Job hat. Die Inbox wird als To-Do Liste, Kalender und Postfach in einem genutzt. \cite{googletechtalksInboxZero2007} Dieses Konzept führt gezwungener Maßen zu Problemen. Es gibt aber Konzepte, mit denen dieses Problem angegangen werden kann. Die meisten basieren auf Getting Things Done, was eine Produktivitätsstrategie ist, die das Ziel hat Aufgaben, Informationen, Probleme oder Projekte zu extern, also nicht im Kopf zu verwalten. \cite{GettingThingsDone2023} David Allen hat diese Methode entwickelt und beschreibt in seinem Buch "Getting Things Done: The Art of Stress-Free Productivity", wie Sie funktioniert und anzuwenden ist. \hl{Buch ref??}
 Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welche sich auf das E-Mail Management spezialisieren. Inbox Zero ist eine davon, welche von Merlin Mann erstmalig definiert wurde und nicht das Ziel hat keine E-Mails mehr in der Inbox zu haben, wie man es durch den Namen annehmen könnte, sondern eher darauf bezogen ist, kein Stress bei der Bearbeitung der Inbox zu haben. \cite{WhatInboxZero2019} Es geht nicht darum alle E-Mails in der Inbox zu beantworten sondern alle E-Mails zu bearbeiten. Das heißt, dass man sich Aktionen definiert, welche man auf die zu bearbeitende E-Mail anwendet. Das kann das Beantworten der E-Mail sein aber genauso das Löschen oder Zurückstellen der E-Mail. Wichtig ist, dass man ohne viel überlegen entscheidet, welche Aktion auszuführen ist und sich nach ausführen der nächsten E-Mail widmet. \cite{googletechtalksInboxZero2007}
-\hl{Ähnlich ist die N days later Methode. (Nicht relevant???)} 
+\hl{Ähnlich ist die N days later Methode. (Nicht relevant???)}
 
 \begin{itemize}
 	\item Stress bei Inbox öffnen, da viel zu viele Mails
@@ -24,6 +24,11 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 
 \section{AT: E-Mail and IMAP}
 \label{sec:EmailAndIMAP}
+
+\begin{itemize}
+	\item Wie wird Snooze definiert?
+	\item Was genau heißt interoperabel
+\end{itemize}
 
 
 \chapter{AT: Problemstellung in Mail}
@@ -43,6 +48,7 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 
 Bei der Analyse von bestehenden Implementierungen einer Snooze Funktion für E-Mails gibt es verschiedene Ansätze in den E-Mail Clients.
 Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B. der Android E-Mail Client K-9 \hl{LINKs?}, OpenExchangeMail, Snappymail, (Zimbra), Rainloop, Tutanota, Posteo, ProtonMail, Cypht Client oder Evolution.
+Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche implementieren es rein lokal
 
 
 \begin{itemize}
@@ -50,18 +56,40 @@ Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B.
 	\item Locale Implementierung (Offline)
 	\begin{itemize}
 		\item Mailbird
-		\item ZohoMail
+		\begin{itemize}
+			\item TBD
+		\end{itemize}
+		\item FairEmail
+		\begin{itemize}
+			\item Android E-Mail Client
+			\item Hat snooze Funktion
+			\item 'snoozing is done locally on the device by hiding the message while it is snoozing. Unfortunately, it is not possible to hide messages on the email server too. Deleting messages from the server and restoring them later could result in losing messages when the device breaks.' \cite{FairEmailFAQMd}
+			\item Bei wiederanzeigen als ungelesen, mit snoozed icon aber keine sortierung an den Anfang
+		\end{itemize}
 	\end{itemize}
 	\item Environment Implementierung (Apple, Exchange, Gmail...)
 	\begin{itemize}
 		\item Gmail
+		\begin{itemize}
+			\item Gmail Label und Ordner erklären
+			\item Gmail kann seit Mitte 2018 Mails snoozen. \cite{NewGmailNow}
+			\item Dabei werden die Mails intern als snoozed makiert und aus der Inbox entfernt (Label entfernt) (wenn aus einer anderen Mailbox (Label Scop) heraus gesnoozed wird, dann bleiben Sie in der Mailbox (Label Scop)). Tauchen dann unter dem Reiter "Zurückgestellt" auf mit einem Datum, wann Sie entsnoozed werden. 
+			\item Beim entsnoozen wird das Label "Posteingang" gesetzt, nicht ungelesen, aber am Anfang angezeigt
+			\item Die gesnoozeden Mails werden über IMAP nicht angezeigt (gibt kein über IMAP veröffentlichten Ordner/Label). Die Mail ist nur noch in dem Ordner "alle emails/Alle nachrichten" enthalten. (Bewerten)
+		\end{itemize}
 		\item Exchange/Qutlook
+		\begin{itemize}
+			\item 
+		\end{itemize}
 		\item Apple-Mail
 		\item Mailspring
 		\item Fastmail
 		\item eM Client
 		\item Sark Mail
-		\item FairEmail
+		\item ZohoMail
+		\begin{itemize}
+			\item 
+		\end{itemize}
 	\end{itemize}
 	\item Scripts zur Automatisierung
 	\begin{itemize}
