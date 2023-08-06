@@ -1,3 +1,11 @@
+\chapter{AT: Einführendes Kapitel}
+\label{sec:Intro}
+
+\begin{itemize}
+	\item Relevanz/Abgrenzung/Ziele
+\end{itemize}
+
+
 \chapter{AT: What is it, How it works}
 \label{sec:HowItWorks}
 
@@ -79,16 +87,51 @@ Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche
 		\end{itemize}
 		\item Exchange/Qutlook
 		\begin{itemize}
-			\item 
+			\item \hl{TBD. (sync dirs nicht möglich und nur oAuth)}
 		\end{itemize}
 		\item Apple-Mail
+		\begin{itemize}
+			\item Es gibt Snooze Funktion seit kurzer Zeit (iOS 16, macOS Ventura 13) und heißt "remind me" \cite{HowUseApple2022}
+			\item Funktioniert nur in der INBOX \cite{RemindMeOptions}
+			\item Die gesnoozede Mail wird dabei nicht verschoben, sondern nur Uhr Symbol versrsehen und bleibt sichtbar in der Inbox an der Stelle wo sie war (Apple)
+			\item Über IMAP ist die Snooze Funktion somit gar nicht zu sehen
+			\item Bei entsnoozen werden die Mails mit einem "Erinnerung" Schritzug versehen und am Anfang der Inbox angezeigt
+			\item 
+		\end{itemize}
 		\item Mailspring
+		\begin{itemize}
+			\item Hat Snooze Funktion in der Pro Version \cite{SnoozeEmailsHandle2021}
+			\item Scheint unterordner zu verwenden, welche über IMAP sichtbar sind. (Wie wurde das ermittelt) Die eigentlichen Metadaten scheinen aber in der Cloud von Mailspring gespeichert zu sein
+		\end{itemize}
 		\item Fastmail
+		\begin{itemize}
+			\item Hat Snooze implementiert
+			\item kostenpflichtiges Feature (konnte aber mit Testversion testen)
+			\item Gesnoozede Mails verschwinden aus dem Ordner und werden in einem extra Reiter "Snoozed" angezeigt
+			\item Beim entsnoozen werden sie wieder in den wo sie herkommen zurückgeschoben. Mit Uhr makiert und unsnoozed Zeit. An Anfang sortiert. Unread Status wird nicht geändert. (Webinterface/App)
+			\item IMAP Zugriff auch kostenpflichtig
+			\item The ability to snooze is available in our web interface and the Fastmail app. We are unable to provide the ability to snooze messages from a third party mail client. \cite{SnoozingMail}
+			\item (Behauptung Fastmail benutzt IMAP nutzt draft-ietf-sieve-imap-sieve-09 kombiniert mit draft-ietf-extra-sieve-snooze)
+			\item \hl{Hier evt auf JMAP eingehen?}
+		\end{itemize}
 		\item eM Client
+		\begin{itemize}
+			\item Hat Snooze als Pro Feature \cite{Snooze}
+			\item \hl{TBD in der App}
+		\end{itemize}
 		\item Sark Mail
+		\begin{itemize}
+			\item Hat Snooze implemenitert \cite{EMailsFuerSpaeter}
+			\item Verschiebt mail in Reiter "Snoozed", welcher nicht mehr über IMAP erreichbar ist
+			\item Beim zurückschieben wird immer in INBOX verschoben und als ungelesen makiert. An Anfang angezeigt mit Uhr Symbol und unsnoozed time
+			\item \hl{Was sieht IMAP (TBD)}
+		\end{itemize}
 		\item ZohoMail
 		\begin{itemize}
-			\item 
+			\item Hat Snooze Funktion \cite{SnoozeEmailsLater}
+			\item IMAP Zugriff aber nur in der bezahlversion \cite{ZohoMailFlexibles}
+			\item In ZohoMail wird Mail in "Snoozed" Reiter verschobn
+			\item Bei entsnoozen wird Mail in die INBOX verschoben, egal aus welchem Ordner gesnoozed wurde, Mail behält den status wie vor dem snoozen, es wird kleines Uhr symbol dargestellt wann unsnoozed
 		\end{itemize}
 	\end{itemize}
 	\item Scripts zur Automatisierung
