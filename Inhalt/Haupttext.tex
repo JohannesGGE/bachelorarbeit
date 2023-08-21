@@ -55,104 +55,146 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 \chapter{AT: Exsitierende Implementierungen}
 \label{sec:ExistierendeImpl}
 
+\begin{itemize}
+	\item Kein IMAP
+	\item Warum wurden welche Clients untersucht??
+	\item Welche Annahmen wurden über propräritäre Software getroffen??
+\end{itemize}
+
+\section{AT: Keine Implementierung}
+\label{sec:NoImpl}
+
 Bei der Analyse von bestehenden Implementierungen einer Snooze Funktion für E-Mails gibt es verschiedene Ansätze in den E-Mail Clients.
 Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B. der Android E-Mail Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, (Zimbra), Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
 Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche implementieren es rein lokal
 
 
+\section{AT: Lokale Implementierung}
+\label{sec:LocalImpl}
+
+\subsection{Mailbird}
 \begin{itemize}
-	\item Keine Implementierung
-	\item Locale Implementierung (Offline)
+	\item Desktop Client Windows und Mac
+	\item Snoozen verschiebt Mail in 'Snoozed' Ordner
+	\item 'Wenn die Zeit abläuft, wird die E-Mail wieder ganz oben in Ihrem Posteingang angezeigt.' \cite{NtzenSnoozeFnktionIhrem2022}
+\end{itemize}
+
+\subsection{FairEmail}
+\begin{itemize}
+	\item Android E-Mail Client
+	\item Hat snooze Funktion
+	\item 'snoozing is done locally on the device by hiding the message while it is snoozing. Unfortunately, it is not possible to hide messages on the email server too. Deleting messages from the server and restoring them later could result in losing messages when the device breaks.' \cite{FairEmailFAQMd}
+	\item Bei wiederanzeigen als ungelesen, mit snoozed icon aber keine sortierung an den Anfang
+\end{itemize}
+
+
+\section{AT: Environment Implementierung}
+\label{sec:EnvironmentImpl}
+
+\subsection{GMail}
+\begin{itemize}
+	\item Gmail Label und Ordner erklären
+	\item Gmail kann seit Mitte 2018 Mails snoozen. \cite{NewGmailNow}
+	\item Dabei werden die Mails intern als snoozed makiert und aus der Inbox entfernt (Label entfernt) (wenn aus einer anderen Mailbox (Label Scop) heraus gesnoozed wird, dann bleiben Sie in der Mailbox (Label Scop)). Tauchen dann unter dem Reiter 'Zurückgestellt' auf mit einem Datum, wann Sie entsnoozed werden. 
+	\item Beim entsnoozen wird das Label 'Posteingang' gesetzt, nicht ungelesen, aber am Anfang angezeigt
+	\item Die gesnoozeden Mails werden über IMAP nicht angezeigt (gibt kein über IMAP veröffentlichten Ordner/Label). Die Mail ist nur noch in dem Ordner "alle emails/Alle nachrichten" enthalten. (Bewerten)
+\end{itemize}
+
+\subsection{Exchange/Outlook}
+\begin{itemize}
+	\item Web/App/Desktop
+	\item snoozen nur aus der inbox möglich
+	\item In der der App findet man die Mails unter 'Snoozed' oder 'Erneut erinnern'. Im Web unter 'Erneut erinnern aktiviert'
+	\item über IMAP wird in Ordner 'Erneut erinnern aktiviert' verschoben (wah. je nach default Einstellungen des Microsoft Accounts)
+	\item Nach zurückschieben wird die Mail in den Outlook clients als erstes angezeigt und als ungelesen makiert und die neue ankuftsZeit/unsnooze Zeit erkennbar gemacht
+	\item IMAP wird nur die Mail zurückgeschoben in INBOX und als ungelesen makiert
+\end{itemize}
+
+\subsection{Apple-Mail}
+\begin{itemize}
+	\item Es gibt Snooze Funktion seit kurzer Zeit (iOS 16, macOS Ventura 13) und heißt "remind me" \cite{HowUseApple2022}
+	\item Funktioniert nur in der INBOX \cite{RemindMeOptions}
+	\item Die gesnoozede Mail wird dabei nicht verschoben, sondern nur Uhr Symbol versrsehen und bleibt sichtbar in der Inbox an der Stelle wo sie war (Apple)
+	\item Über IMAP ist die Snooze Funktion somit gar nicht zu sehen
+	\item Bei entsnoozen werden die Mails mit einem "Erinnerung" Schritzug versehen und am Anfang der Inbox angezeigt
+	\item 
+\end{itemize}
+
+\subsection{Mailspring}
+\begin{itemize}
+	\item Hat Snooze Funktion in der Pro Version \cite{SnoozeEmailsHandle2021}
+	\item Scheint unterordner zu verwenden, welche über IMAP sichtbar sind. (Wie wurde das ermittelt) Die eigentlichen Metadaten scheinen aber in der Cloud von Mailspring gespeichert zu sein
+\end{itemize}
+
+\subsection{Fastmail}
+\begin{itemize}
+	\item Hat Snooze implementiert
+	\item kostenpflichtiges Feature (konnte aber mit Testversion testen)
+	\item Gesnoozede Mails verschwinden aus dem Ordner und werden in einem extra Reiter "Snoozed" angezeigt
+	\item Beim entsnoozen werden sie wieder in den wo sie herkommen zurückgeschoben. Mit Uhr makiert und unsnoozed Zeit. An Anfang sortiert. Unread Status wird nicht geändert. (Webinterface/App)
+	\item IMAP Zugriff auch kostenpflichtig
+	\item The ability to snooze is available in our web interface and the Fastmail app. We are unable to provide the ability to snooze messages from a third party mail client. \cite{SnoozingMail}
+	\item (Behauptung Fastmail benutzt IMAP nutzt draft-ietf-sieve-imap-sieve-09 kombiniert mit draft-ietf-extra-sieve-snooze)
+	\item \hl{Hier evt auf JMAP eingehen?}
+\end{itemize}
+
+\subsection{Spark Mail}
+\begin{itemize}
+	\item Hat Snooze implemenitert \cite{EMailsFuerSpaeter}
+	\item Windows, Android, Mac, iPhone, iPad, Apple Watch
+	\item Mail wird bei Snooze aus dem jeweiligen Ordner entfernt und kann dann über den Reiter 'Snoozed' aufgerufen werden, wo das unsnooze datum angezeigt wird.
+	\item in IMAP werden die Mails in den Ordner Later verschoben
+	\item Beim unsnoozen werden die Mails zurück in die INBOX (auch aus anderen ordnern) geschoben, als ungelesen makiert und an den Anfang am Anfang der INBOX mit dem unsnooze Datum kenntlich gelistet.
+	\item IMAP sieht zurückschieben und ungelesen makieren. Wird aber nicht an Anfang verschoben
+	\item primäre Mail adresse dient als Account bei SparkMail und dadurch andere Sparkmail Clients Informationen Sync. Laut Spark sind diese Daten verschlüsselt auf den servern gespeichert \cite{SyncSparkMultipleb}
+\end{itemize}
+
+\subsection{ZohoMail}
+\begin{itemize}
+	\item Hat Snooze Funktion \cite{SnoozeEmailsLater}
+	\item IMAP Zugriff aber nur in der bezahlversion \cite{ZohoMailFlexibles}
+	\item In ZohoMail wird Mail in 'Snoozed' Reiter verschobn
+	\item Bei entsnoozen wird Mail in die INBOX verschoben, egal aus welchem Ordner gesnoozed wurde, Mail behält den status wie vor dem snoozen, es wird kleines Uhr symbol dargestellt wann unsnoozed
+\end{itemize}
+
+
+\section{AT: Nur Label}
+\label{sec:JustLabel}
+
+\subsection{Thunderbird}
+\begin{itemize}
+	\item Thunderbird an sich hat keine Snooze Funktion \cite{HowSnoozeEmail}
+	\item Es gibt vordefinierte Tags (früher Label). \$label5 ist der 'Later' tag. Nach diesem Label kann gefitern werden, was ähnlich funktionalität ermöglicht
+	\item Es gibt aber ein Add-On mailmindr\footnote{mailmindr: \url{https://mailmindr.net/de/}}, was lokales snoozen ermöglicht.
 	\begin{itemize}
-		\item Mailbird
-		\begin{itemize}
-			\item TBD
-		\end{itemize}
-		\item FairEmail
-		\begin{itemize}
-			\item Android E-Mail Client
-			\item Hat snooze Funktion
-			\item 'snoozing is done locally on the device by hiding the message while it is snoozing. Unfortunately, it is not possible to hide messages on the email server too. Deleting messages from the server and restoring them later could result in losing messages when the device breaks.' \cite{FairEmailFAQMd}
-			\item Bei wiederanzeigen als ungelesen, mit snoozed icon aber keine sortierung an den Anfang
-		\end{itemize}
-	\end{itemize}
-	\item Environment Implementierung (Apple, Exchange, Gmail...)
-	\begin{itemize}
-		\item Gmail
-		\begin{itemize}
-			\item Gmail Label und Ordner erklären
-			\item Gmail kann seit Mitte 2018 Mails snoozen. \cite{NewGmailNow}
-			\item Dabei werden die Mails intern als snoozed makiert und aus der Inbox entfernt (Label entfernt) (wenn aus einer anderen Mailbox (Label Scop) heraus gesnoozed wird, dann bleiben Sie in der Mailbox (Label Scop)). Tauchen dann unter dem Reiter 'Zurückgestellt' auf mit einem Datum, wann Sie entsnoozed werden. 
-			\item Beim entsnoozen wird das Label 'Posteingang' gesetzt, nicht ungelesen, aber am Anfang angezeigt
-			\item Die gesnoozeden Mails werden über IMAP nicht angezeigt (gibt kein über IMAP veröffentlichten Ordner/Label). Die Mail ist nur noch in dem Ordner "alle emails/Alle nachrichten" enthalten. (Bewerten)
-		\end{itemize}
-		\item Exchange/Qutlook
-		\begin{itemize}
-			\item \hl{TBD. (sync dirs nicht möglich und nur oAuth)}
-		\end{itemize}
-		\item Apple-Mail
-		\begin{itemize}
-			\item Es gibt Snooze Funktion seit kurzer Zeit (iOS 16, macOS Ventura 13) und heißt "remind me" \cite{HowUseApple2022}
-			\item Funktioniert nur in der INBOX \cite{RemindMeOptions}
-			\item Die gesnoozede Mail wird dabei nicht verschoben, sondern nur Uhr Symbol versrsehen und bleibt sichtbar in der Inbox an der Stelle wo sie war (Apple)
-			\item Über IMAP ist die Snooze Funktion somit gar nicht zu sehen
-			\item Bei entsnoozen werden die Mails mit einem "Erinnerung" Schritzug versehen und am Anfang der Inbox angezeigt
-			\item 
-		\end{itemize}
-		\item Mailspring
-		\begin{itemize}
-			\item Hat Snooze Funktion in der Pro Version \cite{SnoozeEmailsHandle2021}
-			\item Scheint unterordner zu verwenden, welche über IMAP sichtbar sind. (Wie wurde das ermittelt) Die eigentlichen Metadaten scheinen aber in der Cloud von Mailspring gespeichert zu sein
-		\end{itemize}
-		\item Fastmail
-		\begin{itemize}
-			\item Hat Snooze implementiert
-			\item kostenpflichtiges Feature (konnte aber mit Testversion testen)
-			\item Gesnoozede Mails verschwinden aus dem Ordner und werden in einem extra Reiter "Snoozed" angezeigt
-			\item Beim entsnoozen werden sie wieder in den wo sie herkommen zurückgeschoben. Mit Uhr makiert und unsnoozed Zeit. An Anfang sortiert. Unread Status wird nicht geändert. (Webinterface/App)
-			\item IMAP Zugriff auch kostenpflichtig
-			\item The ability to snooze is available in our web interface and the Fastmail app. We are unable to provide the ability to snooze messages from a third party mail client. \cite{SnoozingMail}
-			\item (Behauptung Fastmail benutzt IMAP nutzt draft-ietf-sieve-imap-sieve-09 kombiniert mit draft-ietf-extra-sieve-snooze)
-			\item \hl{Hier evt auf JMAP eingehen?}
-		\end{itemize}
-		\item eM Client
-		\begin{itemize}
-			\item Hat Snooze als Pro Feature \cite{Snooze}
-			\item \hl{TBD in der App}
-		\end{itemize}
-		\item Sark Mail
-		\begin{itemize}
-			\item Hat Snooze implemenitert \cite{EMailsFuerSpaeter}
-			\item Verschiebt mail in Reiter 'Snoozed', welcher nicht mehr über IMAP erreichbar ist
-			\item Beim zurückschieben wird immer in INBOX verschoben und als ungelesen makiert. An Anfang angezeigt mit Uhr Symbol und unsnoozed time
-			\item \hl{Was sieht IMAP (TBD)}
-		\end{itemize}
-		\item ZohoMail
-		\begin{itemize}
-			\item Hat Snooze Funktion \cite{SnoozeEmailsLater}
-			\item IMAP Zugriff aber nur in der bezahlversion \cite{ZohoMailFlexibles}
-			\item In ZohoMail wird Mail in 'Snoozed' Reiter verschobn
-			\item Bei entsnoozen wird Mail in die INBOX verschoben, egal aus welchem Ordner gesnoozed wurde, Mail behält den status wie vor dem snoozen, es wird kleines Uhr symbol dargestellt wann unsnoozed
-		\end{itemize}
-	\end{itemize}
-	\item Scripts zur Automatisierung
-	\begin{itemize}
-		\item Python IMAP Snooze
-	\end{itemize}
-	\item Nur Labeln (Thunderbird)
-	\begin{itemize}
-		\item Thunderbird
-	\end{itemize}
-	\item Working Solutions
-	\begin{itemize}
-		\item Roundcube Plugin
+		\item Mail wird dann in definierten Ordner verschoben und nach unsnooze zurückgeschoben und eine ausgewählte funktion gemacht. z.B. mark unread
 	\end{itemize}
 \end{itemize}
 
+\section{AT: Working Solutions}
+\label{sec:Working Solutions}
+
+\subsection{Roundcube}
 \begin{itemize}
-	\item Kein IMAP
-	\item Warum wurden welche Clients untersucht??
-	\item Welche Annahmen wurden über propräritäre Software getroffen??
+	\item Roundcube ist selfhosted webmailer kann von sich aus nicht snoozen
+	\item es gibt aber Plugin, welches snooze interoptabel ermöglicht
+	\item roundcube-snooze verändert dabei die HEader der zu snoozenden Mail und fügt einen Tag 'X-Snoozed' hinzu mit den Daten (Paste)
+	\item ein wake script, welches manuell installiert werden muss und durch einen cronjob aufgerufen wird, schiebt zurück
+	\item Generell laut Reppo sehr experimentell und nur auf dovecot mailserver bakcends ausgeichtet.
+	\item \cite{robinsonSnoozeRoundcube2023}
+\end{itemize}
+
+\subsection{eM Client}
+\begin{itemize}
+	\item Hat Snooze als Pro Feature \cite{Snooze}
+	\item Allerdings kann man die Android App auch ohne Pro benutzen
+	\begin{itemize}
+		\item Beim Snoozen wird hier der Mail ein Label '\$SnoozedUntil\_162597600' gegeben, welches UNIX Timestamp enthält
+		\item In der App und anscheinend auch im Desktop Client werden die Mails mit dem Label dann unsichtbar in der INBOX (beim snooze in anderen Ordnern nicht unsichtbar) und unter dem Reiter 'Snoozed' mit dem unsnooze datum gelistet.
+		\item Für IMAP nur das Label sichtbar sonst passiert nichts. Führ bei anderem Client dazu, dass die Mail angezeigt werden in der INBOX (Gmail Beispiel aus dem Forum \cite{SnoozedEmailsStay2022})
+		\item Nach unsnooze wird die Mail wieder sichtbar in den Clients aber wird nicht als ungelesen makiert und auch nicht an den anfang gestellt. Lediglich das unsnooze date wird wie in dem Reiter 'Snoozed' angeigt.
+		\item über IMAP passiert nichts weiter, das Label bleibt auch bestehen, insofern greift wah. auch die Clients darauf zu. 
+	\end{itemize}
 \end{itemize}
 
 
