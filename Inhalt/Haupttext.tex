@@ -58,6 +58,17 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 \begin{itemize}
 	\item Kein IMAP
 	\item Warum wurden welche Clients untersucht??
+	\begin{itemize}
+		\item Popularität des Clients bzw. des providers
+		\begin{itemize}
+			\item Nicht ganz eindeutige Zahlen, aber auch nicht wichtig, die großen Überschneiden sich.
+			\item Gmail, Apple Mail und Outlook gehören zu den verbreitesten Clients.
+			\item Aber auch Yahoo Mail, Web.de, GMX, Thunderbird und Samsmung Mail
+			\item \cite{MostPopularEmail2022} \cite{EmailClientMarketa} \cite{EMailNutzung2021Mailjet}
+		\end{itemize}
+		\item Bietet das Snooze Feature
+		\item Open Source
+	\end{itemize}
 	\item Welche Annahmen wurden über propräritäre Software getroffen??
 \end{itemize}
 
@@ -65,7 +76,7 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 \label{sec:NoImpl}
 
 Bei der Analyse von bestehenden Implementierungen einer Snooze Funktion für E-Mails gibt es verschiedene Ansätze in den E-Mail Clients.
-Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B. der Android E-Mail Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, (Zimbra), Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
+Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B. der Android E-Mail Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, Yahoo Mail \footnote{Yahoo Mail: \url{https://overview.mail.yahoo.com/}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, (Zimbra), Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
 Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche implementieren es rein lokal
 
 
@@ -80,11 +91,11 @@ Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche
 \end{itemize}
 
 \subsection{FairEmail}
+FairEmail ist ein E-Mail Client für Android. Beim snoozen einer Mail wird diese für den Nutzenden ausgeblendet. Für andere Email Clients ist dieses Ausblenden nicht sichtbar, da es lokal auf dem Gerät passiert.\cite{FairEmailFAQMd} \newline
+Nachdem der definierte \hl{unsnooze} Zeitpunkt erreicht ist wird die Email wieder sichtbar und als ungelesen markiert. Außerdem wird ein Uhr-Symbol angezeigt, welches darauf verweist, dass die Email \hl{gesnoozed} wurde.
+
 \begin{itemize}
-	\item Android E-Mail Client
-	\item Hat snooze Funktion
 	\item 'snoozing is done locally on the device by hiding the message while it is snoozing. Unfortunately, it is not possible to hide messages on the email server too. Deleting messages from the server and restoring them later could result in losing messages when the device breaks.' \cite{FairEmailFAQMd}
-	\item Bei wiederanzeigen als ungelesen, mit snoozed icon aber keine sortierung an den Anfang
 \end{itemize}
 
 
@@ -92,15 +103,14 @@ Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche
 \label{sec:EnvironmentImpl}
 
 \subsection{GMail}
-\begin{itemize}
-	\item Gmail Label und Ordner erklären
-	\item Gmail kann seit Mitte 2018 Mails snoozen. \cite{NewGmailNow}
-	\item Dabei werden die Mails intern als snoozed makiert und aus der Inbox entfernt (Label entfernt) (wenn aus einer anderen Mailbox (Label Scop) heraus gesnoozed wird, dann bleiben Sie in der Mailbox (Label Scop)). Tauchen dann unter dem Reiter 'Zurückgestellt' auf mit einem Datum, wann Sie entsnoozed werden. 
-	\item Beim entsnoozen wird das Label 'Posteingang' gesetzt, nicht ungelesen, aber am Anfang angezeigt
-	\item Die gesnoozeden Mails werden über IMAP nicht angezeigt (gibt kein über IMAP veröffentlichten Ordner/Label). Die Mail ist nur noch in dem Ordner "alle emails/Alle nachrichten" enthalten. (Bewerten)
-\end{itemize}
+Gmail hat die Snooze-Funktionalität am 25.Juli 2018 eingeführt. \cite{NewGmailNow} Um zu verstehen, wie das \hl{snoozen} funktioniert, muss erst einmal erläutert werden, wie Gmail generell Ordner/Mailboxen umsetzt. Für die Organisation werden sogenannte Label angeboten, welche den Emails zugewiesen werden können. \cite{GmailMithilfeLabels} Diese Label sind dann vergleichbar mit Ordnern und können über das Menü einzeln gelistet werden. Über IMAP werden die Labels als Ordner/Mailboxen Zurückgegeben. Emails, welche beispielsweise das Label \enquote{Wichtig} zugeordnet bekommen, werden über IMAP als Email des Ordners/der Mailbox \enquote{Wichtig} gelisted.
+Wenn eine Email in Gmail aus dem Posteingang \hl{gesnoozt} wird, wird das Label \enquote{Posteingang} entfernt und die Email wird unter dem Reiter \enquote{Zurückgestellt} bzw. \enquote{Snoozed} gelisted. Falls die Email das Label \enquote{Posteingang} nicht mehr besitzt und ein anderes Label hat, wird dieses nicht entfernt. Durch das Entfernen des Labels \enquote{Posteingang} wird die Email über IMAP nicht mehr im Posteingang/Inbox angezeigt. Da Gmail den \hl{gesnoozten} Emails aber kein Label extra zuordnet, sind die Emails, welche aus dem Posteingang \hl{gesnoozt} werden, über IMAP nicht mehr auffindbar. Lediglich in einem Ordner, welcher alle auf dem Gmail Account existierende Email beinhaltet, werden die \hl{gesnoozten} Emails noch angezeigt. \newline
+Nachdem der definierte \hl{unsnooze} Zeitpunkt erreicht ist wird die Mail mit dem Label \enquote{Posteingang} versehen und wird damit auch für IMAP wieder sichtbar im Posteingang gelistet. Die Email wird nicht als ungelesen markiert aber in Gmail an den Anfang des Posteingangs sortiert.
+
+Gmail gibt damit anderen Clients gar keine Möglichkeit über IMAP zu ermitteln, welche Emails gerade \hl{gesnoozt} sind.
 
 \subsection{Exchange/Outlook}
+
 \begin{itemize}
 	\item Web/App/Desktop
 	\item snoozen nur aus der inbox möglich
