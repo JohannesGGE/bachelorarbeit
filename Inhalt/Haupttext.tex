@@ -39,6 +39,8 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 	\item Was genau heißt interoperabel
 	\item INBOX/Posteingang Begriff erklären Sysnonym
 	\item Ordner/Mailbox Begriff erklären Sysnonym
+	\item Client erklären?
+	\item Tag/Flag/Label/Permaflag definieren und unterscheiden in Bezug auf IMAP
 \end{itemize}
 
 
@@ -57,35 +59,41 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 \chapter{AT: Exsitierende Implementierungen}
 \label{sec:ExistierendeImpl}
 
+In diesem Kapitel werden verschiedenste Email Clients betrachtet und beschrieben ob und in welcher Form sie eine Snooze Funktionalität implementieren. Die Auswahl der betrachteten Clients basiert auf drei Schwerpunkten:\\
+1. Popularität\\
+Um den Status Quo analysieren zu können ist es wichtig verschiedene Clients zu betrachten. Allerdings gibt es nur eine Hand voll Email Clients, welche den Großteil des Marktes bei der Nutzung ausmachen. Auch wenn die Zahlen nicht ganz eindeutig sind, ist klar, dass die meisten Menschen die Clients von Gmail, Apple Mail und Outlook nutzen. Weitere Clients mit weniger Nutzenden, aber immernoch relevanten Zahlen sind Yahoo Mail, Web.de, GMX, Thunderbird und Samsung Mail. \cite{MostPopularEmail2022}  \cite{EmailClientMarketa} \cite{EMailNutzung2021Mailjet} \\
+2. Open Source\\
+Der zweite Schwerpunkt sind Open Source Clients. \\
+3. Snooze Funktionalität\\
+Der letzte Schwerpunkt sind Email Clients, welche die Snooze Funktionalität implementieren. Es gibt viele verschiedene Implementierungen für die Snooze Funktionalität. Um bewerten zu können, welche Lösungen gut und welche eher unbrauchbar sind, ist es gut einen Gesamtüberlick zu bekommen. Dabei können gerade Email Clients mit wenig Nutzenden eine sehr kluge Implementierung haben.
+
+Die verschiedenen Clients werden in vier Gruppen unterteilt.\\
+\textbf{Keine Implementierung:} Clients, welche keine Snooze Funktionalität haben.\\
+\textbf{Lokale Implementierung:} Clients, welche eine Snooze Funktionalität haben, welche aber nicht für andere Clients benutzbar ist.\\
+\textbf{\hl{Environment Implementierung}:} Client, welche die Snooze Funktionalität besitzen und diese Clientübergreifend zumindest in der eigenen Umgebung funktionieren.\\
+\textbf{Interoperable Implementierungen:} Clients, welche die Snooze Funktionalität so implementiert haben, dass sie theoretisch von anderen Clients benutzt werden kann.
+
+
 \begin{itemize}
 	\item Kein IMAP
-	\item Warum wurden welche Clients untersucht??
-	\begin{itemize}
-		\item Popularität des Clients bzw. des providers
-		\begin{itemize}
-			\item Nicht ganz eindeutige Zahlen, aber auch nicht wichtig, die großen Überschneiden sich.
-			\item Gmail, Apple Mail und Outlook gehören zu den verbreitesten Clients.
-			\item Aber auch Yahoo Mail, Web.de, GMX, Thunderbird und Samsmung Mail
-			\item \cite{MostPopularEmail2022} \cite{EmailClientMarketa} \cite{EMailNutzung2021Mailjet}
-		\end{itemize}
-		\item Bietet das Snooze Feature
-		\item Open Source
-	\end{itemize}
 	\item Welche Annahmen wurden über propräritäre Software getroffen??
+	\item Add Yahoo, Samsung und Windows Live Mail
 \end{itemize}
 
 \section{AT: Keine Implementierung}
 \label{sec:NoImpl}
 
-Bei der Analyse von bestehenden Implementierungen einer Snooze Funktion für E-Mails gibt es verschiedene Ansätze in den E-Mail Clients.
-Es gibt viele Clients, die diese Funktion gar nicht bieten. Darunter fallen z.B. der Android E-Mail Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, Yahoo Mail \footnote{Yahoo Mail: \url{https://overview.mail.yahoo.com/}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, (Zimbra), Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
-Bei Clients mit der Möglichkeit zu Snoozen, gibt es verschiedene Ansätze. Manche implementieren es rein lokal
+Bei der Analyse von bestehenden Implementierungen einer Snooze Funktionalität haben sich einige Email Clients herausgestellt, welche diese Funktionalität gar nicht implementiert haben. Darunter fallen der Android E-Mail Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, Yahoo Mail \footnote{Yahoo Mail: \url{https://overview.mail.yahoo.com/}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
 
 
 \section{AT: Lokale Implementierung}
 \label{sec:LocalImpl}
 
+Es gibt aber auch Email Clients, welche die Snooze Funktionalität implementiert haben aber diese nur in dem jeweiligen Client nutzbar ist. Die folgenden Clients fallen darunter:
+
 \subsection{Mailbird}
+\hl{TBD}
+
 Mailbird \footnote{Mailbird: \url{https://www.getmailbird.com/de/}}
 \begin{itemize}
 	\item Desktop Client Windows und Mac
@@ -94,114 +102,104 @@ Mailbird \footnote{Mailbird: \url{https://www.getmailbird.com/de/}}
 \end{itemize}
 
 \subsection{FairEmail} 
-FairEmail\footnote{FairEmail: \url{https://email.faircode.eu/}} ist ein E-Mail Client für Android. Beim snoozen einer Mail wird diese für den Nutzenden ausgeblendet. Für andere Email Clients ist dieses Ausblenden nicht sichtbar, da es lokal auf dem Gerät passiert.\cite{FairEmailFAQMd} \newline
+FairEmail\footnote{FairEmail: \url{https://email.faircode.eu/}} ist ein E-Mail Client für Android. Beim snoozen einer Mail wird diese für den Nutzenden ausgeblendet. Für andere Email Clients ist dieses Ausblenden nicht sichtbar, da es lokal auf dem Gerät passiert.\cite{FairEmailFAQMd} \\
 Nachdem der definierte \hl{unsnooze} Zeitpunkt erreicht ist wird die Email wieder sichtbar und als ungelesen markiert. Außerdem wird ein Uhr-Symbol angezeigt, welches darauf verweist, dass die Email \hl{gesnoozed} wurde.
 
 \begin{itemize}
 	\item 'snoozing is done locally on the device by hiding the message while it is snoozing. Unfortunately, it is not possible to hide messages on the email server too. Deleting messages from the server and restoring them later could result in losing messages when the device breaks.' \cite{FairEmailFAQMd}
 \end{itemize}
 
+\subsection{Thunderbird}
+Thunderbird\footnote{Thunderbird: \url{https://www.thunderbird.net/de/}} hat keine Snooze Funktionalität. Allerdings gibt es ein Add-On mailmindr\footnote{mailmindr: \url{https://mailmindr.net/de/}}, welches lokales \hl{snoozen} in Thunderbird ermöglicht. Dabei werden die Emails in einen, vom Nutzenden definierten Ordner, verschoben. Beim \hl{unsnoozen} wird neben dem zurückschieben der Email noch eine Funktionalität ausgeführt, die vom Nutzenden definiert wird. Beispielsweise das Makieren als ungelesen der Email.\\
+Es gibt in Thunderbird auch die Möglichkeit Emails zu taggen. Dazu gibt es fünf vordefinierte Tags, wobei der fünfte Tag \enquote{Later} heißt. Intern wird der Tag als \enquote{\$label5} geführt. Diese fünf Label werden auch von anderen Email Clients wie z.B. der Nextcloud Mail App verwendet. In Thunderbird lässt sich nach diesem Tag filtern, was auch eine Möglichkeit bietet Emails zu verstecken und zu einem anderen Zeitpunkt erneut anzuschauen.
+
+\begin{itemize}
+	\item Permaflags erklären oder oben
+\end{itemize}
 
 \section{AT: Environment Implementierung}
 \label{sec:EnvironmentImpl}
-\begin{itemize}
-	\item Snooze interoperabilität beschränkt sich auf die Umgebung und Metadaten werden in einem Account von dem Anbieter gespeichert
-\end{itemize}
 
+Clients, welche es auf verschiedenen Plattformen gibt, z.B. als App und Web Client haben meistens eine Syncronisation der Metadaten im Hintergrund über einen Nutzendenaccount. Dabei ist die Snooze Funktionalität in diesen Clienets meist interoperabel aber nicht über diese Umgebung hinaus. Die folgenden Clients bzw. Anbieter fallen darunter:
 
 \subsection{GMail}
-Gmail\footnote{Gmail: \url{https://www.google.com/intl/de/gmail/about/}} hat die Snooze-Funktionalität am 25.Juli 2018 eingeführt. \cite{NewGmailNow} Um zu verstehen, wie das \hl{snoozen} funktioniert, muss erst einmal erläutert werden, wie Gmail generell Ordner/Mailboxen umsetzt. Für die Organisation werden sogenannte Label angeboten, welche den Emails zugewiesen werden können. \cite{GmailMithilfeLabels} Diese Label sind dann vergleichbar mit Ordnern und können über das Menü einzeln gelistet werden. Über IMAP werden die Labels als Ordner/Mailboxen Zurückgegeben. \cite{IMAPExtensionsGmail} Emails, welche beispielsweise das Label \enquote{Wichtig} zugeordnet bekommen, werden über IMAP als Email des Ordners/der Mailbox \enquote{Wichtig} gelisted.
-Wenn eine Email in Gmail aus dem Posteingang \hl{gesnoozt} wird, wird das Label \enquote{Posteingang} entfernt und die Email wird in Gmail unter dem Reiter \enquote{Zurückgestellt} bzw. \enquote{Snoozed} gelisted. Falls die Email das Label \enquote{Posteingang} nicht mehr besitzt und ein anderes Label hat, wird dieses nicht entfernt. Durch das Entfernen des Labels \enquote{Posteingang} wird die Email über IMAP nicht mehr im Posteingang/Inbox angezeigt. Da Gmail den \hl{gesnoozten} Emails aber kein Label extra zuordnet, sind die Emails, welche aus dem Posteingang \hl{gesnoozt} werden, über IMAP nicht mehr auffindbar. Lediglich in einem Ordner, welcher alle auf dem Gmail Account existierende Email beinhaltet, werden die \hl{gesnoozten} Emails noch angezeigt. \newline
+Gmail\footnote{Gmail: \url{https://www.google.com/intl/de/gmail/about/}} hat die Snooze-Funktionalität am 25.Juli 2018 eingeführt. \cite{NewGmailNow} Um zu verstehen, wie das \hl{snoozen} funktioniert, muss erst einmal erläutert werden, wie Gmail generell Ordner/Mailboxen umsetzt. Für die Organisation werden sogenannte Label angeboten, welche den Emails zugewiesen werden können. \cite{GmailMithilfeLabels} Diese Label sind dann vergleichbar mit Ordnern und können über das Menü einzeln gelistet werden. Über IMAP werden die Labels als Ordner/Mailboxen Zurückgegeben. \cite{IMAPExtensionsGmail} Emails, welche beispielsweise das Label \enquote{Wichtig} zugeordnet bekommen, werden über IMAP als Email des Ordners/der Mailbox \enquote{Wichtig} gelisted.\\
+Wenn eine Email in Gmail aus dem Posteingang \hl{gesnoozt} wird, wird das Label \enquote{Posteingang} entfernt und die Email wird in Gmail unter dem Reiter \enquote{Zurückgestellt} bzw. \enquote{Snoozed} gelisted. Falls die Email das Label \enquote{Posteingang} nicht mehr besitzt und ein anderes Label hat, wird dieses nicht entfernt. Durch das Entfernen des Labels \enquote{Posteingang} wird die Email über IMAP nicht mehr im Posteingang/Inbox angezeigt. Da Gmail den \hl{gesnoozten} Emails aber kein Label extra zuordnet, sind die Emails, welche aus dem Posteingang \hl{gesnoozt} werden, über IMAP nicht mehr auffindbar. Lediglich in einem Ordner, welcher alle auf dem Gmail Account existierende Email beinhaltet, werden die \hl{gesnoozten} Emails noch angezeigt. \\
 Nachdem der definierte \hl{unsnooze} Zeitpunkt erreicht ist wird die Mail mit dem Label \enquote{Posteingang} versehen und wird damit auch für IMAP wieder sichtbar im Posteingang gelistet. Die Email wird nicht als ungelesen markiert aber in Gmail an den Anfang des Posteingangs sortiert.
 
 Gmail gibt damit anderen Clients gar keine Möglichkeit über IMAP zu ermitteln, welche Emails gerade \hl{gesnoozt} sind.
 
 \subsection{Exchange/Outlook}
-Outlook\footnote{Outlook: \url{https://outlook.live.com/owa/}} ermöglicht es Emails aus dem Inbox zu \hl{gesnoozten}. Die Emails werden dann in der Outlook App unter dem Reiter \enquote{Erneut erinnern} und in Outlook Webmail unter \enquote{Erneut erinnern aktiviert} gelistet. Über IMAP werden die Emails in einen Ordner \enquote{Erneut erinnern aktiviert} verschoben, wobei sich der Name dieses Ordners je nach Spracheinstellungen ändert. Wenn der \hl{unsnooze} Zeitpunkt erreicht ist, wird die Email zurück in die Inbox verschoben und als ungelesen markiert. In Outlook wird die Email darüber hinaus an den Anfang der Inbox sortiert.
+Outlook\footnote{Outlook: \url{https://outlook.live.com/owa/}} ermöglicht es Emails aus der Inbox zu \hl{snoozen}. Die Emails werden dann in der Outlook App unter dem Reiter \enquote{Erneut erinnern} und in Outlook Webmail unter \enquote{Erneut erinnern aktiviert} gelistet. Über IMAP werden die Emails in einen Ordner \enquote{Erneut erinnern aktiviert} verschoben, wobei sich der Name dieses Ordners je nach Spracheinstellungen ändert. Wenn der \hl{unsnooze} Zeitpunkt erreicht ist, wird die Email zurück in die Inbox verschoben und als ungelesen markiert. In Outlook wird die Email darüber hinaus an den Anfang der Inbox sortiert.
 
 \subsection{Apple Mail}
-Apple Mail\footnote{Apple Mail: \url{https://support.apple.com/mail}} hat seit iOS 16 und macOS Ventura (13) eine \enquote{Remind me} Funktion.\cite{HowUseApple2022} In der Inbox befindliche Email \cite{RemindMeOptions} lassen sich dabei mit einer Erinnerung versehen. Die Email mit einem Uhr Symbol dargestellt und nach dem Zeitpunkt des \hl{unsnoozen} an den Anfang der Inbox sortiert. Über IMAP ist diese Funktion gar nicht zu erkennen.
+Apple Mail\footnote{Apple Mail: \url{https://support.apple.com/mail}} hat seit iOS 16 und macOS Ventura (13) eine \enquote{Remind me} Funktion.\cite{HowUseApple2022} In der Inbox befindliche Emails \cite{RemindMeOptions} lassen sich dabei mit einer Erinnerung versehen. Die Email wird dabei aber nur mit einem Uhr Symbol dargestellt und nach dem Zeitpunkt des \hl{unsnoozen} an den Anfang der Inbox sortiert. Über IMAP ist die \enquote{Remind me} Funktion gar nicht zu erkennen.
 
 \subsection{Mailspring}
+Mailspring\footnote{Mailspring: \url{https://www.getmailspring.com/}} ist ein Desktop Email Client für Linux, Mac und Windows. Die Snooze Funktion ist sowohl in der Basic als auch in der Pro Version verfügbar, wobei die Pro Version unbegrenztes \hl{snoozen} erlaubt.\cite{SnoozeEmailsHandle2021} \\
+Emails, welche \hl{gesnoozt} werden, verschiebt Mailspring in einen Unterordner \enquote{Snoozed} des Ordners \enquote{Mailspring}. Beim \hl{unsnoozen} wird die Email zurück in die Inbox verschoben. Zusätzlich wird eine neue Email generiert, welche über einen Thread der \hl{ungesnoozten} Email zugeordnet wird. Diese Email ist als ungelesen markiert und hat die aktuelle Zeit als Empfangszeit. Dadurch wird der Thread, und damit auch die \hl{ungesnoozte} Email, am Anfang der Inbox angezeigt, was sogar ermöglicht, dass auch über IMAP die Email wieder an den Anfang der Inbox verschoben wird.
+
 \begin{itemize}
-	\item Hat Snooze Funktion in der Pro Version \cite{SnoozeEmailsHandle2021}
-	\item Scheint unterordner zu verwenden, welche über IMAP sichtbar sind. (Wie wurde das ermittelt) Die eigentlichen Metadaten scheinen aber in der Cloud von Mailspring gespeichert zu sein
+	\item Noch auf Thread Funktionalität eingehen oder oben erklären
 \end{itemize}
 
+\subsection{Spark}
+Spark\footnote{Spark: \url{https://sparkmailapp.com/de}} ist ein Email Client für Windows, Android, Mac und iOS, welcher auch \hl{snoozen} kann.\cite{EMailsFuerSpaeter} Die Snooze Funktionalität verschiebt die Email aus dem jeweiligen Ordner und zeigt sie unter dem Reiter \enquote{Snoozed} an. Über IMAP wird die Email in einen Ordner \enquote{Later} verschoben. Beim \hl{unsnoozen} wird die Email zurück in die Inbox verschoben (egal ob sie aus der Inbox oder einem anderen Ordner heraus \hl{gesnoozed} wurde). Zusätzlich wird die Email als ungelesen markiert und in den Spark Clients an den Anfang der Inbox sortiert. Syncronisiert werden die snooze Informationen über einen Spark Account, welcher automatisch beim einbinden des ersten Email Accounts angelegt wird. Wenn man bei einem anderen Spark Client den primären Email Account hinzufügt, werden die snooze Informationen auch auf dem neuen Client übernommen. \cite{SyncSparkMultipleb}
+
 \subsection{Fastmail}
+Fastmail\footnote{Fastmail: \url{https://www.fastmail.com/}} ist ein Email Client für Android, iOS und Web, welcher die Snooze Funktionalität als kostenpfichtiges Feature anbietet. Auch der IMAP Zugriff ist eine kostenpflichtige Funktionalität und lässt sich im Gegensatz zu Snooze Funktionalität nicht mit einem kostenlosen Account testen. Laut Fastmail ist die Snooze Funktionalität auf Fastmail beschränkt und andere Clients, welche z.B. über IMAP auf den Account zugreifen, haben keinen Zugriff auf diese Funktionalität.\cite{SnoozingMail}
+Wenn eine Email in Fastmail \hl{gesnoozt} wird, dann wird sie aus dem Ordner in dem sie sich befindet ausgeblendet und unter dem Reiter \enquote{Snoozed} gelistet. Beim \hl{unsnoozen} wird die Email wieder in dem Ursprungsordner angezeigt und an den Anfang des Ordners sortiert. Der gelesen Status wird nicht geändert.
+
 \begin{itemize}
-	\item Hat Snooze implementiert
-	\item kostenpflichtiges Feature (konnte aber mit Testversion testen)
-	\item Gesnoozede Mails verschwinden aus dem Ordner und werden in einem extra Reiter "Snoozed" angezeigt
-	\item Beim entsnoozen werden sie wieder in den wo sie herkommen zurückgeschoben. Mit Uhr makiert und unsnoozed Zeit. An Anfang sortiert. Unread Status wird nicht geändert. (Webinterface/App)
-	\item IMAP Zugriff auch kostenpflichtig
-	\item The ability to snooze is available in our web interface and the Fastmail app. We are unable to provide the ability to snooze messages from a third party mail client. \cite{SnoozingMail}
 	\item (Behauptung Fastmail benutzt IMAP nutzt draft-ietf-sieve-imap-sieve-09 kombiniert mit draft-ietf-extra-sieve-snooze)
 	\item \hl{Hier evt auf JMAP eingehen?}
 \end{itemize}
 
-\subsection{Spark Mail}
-\begin{itemize}
-	\item Hat Snooze implemenitert \cite{EMailsFuerSpaeter}
-	\item Windows, Android, Mac, iPhone, iPad, Apple Watch
-	\item Mail wird bei Snooze aus dem jeweiligen Ordner entfernt und kann dann über den Reiter 'Snoozed' aufgerufen werden, wo das unsnooze datum angezeigt wird.
-	\item in IMAP werden die Mails in den Ordner Later verschoben
-	\item Beim unsnoozen werden die Mails zurück in die INBOX (auch aus anderen ordnern) geschoben, als ungelesen makiert und an den Anfang am Anfang der INBOX mit dem unsnooze Datum kenntlich gelistet.
-	\item IMAP sieht zurückschieben und ungelesen makieren. Wird aber nicht an Anfang verschoben
-	\item primäre Mail adresse dient als Account bei SparkMail und dadurch andere Sparkmail Clients Informationen Sync. Laut Spark sind diese Daten verschlüsselt auf den servern gespeichert \cite{SyncSparkMultipleb}
-\end{itemize}
-
-\subsection{ZohoMail}
-\begin{itemize}
-	\item Hat Snooze Funktion \cite{SnoozeEmailsLater}
-	\item IMAP Zugriff aber nur in der bezahlversion \cite{ZohoMailFlexibles}
-	\item In ZohoMail wird Mail in 'Snoozed' Reiter verschobn
-	\item Bei entsnoozen wird Mail in die INBOX verschoben, egal aus welchem Ordner gesnoozed wurde, Mail behält den status wie vor dem snoozen, es wird kleines Uhr symbol dargestellt wann unsnoozed
-\end{itemize}
+\subsection{Zoho Mail}
+Zoho Mail\footnote{Zoho Mail: \url{https://www.zoho.com/de/mail/}} bietet die Snooze Funktionalität. \cite{SnoozeEmailsLater} Aber auch hier ist der IMAP Zugriff ein kostenpflichtiges Feature. \cite{ZohoMailFlexibles} In Zoho Mail wird beim \hl{snoozen} die Email unter dem Reiter \enquote{Snoozed} gelistet und aus dem ehemaligen Ordner entfernt. Beim \hl{unsnoozen} wird die Email in die Inbox verschoben (egal, aus welchem Ordner heraus sie \hl{gesnoozt} wurde) und der ungelesen Status wird nicht geändert. Auch wird die Email nicht an den Anfang der Inbox sortiert.
 
 
-\section{AT: Nur Label}
-\label{sec:JustLabel}
+\section{AT: Interoperable Implementierungen}
+\label{sec:InteropImpl}
 
-\subsection{Thunderbird}
-\begin{itemize}
-	\item Thunderbird an sich hat keine Snooze Funktion \cite{HowSnoozeEmail}
-	\item Es gibt vordefinierte Tags (früher Label). \$label5 ist der 'Later' tag. Nach diesem Label kann gefitern werden, was ähnlich funktionalität ermöglicht
-	\item Es gibt aber ein Add-On mailmindr\footnote{mailmindr: \url{https://mailmindr.net/de/}}, was lokales snoozen ermöglicht.
-	\begin{itemize}
-		\item Mail wird dann in definierten Ordner verschoben und nach unsnooze zurückgeschoben und eine ausgewählte funktion gemacht. z.B. mark unread
-	\end{itemize}
-\end{itemize}
-
-\section{AT: Working Solutions}
-\label{sec:Working Solutions}
+Im folgenden werden Implementierungen in Email Clients betrachtet, welche einen interoperablen Ansatz verfolgen und somit theoretisch von allen Email Clients benutzt werden können.
 
 \subsection{Roundcube}
-\begin{itemize}
-	\item Roundcube ist selfhosted webmailer kann von sich aus nicht snoozen
-	\item es gibt aber Plugin, welches snooze interoptabel ermöglicht
-	\item roundcube-snooze verändert dabei die HEader der zu snoozenden Mail und fügt einen Tag 'X-Snoozed' hinzu mit den Daten (Paste)
-	\item ein wake script, welches manuell installiert werden muss und durch einen cronjob aufgerufen wird, schiebt zurück
-	\item Generell laut Reppo sehr experimentell und nur auf dovecot mailserver bakcends ausgeichtet.
-	\item \cite{robinsonSnoozeRoundcube2023}
-\end{itemize}
+Roundcube\footnote{Roundcube: \url{https://roundcube.net/}} ist ein selbstgehosteter Webmailer und kann von sich aus nicht snoozen. Es gibt allerdings ein Plugin roundcube-snooze\footnote{roundcube-snooze: \url{https://github.com/toptensoftware/roundcube-snooze}}, mit dem es möglich ist Emails zu \hl{snoozen}. Beim \hl{snoozen} wird dabei der Header der Email bearbeitet. Da Emails aber nicht bearbeitbar sind wird die Email dubliziert und der Header wird bearbeitet, bevor die neue Email gespeichert wird. Die alte Email wird gelöscht. Beim bearbeiten wird ein Header-Tag \textit{X-Snoozed} hinzugefügt, welcher den Zeitpunkt des Snooze als auch den zukünftigen Zeitpunkt des \hl{Unsnooze} enthält. Außerdem wird der Name der Mailox, aus dem die Email \hl{genoozt} wurde und der aktuelle Status gespeichert.\cite{robinsonSnoozeRoundcube2023} Im folgenden ist der Header-Tag einer Beispiel-Email zu sehen, welche bereits \hl{unsnoozt} ist.
+
+\begin{verbatim}
+X-Snoozed: at Fri, 13 May 2022 10:16:56 +1000;
+	until Fri, 13 May 2022 10:17:00 +1000;
+	from INBOX;
+	woken
+\end{verbatim}
+
+Zusätzlich wird die Email in eine Snoozed Mailbox verschoben.\\
+Ein Aufwachskript, welches auf dem Webserver des Webmailers installiert wird, schiebt die Email nachdem der \hl{unsnooze} Zeitpunkt erreicht ist zurückn und das Keyword \textit{woken} wird im Header-Tag \textit{X-Snoozed} gesetzt.\cite{robinsonSnoozeRoundcube2023}\\
+Dadurch, dass der Header der Email bearbeitet wird, können alle anderen Email Clients diese Information sehen und dementsprechend die Informationen theoretisch darstellen.\\
+Die entwickelnde Person macht aber klar, dass es sich um eine sehr experimentelle Implementierung handelt, welche nicht ausgibig getestet wurde und nur auf DoveCot\footnote{DoveCot: \url{https://www.dovecot.org/}} ausgerichtet ist.\cite{robinsonSnoozeRoundcube2023}
+
 
 \subsection{eM Client}
+Der eM Client\footnote{eM Client: \url{https://de.emclient.com/}} ist ein Email Client für Windows und Mac. Mobile Clients für Android und iOS sind aber bereits in der Beta verfügbar. \cite{EMClientBeta} \\
+Die Snooze Funktionalität ist ein kostenpflichtiges Feature in der Pro Version. \cite{Snooze} Allerdings lässt sich in der Android App auch ohne Pro \hl{snoozen}. Beim \hl{snoozen} wird der Email ein \hl{Label} zugeweisen,\hl{(Permaflag, ref auf oben)} welches mit \enquote{\$SnoozedUntil\_} beginnt und von dem \hl{Unsnooze} Zeitpunkt als Unix Timestamp gefolgt wird. Daraus entsteht beispielsweise das folgende Label: \enquote{\$SnoozedUntil\_162597600}\\
+In den eM Clients werden die Emails mit solch einem Label, bei dem der Timestamp in der Zukunft liegt, in der Inbox ausgeblendet. Die Email kann dann unter dem Reiter \enquote{Snoozed} gefunden werden. Nach dem \hl{unsnoozen} wird die Email wieder sichtbar.\\
+Da das Label durch andere Email Clients abgerufen werden kann, ist es theoretisch möglich, dass auch andere Clients die Email \hl{gesnoozt} darstellen.
+
+
 \begin{itemize}
-	\item Hat Snooze als Pro Feature \cite{Snooze}
-	\item Allerdings kann man die Android App auch ohne Pro benutzen
+	\item Bissl zusammenfassen
 	\begin{itemize}
-		\item Beim Snoozen wird hier der Mail ein Label '\$SnoozedUntil\_162597600' gegeben, welches UNIX Timestamp enthält
-		\item In der App und anscheinend auch im Desktop Client werden die Mails mit dem Label dann unsichtbar in der INBOX (beim snooze in anderen Ordnern nicht unsichtbar) und unter dem Reiter 'Snoozed' mit dem unsnooze datum gelistet.
-		\item Für IMAP nur das Label sichtbar sonst passiert nichts. Führ bei anderem Client dazu, dass die Mail angezeigt werden in der INBOX (Gmail Beispiel aus dem Forum \cite{SnoozedEmailsStay2022})
-		\item Nach unsnooze wird die Mail wieder sichtbar in den Clients aber wird nicht als ungelesen makiert und auch nicht an den anfang gestellt. Lediglich das unsnooze date wird wie in dem Reiter 'Snoozed' angeigt.
-		\item über IMAP passiert nichts weiter, das Label bleibt auch bestehen, insofern greift wah. auch die Clients darauf zu. 
+		\item viele verschiedene ansätze mit mehreren überschneidungen
+		\item viele verschieben in extra mailbox, auch wenn namen sich sogar innerhlab eines clienst je nach spracheinstellungen ändern können
+		\item viele lokale implementierungen
+		\item verhalten beim entsnoozen auch sehr unterschiedlich
+		\item es gibt aber lösungsansätze, die es interoperabel machen
 	\end{itemize}
 \end{itemize}
 
-
 \chapter{AT: Diskussion Lösungsansätze}
-\label{sec:FuenfteUeberschrift}
+\label{sec:DisskussionLoesung}
 
 \section{AT: Allgemein}
 \label{sec:LoesungAllgemein}
@@ -213,6 +211,13 @@ Apple Mail\footnote{Apple Mail: \url{https://support.apple.com/mail}} hat seit i
 	\item JMAP (nicht IMAP aber, sollte erwähnt werden)
 	\item ...
 	\item Was muss beachtet werden (THREADs, Mail am Anfang stellen) (Vlt Unterüberschriften, der einzelnen Probleme (Daten Speichern, verschieben, An Anfang der INBOX))
+\end{itemize}
+
+\begin{itemize}
+	\item eM Client
+	\begin{itemize}
+		\item Für IMAP nur das Label sichtbar sonst passiert nichts. Führ bei anderem Client dazu, dass die Mail angezeigt werden in der INBOX (Gmail Beispiel aus dem Forum \cite{SnoozedEmailsStay2022})
+	\end{itemize}
 \end{itemize}
 
 \section{AT: Nextcloud Mail App}
