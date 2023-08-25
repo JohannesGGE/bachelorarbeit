@@ -6,6 +6,57 @@
 \end{itemize}
 
 
+\begin{itemize}
+	\item Zum Thema hinführen (Beispiele), These/Gegenthese, bedeutende Aussage durch namenhafte Persöhnlichkeit, überraschende Feststellung machen, (aktualität?) \hl{Warum ist das Thema interesant, wichtig und spannend (wissebschaftlich als auch für jeden der die arbeit liest)}
+	\begin{itemize}
+		\item Email immernoch ein viel genutzes Kommunikationsmittel (Zahlen)
+		\item Sehr viele Emails werden empfangen (Zahlen)
+		\item Nutezende müssen das bearbeiten der Mails möglichst effizient machen um andere Dinge zu schaffen
+		\item Es gibt viele Email Clients, die versprechen die Email Kommunikation, schnellfer, effizienter und zukunftsorienteirter zu machen
+		\item Emails Snoozen in vielen Clients ein Teil davon
+		\item Obwohl viele die großen Anbieter nutzen (Zahlen), ist es gerade für diejenigen, die sich der Macht der großen entziehen wollen und z.b. auf Open Source wert legen notwendig offenen Stanndard für Email Management zu haben
+		\item Den gibts auch, IMAP 
+	\end{itemize}
+	\item Gegenstad/Problemstelung/Ziele, Begründung Wahl der Forschungsfrage indem Forschungslücke erläutert wird \hl{Was ist der Gegenstand meiner Arbeit? Warum habe ich mich für diese Problemstelung entschieden und warum wichtig zu beantworten? Was ist das Ziel der Arbeit?}
+	\begin{itemize}
+		\item Ich bin selber fan von offenen Standards und der unabhänigkeit von großen Unternehemen wie Google oder Microsoft
+		\item deslab ist es wichtig zu schauen, inwieweit neue Features berits durch den existierenden ofenen standard umgsetzt werden können ud falls nicht, dass möglichkeiten für erweitungen erarbeitet wrrden
+		\item Das Problem, dass IMAP nur Grundfunktionalitäten zur Verfüugn stellt. Neue Features wie Snooze werden nicht unterstützt.
+		\item Deshalb viele verschiedene Implementierungen dieses Features in den Cleints.
+		\item untereinander nicht nutzbar (außer leiches Unternehmen, sync über Account)
+		\item vereinheitlichung wäre hier Wünschenswert
+		\item In der Arbeit soll analysiert werden, wie die einzelnen Clients das Feature implementieren
+		\item geschaut werden, inwieweit die Implementieurngen bereits interoperabel sind
+		\item dann schauen, welche Möglichkeiten IMAP beitet um dieses Feature interoperabel umsetzen zu können
+		\item Oder welche Erweiterungen geschaffen werden müssten
+	\end{itemize}
+	\item Gang der Untersuchung, Methodik skizzieren, Wie umfassend wurde die Literatur analysiert \hl{Wie lässt sich die Methodik beschreiben, mit der ich meine zentrale Forschungsfrage analysiert bzw. beantowrtet habe?}
+	\begin{itemize}
+		\item Dazu wird zuerst analysiert, welche clients das feature wie implementiert haben
+		\item dann geschaut welche mögichekiten IMAP bietet das Feature zu implementieruen. bzw welche lösungen missbraucht/adaptiert werden könnten
+		\item was nötig wäre als erweitung um das ganze zu standardtisieren
+		\item das ganze basiert größtenteils auf aussagen der Client entwickler/Firmen oder testen und analysieren der clients
+		\item zur standard analyse werden die rfcs zu IMAP benutzt, aber auch disussionen in (foren/Github)
+		\item anhand der Nextcloud Mail App wird geschaut wie die analysierte interoperabilität implementiert werden könnte
+	\end{itemize}
+	\item Abgrenzung der Arbeit, Schwerpukt setzen, Bei bereits vorhandenen Arbeiten darauf hinweisen \hl{Muss ich meine Arbeit eingrenzen? Wie kann ich die Akzentuierung blausiebel begründen?}
+	\begin{itemize}
+		\item Schwerpunkt ist Möglichkeiten aufzeigen, wie das Snooze Feature über IMAP interoperabel implementiert werden könnte. Dabei sollen vorhandene Standards oder verbreitete Implementierungen vorzugsweise genutzt werden
+		\item ...
+	\end{itemize}
+	\item Aufgabu der Arbeit, wie bin ich generell vorgegangen, um die Forscungsfrage zu beantworten, Damit ist im wesentlichen die Argumentationsline gemeint, die sich aus Ihrer Gliederung ergibt \hl{Wie habe ich meine ArbeitAufgebaut, wie werde ich vorgenen?}
+	\begin{itemize}
+		\item zuerst die grundlagen (Inbox Zero, IMAP, Email, interoperabel usw.) erklären um das nachfolgende verstehen zu können
+		\item dann erklären, warum es einen interoperablen Ansatzt braucht und welche Möglichkeiten braucht man um Inbox Zero umzusetzen, wie sieht snoozen soll Snooze in Email clients aussehen?
+		\item dann werden email cients analysiet und genasucht, wie die implementierung aussieht
+		\item folgenden werden Lösungsanätze beschrieben, die die snooze interoperabel möglich machen könnten
+		\item das ganze wird dann an der Nextcloud Mail app beschrieben
+		\item der letzte schritt wäre die beschriebung einer Standardeerweiterung, was müsste diese enthalten
+	\end{itemize}
+\end{itemize}
+
+
+
 \chapter{AT: What is it, How it works}
 \label{sec:HowItWorks}
 
@@ -40,7 +91,8 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 	\item INBOX/Posteingang Begriff erklären Sysnonym
 	\item Ordner/Mailbox Begriff erklären Sysnonym
 	\item Client erklären?
-	\item Tag/Flag/Label/Permaflag definieren und unterscheiden in Bezug auf IMAP
+	\item Tag/Flag/Label/Permaflag definieren und unterscheiden in Bezug auf IMAP oder unten bei thunderbird (zumindest permaflags)
+	\item Auf Thread Möglichkeit eingehen, oder unten bei Mailspring
 \end{itemize}
 
 
@@ -208,6 +260,7 @@ Da das Label durch andere Email Clients abgerufen werden kann, ist es theoretisc
 	\item Keywords
 	\item Dublizieren
 	\item Metadata Capability
+	\item Flags erweitern, dass variablem mitggeben werden können (bedarf auch Mailserver Änderungen)
 	\item JMAP (nicht IMAP aber, sollte erwähnt werden)
 	\item ...
 	\item Was muss beachtet werden (THREADs, Mail am Anfang stellen) (Vlt Unterüberschriften, der einzelnen Probleme (Daten Speichern, verschieben, An Anfang der INBOX))
