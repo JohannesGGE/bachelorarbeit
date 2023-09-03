@@ -93,6 +93,7 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 	\item Client erklären?
 	\item Tag/Flag/Label/Permaflag definieren und unterscheiden in Bezug auf IMAP oder unten bei thunderbird (zumindest permaflags)
 	\item Auf Thread Möglichkeit eingehen, oder unten bei Mailspring
+	\item RFCs hier erklären? Was ist das und wie funktionierts
 \end{itemize}
 
 
@@ -129,6 +130,7 @@ Die verschiedenen Clients werden in vier Gruppen unterteilt.\\
 \begin{itemize}
 	\item Kein IMAP
 	\item Welche Annahmen wurden über propräritäre Software getroffen??
+	\item wie wurde die snooze funktion getestet? Wurde traffic angeschaut? welcher mailserver (dovecot) wurde benutzt, welche extentions sind dort aktiviert? Wurde der metadaten ext gar nicht ausprobiert?!?
 	\item Add Yahoo, Samsung und Windows Live Mail
 \end{itemize}
 
@@ -253,24 +255,92 @@ Da das Label durch andere Email Clients abgerufen werden kann, ist es theoretisc
 \chapter{AT: Diskussion Lösungsansätze}
 \label{sec:DisskussionLoesung}
 
-\section{AT: Allgemein}
-\label{sec:LoesungAllgemein}
+Das folgende Kapitel widmet sich, nach der Analyse existierender Lösungen im vorherigen Kapitel, dem schaffen/beleuchten/analysieren interoperablen Lösungen für eine Snooze Funktion. Dabei werden Ansätze von den bereits existierenden Implementierugen noch einmal aufgegriffen und neue/andere Ansätze beleuchtet. Das Ziel ist, dass die Ansätze/Lösungen nicht dazu führen, dass andere Clients, welche diesen Ansatz/Lösung nicht implemntiert haben verwirrt werden \hl{FORMULIERUNG} und wie bei Gmail z.B. gesnoozte emails nicht mehr aufzufinden sind. Im besten Fall ist auch für Clients ohne die Implementierung eines Ansatztes erkennbar, dass eine Email gesnoozt ist. \\
+Der Fokus liegt auf der Verwendung bereits existierender Funktionalitäten im IMAP Protokoll oder Erweiterungen dieser durch sogenannte Extentions. Aber auch das Ausnutzen der Strucktur einer Email ist ein bevorzugter Ansatz. Grund dafür ist, dass je näher man am Standard bleibt oder auf bereits etablierte Erweiterungen setzt, umso wahrscheinlicher ist am Ende auch, dass die eigene Implementierung eines Ansatzen Verbreitung findet.
+
+\section{AT: Was muss möglich sein}
+\label{sec:WasMussMoeglich}
+
+Um die Lösungsansätze bewerten zu können ist es nötig nochmal klar zu formulieren, welche Aufgaben eine Snooze Funktion erfüllen muss und welche Funktionen darüber hinaus wünschenswert wären, damit man von einem interoperablen Ansatz eines Snooze Features sprechen kann.\\
+Der erste erforderliche Aufgabe ist, dass erkennbar sein muss, welche Email gesnoozt ist und welche nicht. Auch muss ermittelbar sein, bis wann die Email gesnoozt ist, also wann sie wieder unsnoozt werden soll. Aus welcher Mailbox eine Email gesnoozt wurde, ist wichtig, wenn die Email beim Snoozen in eine andere Mailbox verschoben wird. Wie in der Analyse der existierenden Implementierungen beschrieben gibt es für dieses Verhalten keine Einheitlichkeit. Manche Clients verschieben in die Inbox zurück, aus der gesnoozt wurde, andere konsequent in die INBOX. Für den Fall, dass diese Information nicht ermittelbar ist kann die Email aber immer in die Inbox verschoben werden, weshalb diese Information nichts unbedingt vorhanden sein muss. Auch die Informationen, seit wann eine Email gesnoozt ist und seit wann sie wieder unsnoozt ist, ist für die Funktionalität der Snooze Funktion nicht entscheident, können durch den Client bei Verfügbarkeit dargestellt werden.\\
+Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsitenten Daten enstehen, weil z.B. mehrere Clients gleichzeitig eine Email unsnoozen.
+
+\section{AT: Welche Möglichkeiten gibts}
+\label{sec:WelcheMoegGibts}
+
+\subsection{AT: Keywords}
 
 \begin{itemize}
-	\item Keywords
-	\item Dublizieren
-	\item Metadata Capability
-	\item Flags erweitern, dass variablem mitggeben werden können (bedarf auch Mailserver Änderungen)
-	\item JMAP (nicht IMAP aber, sollte erwähnt werden)
-	\item ...
-	\item Was muss beachtet werden (THREADs, Mail am Anfang stellen) (Vlt Unterüberschriften, der einzelnen Probleme (Daten Speichern, verschieben, An Anfang der INBOX))
-\end{itemize}
-
-\begin{itemize}
-	\item eM Client
+	\item Was sind die IMAP Keywords??!? Wie unterscheiden sich Flags/Permaflags und der die anderen Begriffe
+	
+	\item eM Client (nochmal kurz erklären wies funzt und dann erläutern was damit möglich)
 	\begin{itemize}
 		\item Für IMAP nur das Label sichtbar sonst passiert nichts. Führ bei anderem Client dazu, dass die Mail angezeigt werden in der INBOX (Gmail Beispiel aus dem Forum \cite{SnoozedEmailsStay2022})
+		\item spammt den Keyword Speicher voll manche clients schlagen bestehende keywords als Option vor. Sieht dann richtige Keywords zum taggen nicht mehr
+		\item Inwieweiit gibt es hier evt. eine maximale Anzahl (Über SELECT werden alle permafrlags und Flags zurückgegeben)
+		\item ziemlich mächtig, da in dem label alles bis auf den src folder und die zeit wann gesnoozt drin steht
 	\end{itemize}
+	\item Thunderbird \enquote{Later} (nochmal kurz erlären und erläutern was möglich damit)
+	\begin{itemize}
+		\item Keyword Snoozed einführen oder bestehendes Later adaptieren (in anderen cliens snoozed nennen)
+		\item kann aber nur anzeigen, welche mail gesnoozed ist
+	\end{itemize}
+\end{itemize}
+
+\subsection{AT: Header bearbeiten}
+
+\begin{itemize}
+	\item (roundcube-plugin)
+	\item kurz nohcmla was es macht
+	\item evt header näher erklären (oder oben)
+	\item auf roundcube github bedenken eingehen
+	\item kopieren und einfügen notwendig, da Email beareiten nicht vorgesehen
+	\item super cool, da alle informationen drin sind
+\end{itemize}
+
+\subsection{AT: Metadaten Speichern}
+
+\begin{itemize}
+	\item (METADATA und ANNOTATE Extention)
+\end{itemize}
+
+\subsection{AT: Dublizieren}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{AT: Dedicated Ordner}
+
+\begin{itemize}
+	\item (special use) [partielle Lösung]
+	\item IMAP LIST Extension for Special-Use Mailboxes
+\end{itemize}
+
+\subsection{AT: Savedate}
+
+\begin{itemize}
+	\item zum Anfang sortieren  [partielle Lösung]
+	\item Internet Message Access Protocol (IMAP) - SAVEDATE Extension
+\end{itemize}
+
+\subsection{AT: Wer übernimmt das verschieben}
+
+\begin{itemize}
+	\item welche Probleme treten beim sync auf [partielle Lösung]
+	\item IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)
+\end{itemize}
+
+\section{Fazit}
+\label{sec:LoesungFazit}
+
+\begin{itemize}
+	\item 
+\end{itemize}
+
+
+\begin{itemize}
+	\item (JMAP (nicht IMAP aber, sollte erwähnt werden), vlt aber eher bei sparkmail.)
 \end{itemize}
 
 \section{AT: Nextcloud Mail App}
@@ -286,6 +356,10 @@ Da das Label durch andere Email Clients abgerufen werden kann, ist es theoretisc
 \label{sec:VorschlagStandard}
 
 \begin{itemize}
+	\item Was ist RFC?
 	\item Wie könnte ein RFC für eine Snooze aussehen
-	\item Keywords/Permaflags und Specual Use Mailbox
+	\begin{itemize}
+		\item Flags erweitern um Snoozed
+		\item Special use mailboxes erweitern um Snoozed
+	\end{itemize}
 \end{itemize}
