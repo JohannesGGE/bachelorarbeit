@@ -241,16 +241,11 @@ In den eM Clients werden die Emails mit solch einem Label, bei dem der Timestamp
 Da das Label durch andere Email Clients abgerufen werden kann, ist es theoretisch möglich, dass auch andere Clients die Email \hl{gesnoozt} darstellen.
 
 
-\begin{itemize}
-	\item Bissl zusammenfassen
-	\begin{itemize}
-		\item viele verschiedene ansätze mit mehreren überschneidungen
-		\item viele verschieben in extra mailbox, auch wenn namen sich sogar innerhlab eines clienst je nach spracheinstellungen ändern können
-		\item viele lokale implementierungen
-		\item verhalten beim entsnoozen auch sehr unterschiedlich
-		\item es gibt aber lösungsansätze, die es interoperabel machen
-	\end{itemize}
-\end{itemize}
+\section{AT: Fazit}
+\label{sec:FazitExistingSolution}
+
+Wie man sehen kann, gibt es viele verschiedene Implementierungen einer Snooze Funktionalität. Teilweise sehr unterschiedlich aber oft auch mit gleichen Ansätzen. Generell fällt auf, dass oft versucht wird auf lokale Implementierungen zu setzen. Viele Clients legen eine extra Mailbox an um die gesnootzen Emails dorthin zu verschieben. Das ist in gewisser Weise eine Möglichkeit für andere Clients zumindest zu erkennen, welche Emails gesnoozt sind und welche nicht. Allerdings sind die Namen dieser Mailboxen nicht einheitlich und unterscheiden sich sogar teilweise in der eigenen Umgebung, wie es bei Outlook der Fall ist. Auch das Verhalten der Clients nach dem unsnoozen unterscheidet sich stark. Vom reinen wieder einblenden bis als ungelesen an den Anfang der Mailbox sortieren und mit einem besonderen Symol makieren ist alles dabei.
+Nichts destotrotz gibt es auch Lösungsansätze, welche versuchen eine interoperable Implementierung zu nutzen. Auf diese und andere interoperable Ansätze wird im nächsten Kapitel näher eingegangen.
 
 \chapter{AT: Diskussion Lösungsansätze}
 \label{sec:DisskussionLoesung}
@@ -348,7 +343,8 @@ Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsi
 
 \begin{itemize}
 	\item Welcher Lösungsansatz passt am besten in die App
-	\item Was kann Dovecot als Server im Hindergrund??
+	\item horde (was kann, was nicht)
+	\item 
 \end{itemize}
 
 
@@ -360,6 +356,6 @@ Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsi
 	\item Wie könnte ein RFC für eine Snooze aussehen
 	\begin{itemize}
 		\item Flags erweitern um Snoozed
-		\item Special use mailboxes erweitern um Snoozed
+		\item Special use mailboxes erweitern um Snoozed oder zumindest einheitlicher Name
 	\end{itemize}
 \end{itemize}
