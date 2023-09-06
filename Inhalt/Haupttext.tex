@@ -214,13 +214,13 @@ Zoho Mail\footnote{Zoho Mail: \url{https://www.zoho.com/de/mail/}} bietet die Sn
 Im folgenden werden Implementierungen in Email Clients betrachtet, welche einen interoperablen Ansatz verfolgen und somit theoretisch von allen Email Clients benutzt werden können.
 
 \subsection{Roundcube}
-Roundcube\footnote{Roundcube: \url{https://roundcube.net/}} ist ein selbstgehosteter Webmailer und kann von sich aus nicht snoozen. Es gibt allerdings ein Plugin roundcube-snooze\footnote{roundcube-snooze: \url{https://github.com/toptensoftware/roundcube-snooze}}, mit dem es möglich ist Emails zu \hl{snoozen}. Beim \hl{snoozen} wird dabei der Header der Email bearbeitet. Da Emails aber nicht bearbeitbar sind wird die Email dubliziert und der Header wird bearbeitet, bevor die neue Email gespeichert wird. Die alte Email wird gelöscht. Beim bearbeiten wird ein Header-Tag \textit{X-Snoozed} hinzugefügt, welcher den Zeitpunkt des Snooze als auch den zukünftigen Zeitpunkt des \hl{Unsnooze} enthält. Außerdem wird der Name der Mailox, aus dem die Email \hl{genoozt} wurde und der aktuelle Status gespeichert.\cite{robinsonSnoozeRoundcube2023} Im folgenden ist der Header-Tag einer Beispiel-Email zu sehen, welche bereits \hl{unsnoozt} ist.
+Roundcube\footnote{Roundcube: \url{https://roundcube.net/}} ist ein selbstgehosteter Webmailer und kann von sich aus nicht snoozen. Es gibt allerdings ein Plugin roundcube-snooze\footnote{roundcube-snooze: \url{https://github.com/toptensoftware/roundcube-snooze}}, mit dem es möglich ist Emails zu \hl{snoozen}. Beim \hl{snoozen} wird dabei der Header der Email bearbeitet. Da Emails aber nicht bearbeitbar sind wird die Email dubliziert und der Header wird bearbeitet, bevor die neue Email gespeichert wird. Die alte Email wird gelöscht. Beim bearbeiten wird ein \hl{Header-Tag} \textit{X-Snoozed} hinzugefügt, welcher den Zeitpunkt des Snooze als auch den zukünftigen Zeitpunkt des \hl{Unsnooze} enthält. Außerdem wird der Name der Mailox, aus dem die Email \hl{genoozt} wurde und der aktuelle Status gespeichert.\cite{robinsonSnoozeRoundcube2023} Im folgenden ist der Header-Tag einer Beispiel-Email zu sehen, welche bereits \hl{unsnoozt} ist.
 
 \begin{verbatim}
-X-Snoozed: at Fri, 13 May 2022 10:16:56 +1000;
-	until Fri, 13 May 2022 10:17:00 +1000;
-	from INBOX;
-	woken
+  X-Snoozed: at Fri, 13 May 2022 10:16:56 +1000;
+    until Fri, 13 May 2022 10:17:00 +1000;
+    from INBOX;
+    woken
 \end{verbatim}
 
 Zusätzlich wird die Email in eine Snoozed Mailbox verschoben.\\
@@ -252,7 +252,7 @@ Der Fokus liegt auf der Verwendung bereits existierender Funktionalitäten im IMA
 \label{sec:WasMussMoeglich}
 
 Um die Lösungsansätze bewerten zu können ist es nötig nochmal klar zu formulieren, welche Aufgaben eine Snooze Funktion erfüllen muss und welche Funktionen darüber hinaus wünschenswert wären, damit man von einem interoperablen Ansatz eines Snooze Features sprechen kann.\\
-Der erste erforderliche Aufgabe ist, dass erkennbar sein muss, welche Email gesnoozt ist und welche nicht. Auch muss ermittelbar sein, bis wann die Email gesnoozt ist, also wann sie wieder unsnoozt werden soll. Aus welcher Mailbox eine Email gesnoozt wurde, ist wichtig, wenn die Email beim Snoozen in eine andere Mailbox verschoben wird. Wie in der Analyse der existierenden Implementierungen beschrieben gibt es für dieses Verhalten keine Einheitlichkeit. Manche Clients verschieben in die Mailbox zurück, aus der gesnoozt wurde, andere konsequent in die INBOX. Für den Fall, dass diese Information nicht ermittelbar ist kann die Email aber immer in die Inbox verschoben werden, weshalb diese Information nicht unbedingt vorhanden sein muss. Auch die Informationen, seit wann eine Email gesnoozt ist und seit wann sie wieder unsnoozt ist, ist für die Funktionalität der Snooze Funktion nicht entscheident, können durch den Client bei Verfügbarkeit aber dargestellt werden.\\
+Der erste erforderliche Aufgabe ist, dass erkennbar sein muss, welche Email gesnoozt ist und welche nicht. Auch muss ermittelbar sein, bis wann die Email gesnoozt ist, also wann sie wieder unsnoozt werden soll. Aus welcher Mailbox eine Email gesnoozt wurde, ist wichtig, wenn die Email beim Snoozen in eine andere Mailbox verschoben wird. Wie in der Analyse der existierenden Implementierungen beschrieben gibt es für dieses Verhalten keine Einheitlichkeit. Manche Clients verschieben in die Mailbox zurück, aus der gesnoozt wurde, andere konsequent in die INBOX. Für den Fall, dass diese Information nicht ermittelbar ist kann die Email aber immer in die Inbox verschoben werden, weshalb diese Information nicht unbedingt vorhanden sein muss. Auch die Information, seit wann eine Email gesnoozt ist, ist für die Funktionalität der Snooze Funktion nicht entscheident, können durch den Client bei Verfügbarkeit aber dargestellt werden.\\
 Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsitenten Daten enstehen, weil z.B. mehrere Clients gleichzeitig eine Email unsnoozen.
 
 \section{AT: Welche Möglichkeiten gibts}
@@ -266,9 +266,6 @@ Angeleht an die Implementierung in Thunderbird, wo es ein \hl{Label} \enquote{La
 
 Ein anderer Ansatz basierend auf der Verwendung von \hl{Keywords}, ist die Implementierung des eM Clients. Das \hl{Label}, welches dort beim \hl{snoozen} gesetzt wird besteht aus der ersten Hälte \enquote{\$SnoozedUntil\_} und der zweiten Hälte, welche ein UNIX Timestamp ist, z.B. \enquote{162597600}. Dabei würde die erste Hälte die Aufgabe erfüllen, zu identifizeiren, welche Email \hl{gesnoozt} ist und die zweite Hälfte die Zeit definieren, wann die Email \hl{unsnoozt} werden soll. Das Problem dieses Ansatzen liegt im Design des \hl{Labels}. Da der UNIX Timestamp Teil des \hl{Labels} ist, ist jedes \hl{Label} unterschiedlich. Ausgenommen der Fall, dass zwei oder mehr Emails gleichzeitig \hl{gesnoozt} gesnoozt werden. Dies fürt dazu, dass bei jedem \hl{snoozen} ein neues \hl{Label} erstellt wird, welches dann durch den Mailserver gespeichert und bei jeder \enquote{SELECT} Anfrage zurückgegeben wird. Zwar definiert der IMAP Standard keine maximale Anzahl an \hl{Labeln}, welche durch die Clients erstellt werden dürfen, allerdings kann der Mailserver das Erstellen neuer \hl{Label} unterbinden, falls die Anzahl eine interne grenze überschreitet, indem die \hl{PERMAFLAG} Antwort kein \textbackslash* enthält. \cite{melnikovInternetMessageAccess2021} Außerdem nutzen manche Clients wie z.B. FairEmail die \hl{PERMAFLAG} Antwort um eine Liste an möglichen \hl{Labels} zu generieren, die einer Email zugewiesen werden können. Ein Heruasfiltern dieser \hl{Label} ist in diesem Fall wahrscheinlich ein annehmbarer Aufwand, den die Clients betreiben müssten. Aber auch generell entsteht durch diesen Ansatz eine sich schnell aufsummierende Masse an Daten, sowohl auf dem Mailserver als auch im Datenverkehr zwischen Client und Server, welche nur bis zu einem bestimmten Zeitpunkt gebraucht werden. Eine Möglichkeit \hl{Labels} zu löschen oder ein mechanismus, der dafür sorgt, dass ncht mehr verwendete \hl{Labels} Serverseitig gelöscht werden, wäre für diesen Ansatz wünschenswert und notwendig.
 
-
-
-
 \begin{itemize}
 	\item Was sind die IMAP Keywords??!? Wie unterscheiden sich Flags/Permaflags und der die anderen Begriffe (eher oben erklären, da bereits verwendet)
 
@@ -277,20 +274,24 @@ Ein anderer Ansatz basierend auf der Verwendung von \hl{Keywords}, ist die Imple
 \subsection{AT: Header bearbeiten}
 
 \begin{itemize}
-	\item (roundcube-plugin)
-	\item kurz nohcmla was es macht
 	\item evt header näher erklären (oder oben)
-	\item auf roundcube github bedenken eingehen
-	\item kopieren und einfügen notwendig, da Email beareiten nicht vorgesehen
-	\item super cool, da alle informationen drin sind
-	\item S/Smime könnte kaputt gehen?
-	\begin{itemize}
-		\item S/SMIME kann header wrappen, damit diese durch S/MIME geschützt sind \cite{melnikovInternetMessageAccess2021}
-		\item Standardmäßig ist aber nur der Body und coentet related header durch durch S/MIME geschützt.
-		\item auch Extenstions wie \enquote{Securing Header Fields with S/MIME} basieren auf der auswahl der bestimmten header, welche geschützt werden. \cite{cailleuxSecuringHeaderFields2015}
-		\item Somit wird die Verschlüsselung und Signatur durch extra Header nicht kaputt gemacht.
-	\end{itemize}
 \end{itemize}
+
+Der nächste Lösungsansatz, ist das Bearbeiten des Email Headers wie es das roundcube plugin roundcube-snooze umsetzt. Dabei wird der Email, welche \hl{gesnoozt} wird ein neues \hl{Header Feld} \textit{X-Snoozed} hinzugefügt. Im folgenden ist noch einmal das bereits verwendete Beipiel aufgeführt: 
+
+\begin{verbatim}
+  X-Snoozed: at Fri, 13 May 2022 10:16:56 +1000;
+    until Fri, 13 May 2022 10:17:00 +1000;
+    from INBOX;
+    woken
+\end{verbatim}
+
+Das neue Header Feld enthät sowohl den genau Zeitpunt des \hl{snooze} (at) als auch des \hl{unsnooze} (until) in Form von einem in RFC2822\footnote{RFC2822 - Internet Message Format: \url{https://datatracker.ietf.org/doc/html/rfc2822}} definierten Timestamps. Zusätzlich wird der Name der Mailbox gespeichert, aus dem die Email gesnoozt wurde (from). Das Schlüsselwort \enquote{woken} wird dem Header Feld angehängt, wenn die Email wieder \hl{unsnoozt} wurde. Mit diesem Ansatz und den gespeicherten Informationen lassen sich alle definierten Anforderungen an ein Snooze Feature realisieren.
+
+Da dieser Lösungsansatz die Header einer Email bearbeitet, sind auch noch weitere Einflüsse zu beachten. Es könnte die Frage aufkommen, in wie weit durch das Bearbeiten der Header Verschlüsselung und Signierung durch S/MIME beieinflusst werden können. Diesbezüglich ist bei richitger Implementierung allerdings keine Gefahr zu beführchten. S/MIME kann durch das einschließen bestimmter Header in einen sogenannten \enquote{message/rfc822 wrapper}, auch nicht Inhaltsbezogene Header wie z.B. den \enquote{To} Header schützen. \cite{schaadSecureMultipurposeInternet2019} \cite{resnickInternetMessageFormat2001} Allerdings sind diese explizit auszuwählen. Es gibt äußere Header, welche für S/MIME nicht relevant sind. Wenn der \textit{X-Snoozed} Header als einer dieser äußeren hinzugefügt wird, ergibt sich somit kein Einfluss auf S/MIME.\\
+Auch Erweiterungen, wie RFC7508\footnote{RFC7508 - Securing Header Fields with S/MIME \url{https://datatracker.ietf.org/doc/rfc7508/}} basieren auf der Auswahl bestimmter Header, welche geschützt werden und es erlauben, Header hinzuzufügen ohne die Sicherheitsmechanismen \hl{kaputt} zu machen. \cite{cailleuxSecuringHeaderFields2015}
+
+Ein Problem dieses Ansatztes ist, dass die Header einer Email eig. nicht durch den empfangenden Client bearbeitet werden. \hl{Dazu gibts ja IMAP und Erweiterungen, um die Nachricht an sich unberührt zu lassen... Hier irgendwie noch begründen}
 
 \subsection{AT: Metadaten Speichern}
 
@@ -323,6 +324,7 @@ In Keyword und Header Ansatz und Metadata, wenn nciht verschoben ist zwar ein In
 \subsection{AT: Wer übernimmt das verschieben}
 
 \begin{itemize}
+	\item Alle Lösungsansätze schaffen nur die Grundlage um das waken/unsnoozen zu ermöglichen, das zurückmoven usw ist extra Aufgabe und muss durch den Server oder Client gemacht werden
 	\item welche Probleme treten beim sync auf [partielle Lösung]
 	\item IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)
 \end{itemize}
