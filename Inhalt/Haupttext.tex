@@ -88,6 +88,7 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 	\item Wie wird Snooze definiert?
 	\item Was ist IMAP und wie funktionierts
 	\item Was genau heißt interoperabel
+	\item Was ist der Mailserver???
 	\item INBOX/Posteingang Begriff erklären Sysnonym
 	\item Ordner/Mailbox Begriff erklären Sysnonym
 	\item Client erklären?
@@ -146,14 +147,8 @@ Bei der Analyse von bestehenden Implementierungen einer Snooze Funktionalität ha
 Es gibt aber auch Email Clients, welche die Snooze Funktionalität implementiert haben aber diese nur in dem jeweiligen Client nutzbar ist. Die folgenden Clients fallen darunter:
 
 \subsection{Mailbird}
-\hl{TBD}
 
-Mailbird \footnote{Mailbird: \url{https://www.getmailbird.com/de/}}
-\begin{itemize}
-	\item Desktop Client Windows und Mac
-	\item Snoozen verschiebt Mail in 'Snoozed' Ordner
-	\item 'Wenn die Zeit abläuft, wird die E-Mail wieder ganz oben in Ihrem Posteingang angezeigt.' \cite{NtzenSnoozeFnktionIhrem2022}
-\end{itemize}
+Mailbird \footnote{Mailbird: \url{https://www.getmailbird.com/de/}} ist ein Desktop Email Client für Windows und Mac. Die Snooze Funktion ist nur in der Inbox verfügbar und verschiebt die Email in in den Reiter \enquote{Zurückgestellt} bzw. \enquote{Snoozed}. Über IMAP wird die Email in eine Mailbox \enquote{Snoozed} verschoben. 'Wenn die Zeit abläuft, wird die E-Mail wieder ganz oben in Ihrem Posteingang angezeigt.' \cite{NtzenSnoozeFnktionIhrem2022} Über IMAP ist dies nicht der Fall. Zusätzlich wird die Email noch als ungelesen markiert.
 
 \subsection{FairEmail} 
 FairEmail\footnote{FairEmail: \url{https://email.faircode.eu/}} ist ein E-Mail Client für Android. Beim snoozen einer Mail wird diese für den Nutzenden ausgeblendet. Für andere Email Clients ist dieses Ausblenden nicht sichtbar, da es lokal auf dem Gerät passiert.\cite{FairEmailFAQMd} \\
@@ -257,7 +252,7 @@ Der Fokus liegt auf der Verwendung bereits existierender Funktionalitäten im IMA
 \label{sec:WasMussMoeglich}
 
 Um die Lösungsansätze bewerten zu können ist es nötig nochmal klar zu formulieren, welche Aufgaben eine Snooze Funktion erfüllen muss und welche Funktionen darüber hinaus wünschenswert wären, damit man von einem interoperablen Ansatz eines Snooze Features sprechen kann.\\
-Der erste erforderliche Aufgabe ist, dass erkennbar sein muss, welche Email gesnoozt ist und welche nicht. Auch muss ermittelbar sein, bis wann die Email gesnoozt ist, also wann sie wieder unsnoozt werden soll. Aus welcher Mailbox eine Email gesnoozt wurde, ist wichtig, wenn die Email beim Snoozen in eine andere Mailbox verschoben wird. Wie in der Analyse der existierenden Implementierungen beschrieben gibt es für dieses Verhalten keine Einheitlichkeit. Manche Clients verschieben in die Inbox zurück, aus der gesnoozt wurde, andere konsequent in die INBOX. Für den Fall, dass diese Information nicht ermittelbar ist kann die Email aber immer in die Inbox verschoben werden, weshalb diese Information nichts unbedingt vorhanden sein muss. Auch die Informationen, seit wann eine Email gesnoozt ist und seit wann sie wieder unsnoozt ist, ist für die Funktionalität der Snooze Funktion nicht entscheident, können durch den Client bei Verfügbarkeit dargestellt werden.\\
+Der erste erforderliche Aufgabe ist, dass erkennbar sein muss, welche Email gesnoozt ist und welche nicht. Auch muss ermittelbar sein, bis wann die Email gesnoozt ist, also wann sie wieder unsnoozt werden soll. Aus welcher Mailbox eine Email gesnoozt wurde, ist wichtig, wenn die Email beim Snoozen in eine andere Mailbox verschoben wird. Wie in der Analyse der existierenden Implementierungen beschrieben gibt es für dieses Verhalten keine Einheitlichkeit. Manche Clients verschieben in die Mailbox zurück, aus der gesnoozt wurde, andere konsequent in die INBOX. Für den Fall, dass diese Information nicht ermittelbar ist kann die Email aber immer in die Inbox verschoben werden, weshalb diese Information nicht unbedingt vorhanden sein muss. Auch die Informationen, seit wann eine Email gesnoozt ist und seit wann sie wieder unsnoozt ist, ist für die Funktionalität der Snooze Funktion nicht entscheident, können durch den Client bei Verfügbarkeit aber dargestellt werden.\\
 Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsitenten Daten enstehen, weil z.B. mehrere Clients gleichzeitig eine Email unsnoozen.
 
 \section{AT: Welche Möglichkeiten gibts}
@@ -265,21 +260,18 @@ Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsi
 
 \subsection{AT: Keywords}
 
+Der erste Lösungsansatz, der beleutet wird ist die Verwendung von \hl{Keywords}. Dabei werden die durch IMAP definierten \hl{Permaflags} genutzt. Wie bereits erläutert können diese von den Clients erstellt und den einzelenen Email zugeordnet werden. Es ist zwar möglich, dass der Mailserver das erstellen eigener \hl{Permaflags} nicht gestattet, was aber nur sehr selten der Fall ist.
+
+Angeleht an die Implementierung in Thunderbird, wo es ein \hl{Label} \enquote{Later} gibt, könnte hier ein \hl{Label} \enquote{Snooozed} eingeführt werden. Dieses \hl{Label} würde dann die Aufgabe erfüllen Emails zu identifizieren, welche \hl{gesnozt} sind. Es ist auch möglich direkt das \hl{Label} \enquote{Later} von Thunderbird zu adaptieren für diesen Zweck. Da Later im Fall von Thunderbird eine sehr ähnliche Bedeutung hat wie ein Snooze hat und intern als \enquote{\$label5} implementiert ist, könnten dieses \hl{Label} auch \enquote{Snoozed} heißen und somit direkt in mehreren Clients funktionieren. Zu beachten ist hier aber, dass dieses \enquote{Label} nur die Information repräsentiert, welche Mail \hl{gesnoozt} ist, nicht aber für wie lange. Deshlab kann dieser Ansatz höchstens ein Teil einer interoperablen Lösung sein.
+
+Ein anderer Ansatz basierend auf der Verwendung von \hl{Keywords}, ist die Implementierung des eM Clients. Das \hl{Label}, welches dort beim \hl{snoozen} gesetzt wird besteht aus der ersten Hälte \enquote{\$SnoozedUntil\_} und der zweiten Hälte, welche ein UNIX Timestamp ist, z.B. \enquote{162597600}. Dabei würde die erste Hälte die Aufgabe erfüllen, zu identifizeiren, welche Email \hl{gesnoozt} ist und die zweite Hälfte die Zeit definieren, wann die Email \hl{unsnoozt} werden soll. Das Problem dieses Ansatzen liegt im Design des \hl{Labels}. Da der UNIX Timestamp Teil des \hl{Labels} ist, ist jedes \hl{Label} unterschiedlich. Ausgenommen der Fall, dass zwei oder mehr Emails gleichzeitig \hl{gesnoozt} gesnoozt werden. Dies fürt dazu, dass bei jedem \hl{snoozen} ein neues \hl{Label} erstellt wird, welches dann durch den Mailserver gespeichert und bei jeder \enquote{SELECT} Anfrage zurückgegeben wird. Zwar definiert der IMAP Standard keine maximale Anzahl an \hl{Labeln}, welche durch die Clients erstellt werden dürfen, allerdings kann der Mailserver das Erstellen neuer \hl{Label} unterbinden, falls die Anzahl eine interne grenze überschreitet, indem die \hl{PERMAFLAG} Antwort kein \textbackslash* enthält. \cite{melnikovInternetMessageAccess2021} Außerdem nutzen manche Clients wie z.B. FairEmail die \hl{PERMAFLAG} Antwort um eine Liste an möglichen \hl{Labels} zu generieren, die einer Email zugewiesen werden können. Ein Heruasfiltern dieser \hl{Label} ist in diesem Fall wahrscheinlich ein annehmbarer Aufwand, den die Clients betreiben müssten. Aber auch generell entsteht durch diesen Ansatz eine sich schnell aufsummierende Masse an Daten, sowohl auf dem Mailserver als auch im Datenverkehr zwischen Client und Server, welche nur bis zu einem bestimmten Zeitpunkt gebraucht werden. Eine Möglichkeit \hl{Labels} zu löschen oder ein mechanismus, der dafür sorgt, dass ncht mehr verwendete \hl{Labels} Serverseitig gelöscht werden, wäre für diesen Ansatz wünschenswert und notwendig.
+
+
+
+
 \begin{itemize}
-	\item Was sind die IMAP Keywords??!? Wie unterscheiden sich Flags/Permaflags und der die anderen Begriffe
-	
-	\item eM Client (nochmal kurz erklären wies funzt und dann erläutern was damit möglich)
-	\begin{itemize}
-		\item Für IMAP nur das Label sichtbar sonst passiert nichts. Führ bei anderem Client dazu, dass die Mail angezeigt werden in der INBOX (Gmail Beispiel aus dem Forum \cite{SnoozedEmailsStay2022})
-		\item spammt den Keyword Speicher voll manche clients schlagen bestehende keywords als Option vor. Sieht dann richtige Keywords zum taggen nicht mehr
-		\item Inwieweiit gibt es hier evt. eine maximale Anzahl (Über SELECT werden alle permafrlags und Flags zurückgegeben)
-		\item ziemlich mächtig, da in dem label alles bis auf den src folder und die zeit wann gesnoozt drin steht
-	\end{itemize}
-	\item Thunderbird \enquote{Later} (nochmal kurz erlären und erläutern was möglich damit)
-	\begin{itemize}
-		\item Keyword Snoozed einführen oder bestehendes Later adaptieren (in anderen cliens snoozed nennen)
-		\item kann aber nur anzeigen, welche mail gesnoozed ist
-	\end{itemize}
+	\item Was sind die IMAP Keywords??!? Wie unterscheiden sich Flags/Permaflags und der die anderen Begriffe (eher oben erklären, da bereits verwendet)
+
 \end{itemize}
 
 \subsection{AT: Header bearbeiten}
@@ -291,6 +283,13 @@ Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsi
 	\item auf roundcube github bedenken eingehen
 	\item kopieren und einfügen notwendig, da Email beareiten nicht vorgesehen
 	\item super cool, da alle informationen drin sind
+	\item S/Smime könnte kaputt gehen?
+	\begin{itemize}
+		\item S/SMIME kann header wrappen, damit diese durch S/MIME geschützt sind \cite{melnikovInternetMessageAccess2021}
+		\item Standardmäßig ist aber nur der Body und coentet related header durch durch S/MIME geschützt.
+		\item auch Extenstions wie \enquote{Securing Header Fields with S/MIME} basieren auf der auswahl der bestimmten header, welche geschützt werden. \cite{cailleuxSecuringHeaderFields2015}
+		\item Somit wird die Verschlüsselung und Signatur durch extra Header nicht kaputt gemacht.
+	\end{itemize}
 \end{itemize}
 
 \subsection{AT: Metadaten Speichern}
@@ -311,6 +310,8 @@ Zum Schluss muss sichergestellt werden, dass beim unsnooze Prozess keine Inkonsi
 	\item (special use) [partielle Lösung]
 	\item IMAP LIST Extension for Special-Use Mailboxes
 \end{itemize}
+
+In Keyword und Header Ansatz und Metadata, wenn nciht verschoben ist zwar ein Indikator, welche Email \hl{gesnoozt} ist, allerdings kann es in Email Clients, welche das Feature nicht implementieren oder \hl{Labels} gar nicht anzeigen zu verwirrung kommen, da die Emails nicht verschoben ... \cite{SnoozedEmailsStay2022} (Beispiel Gmail)
 
 \subsection{AT: Savedate}
 
