@@ -295,9 +295,16 @@ Ein Problem dieses Ansatztes ist, dass die Header einer Email eig. nicht durch d
 
 \subsection{AT: Metadaten Speichern}
 
+Ein weiterer Lösungsansatz ist die Verwendung der RFCs 5257\footnote{RFC5257 - Internet Message Access Protocol - ANNOTATE Extension \url{https://datatracker.ietf.org/doc/html/rfc5257}} (Internet Message Access Protocol - ANNOTATE Extension) und 5464\footnote{RFC5464 - The IMAP METADATA Extension \url{https://datatracker.ietf.org/doc/html/rfc5464}} (The IMAP METADATA Extension). Beide Erweiterungen funktionieren sehr ähnlich. Die Annotate Extention ermöglicht zu jeder Email seperat Informationen abzuspeichern, die Metadata Extention dagegen zu Mailboxen und auf Server Ebene. Die Annotate Extention ist eine Experimentelle Erweiterung von 2008.\cite{dabooInternetMessageAccess2008} Aufgrund dessen fällt die Implementierung in Mailservern eher gering aus.\cite{boschSpecsUnofficialIMAP} Gerade DoveCot als verbreitetster IMAP Mailserver \hl{BELEG} unterstützt diese Erweiterung nicht. Die Metadata Erweiterung dagegen ist Teil des Standards und wird von DoveCot implementiert.\cite{boschSpecsUnofficialIMAP} Es wird im folgenden der Lösungsansatz anhand der Metadata Erweiterung erklärt, obwohl die Annotate Erweiterung eine bessere Grundlage für das Snooze Feature bietet, da Informationen direkt auf Email Ebene abgespeichert werden können. Für die Metadaten Erweiterung spricht in diesem Fall aber die bereits existierende Standardisierung und somit vorhandene Implementierung in vielen IMAP Mailservern.
+
+Die Metadata Erweiterung führt neue IMAP Befehle ein für das setzen und abrufen der Metadaten. Um auf Informationen auf Mailbox Ebene zuzugreifen ist der Mailboxname als erstes Argument mitzugeben. Um auf die Informationen auf Serverebene zuzugreifen wird ein leerer String als Argument mitgegeben. Der Speicher pro Mailbox bzw. für den Server ist dann Hirarchisch aufgebaut und besteht aus Eintragspaaren bestehend aus Name und Wert. Der Name des Eintrages beginnt mit einem \enquote{/} und wird von Worten gefolgt, wie wiederum mit \enquote{/} getrennt sind. Dieser Aufgabau bildet dann die Hirarchie der Einträge.\\
+Die oberste Hirachrchie-Ebene besteht aus zwei Möglichkeiten: \enquote{/private} und \enquote{/shared}. Unter private sind Einträge zu findne, welche nur durch den eigeloggten Nutzenden abgerufen werden können. Unter shared befinden sich Einträge, welche für alle Nutzenden, die Zugriff auf diese Mailbox oder den Server haben abrufbar sind. Die nächste Hirarchiebenede besteht aus vordefinierten Möglichkeiten wie z.B. \enquote{/private/comment} oder \enquote{/shared/comment} für eine Notiz zur Mailbox. An dieser Stelle könnte man ansetzten und eine Eintrag \enquote{/private/snoozed} für eine spezielle Snoozed Mailbox erzeugen. In diese Mailbox werden die \hl{gesnoozten} Emails verschoben und als Wert des Eintrages wird ein JSON Objekt gespeichert, welches zu allen in der Mailbox befindlichen Emails die notwendigen Snooze Informationen abspeichert.
+
 \begin{itemize}
-	\item (METADATA und ANNOTATE Extention)
+	\item Evt noch drauf eingehen, dass Wert von Eintrag mehrzeitlig sein kann und string NIL oder binary data sein kann
+	\item Evt auf min von 10 Einträge pro Mailbox müssen erlaubt sein, darüer hinaus vom server einschrenkbar, eingehen
 \end{itemize}
+
 
 \subsection{AT: Dublizieren}
 
