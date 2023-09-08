@@ -306,11 +306,11 @@ Die oberste Hirachrchie-Ebene besteht aus zwei Möglichkeiten: \enquote{/private}
 \end{itemize}
 
 
-\subsection{AT: Dublizieren}
+\subsection{AT: Referenze Email}
 
-\begin{itemize}
-	\item 
-\end{itemize}
+Ein weiterer Ansatz ist das Speichern der Snooze Informationen in einer extra Email ähnlich zur Implementierung, die Mailspring verwendet um Emails an den Anfang der Inbox zu sortieren. Beim snoozen würde dabei eine neue Email erzeugt werden, welche \hl{per Referenz} der eigentlichen Email angehängt wird. Über ein Attribut dieser neuen Email, welches defineirt ist kann dann die Email im Client ausgeblendet, sodass nur die eigentliche \hl{gesnoozte} Email sichtbar ist. Für dieses Attribut gibt es mehrere Möglichkeiten. Beispielsweise kann eine \hl{Keyword} \enquote{Hidden} eingeführt werden, welches den Clients mitteilt, dass die Email mit diesem \hl{Keyword} unsichtbar sein soll. Es kann auch ein Header in der Email einen bestimmten Wert haben. Beispielsweise könnte man den Subject Header auf \enquote{SNOOZEDMETADATA} setzen. Wichtig ist, dass dieses Attribut einheitlich und eindeutig definiert ist. Im Body der Email könnten dann die Informationen zum Snooze der eigentlichen Email in Form z.B. eines JSNON Objekts stehen.
+
+Für ander Clients, die diesen Ansatz nicht implementieren, ensteht wie auch bei Mailspring eine extra Email, die eigentlich kein relevanten für den Nutzenden hat. Viele Email Clients bieten implemntieren zwar die Thread Funktionalität und würden die extra Emial nur bei Auswahl der eigentlichen Email anzeigen, trotzdem kann dies zu Unübersichtlichkeit und Verwirrung führen.
 
 \subsection{AT: Dedicated Ordner}
 
