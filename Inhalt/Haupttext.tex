@@ -314,12 +314,9 @@ Für ander Clients, die diesen Ansatz nicht implementieren, ensteht wie auch bei 
 
 \subsection{AT: Dedicated Ordner}
 
-\begin{itemize}
-	\item (special use) [partielle Lösung]
-	\item IMAP LIST Extension for Special-Use Mailboxes
-\end{itemize}
+Alle bis jetzt beschriebenen Lösungsansätze, mit ausnahme der Benutzung der Metadata Erweiterung, erfüllen die Aufgabe, erkennbar zu machen, welche Email gesnoozt ist, ohne eine extra Mailbox anzulegen. Das heißt aber auch, dass Clients, welche keine Implementierung einer dieser Ansätze verfolgen, zu Verwirrung und Unübersichtlichkeit führen können, wenn mehrere Clients benutzt werden. \cite{SnoozedEmailsStay2022} Es ist deshalb sinnvoll eine extra Mailbox anzulegen, welche \hl{gesnoozte} Emails aufbewahrt, bis sie wieder \hl{unsnoozed} werden. Dieses Verhalten gibt es bereits in vielen Clients, welche ein Snooze Feature implementiert haben. Allerdings gibt es in der Namensgebung dieser Mailbox, wie bereits erwähnt, viele Unterschiede. Ein einheitlicher Name wie z.B. \enquote{Snoozed} wäre hier sinnvoll.
 
-In Keyword und Header Ansatz und Metadata, wenn nciht verschoben ist zwar ein Indikator, welche Email \hl{gesnoozt} ist, allerdings kann es in Email Clients, welche das Feature nicht implementieren oder \hl{Labels} gar nicht anzeigen zu verwirrung kommen, da die Emails nicht verschoben ... \cite{SnoozedEmailsStay2022} (Beispiel Gmail)
+Für eine interoperable Lösung kann sich an der Idee der \enquote{Special-Use Mailbox} orientiert werden, welche im  RFC6154\footnote{RFC6154 - IMAP LIST Extension for Special-Use Mailboxes: \url{https://datatracker.ietf.org/doc/rfc6154/}} definert wird und bereits Teil des offiziellen IMAP Standards in der neusten Version (4rev2\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}) ist. Dabei gibt der Server beim Listen der Mailboxen bestimmte Attribute zurück, welche näher beschreiben, was in der Mailbox zu finden ist oder was dort hinein gehört. \cite{melnikovInternetMessageAccess2021} Es gibt definierte fest definierte Attribute, wie z.B. \enquote{\textbackslash{Archive}} oder \enquote{\textbackslash{Drafts}}, welche eine Mailbox für archivierte Nachrichten und eine Mailbox für Entwürfe spezifiziert. An dieser Stelle könnte eine Erweiterung des Standards um ein Attribut \enquote{\textbackslash{Snoozed}} angestrebt werden, welches dann für alle Clients klar definiert, welche Mailbox die Aufgabe hat \hl{gesnoozte} Emails aufzubewahren.
 
 \subsection{AT: Savedate}
 
