@@ -63,7 +63,8 @@
 \section{AT: Effizientes Mail Management}
 \label{sec:InboxZero}
 
-Viele stehen vor dem Problem, dass ihr E-Mail Posteingang \hl{(im folgenden INBOX genannt)} überfüllt ist mit E-Mails, welche noch beantwortet werden müssen. Das E-Mail Postfach öffnen führt zu Stress, und es werden immer mehr E-Mails obwohl man sein bestes gibt diese zu bearbeiten. Es scheint so, als ob die Fähigkeit mit der Masse an E-Mails klar zu kommen, entscheided ist über den Erfolg, den man vorallem im Job hat. Die Inbox wird als To-Do Liste, Kalender und Postfach in einem genutzt. \cite{googletechtalksInboxZero2007} Dieses Konzept führt gezwungener Maßen zu Problemen. Es gibt aber Konzepte, mit denen dieses Problem angegangen werden kann. Die meisten basieren auf Getting Things Done, was eine Produktivitätsstrategie ist, die das Ziel hat Aufgaben, Informationen, Probleme oder Projekte extern, also nicht im Kopf, zu verwalten. \cite{GettingThingsDone2023} David Allen hat diese Methode entwickelt und beschreibt in seinem Buch "Getting Things Done: The Art of Stress-Free Productivity", wie Sie funktioniert und anzuwenden ist. \hl{Buch ref?}
+Viele stehen vor dem Problem, dass ihr E-Mail Posteingang \hl{(im folgenden INBOX genannt)} überfüllt ist mit E-Mails, welche noch beantwortet werden müssen. Das E-Mail Postfach öffnen führt zu Stress, und es werden immer mehr E-Mails obwohl man sein bestes gibt diese zu bearbeiten. Es scheint so, als ob die Fähigkeit mit der Masse an E-Mails klar zu kommen, entscheided ist über den Erfolg, den man vorallem im Job hat. Die Inbox wird als To-Do Liste, Kalender und Postfach in einem genutzt. \cite{googletechtalksInboxZero2007} Dieses Konzept führt gezwungener Maßen zu Problemen. \\
+Es gibt Konzepte, mit denen dieses Problem angegangen werden kann. Die meisten basieren auf Getting Things Done, was eine Produktivitätsstrategie ist, die das Ziel hat Aufgaben, Informationen, Probleme oder Projekte extern, also nicht im Kopf, zu verwalten. \cite{GettingThingsDone2023} David Allen hat diese Methode entwickelt und beschreibt in seinem Buch "Getting Things Done: The Art of Stress-Free Productivity", wie Sie funktioniert und anzuwenden ist. \hl{Buch ref?}\\
 Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welche sich auf das E-Mail Management spezialisieren. Inbox Zero ist eine davon, welche von Merlin Mann erstmalig definiert wurde und nicht das Ziel hat keine E-Mails mehr in der Inbox zu haben, wie man es durch den Namen annehmen könnte, sondern eher darauf bezogen ist, kein Stress bei der Bearbeitung der Inbox zu haben. \cite{WhatInboxZero2019} Es geht nicht darum alle E-Mails in der Inbox zu beantworten sondern alle E-Mails zu bearbeiten. Das heißt, dass man sich Aktionen definiert, welche man auf die zu bearbeitende E-Mail anwendet. Das kann das Beantworten der E-Mail sein aber genauso das Löschen oder Zurückstellen der E-Mail. Wichtig ist, dass man ohne viel überlegen entscheidet, welche Aktion auszuführen ist und sich nach ausführen der nächsten E-Mail widmet. \cite{googletechtalksInboxZero2007}
 \hl{Ähnlich ist die N days later Methode. (Nicht relevant?)}
 
@@ -320,18 +321,14 @@ Für eine interoperable Lösung kann sich an der Idee der \enquote{Special-Use Mai
 
 \subsection{AT: Savedate}
 
-\begin{itemize}
-	\item zum Anfang sortieren  [partielle Lösung]
-	\item Internet Message Access Protocol (IMAP) - SAVEDATE Extension
-\end{itemize}
+Eine Aufgabe, die für eine Snooze Funktionaliät nicht entschiedend ist, aber zu einem besseren Nutzendenerlebnis breiträgt ist das sortieren an den Anfang nach dem \hl{unsnoozen}. Dafür beitet sich die IMAP Erweiterung RFC8514\footnote{RFC8514 - Internet Message Access Protocol (IMAP) - SAVEDATE Extension: \url{https://datatracker.ietf.org/doc/html/rfc8514/}} (Internet Message Access Protocol (IMAP) - SAVEDATE Extension) an. Diese Erweiterung definiert ein neues Email Attribut \enquote{save date}. Dieser Zeitpunkt ist ist der Zeitpunkt, an dem die Email in die Mailbox gekommen ist, in der sie sich gerade befindet. Sobald eine Email also von einer Inbox in eine andere verschoben wird, ändert sich dieses Attribut auf die Aktuelle Zeit. Abgerufen werden kann dieses Attribut über den \textit{FETCH} Befehl.\\
+Wenn man davon ausgeht, dass eine Email beim \hl{snoozen} in eine andere Mailbox verschoben wird und beim \hl{unsnoozen} wieder zurückgeschoben wird, kann man die Emails der Mailbox nach diesem Attribut sortieren und würde Emails, welche gerade \hl{gewaked} sind am Anfang der Mailbox angezeigt bekommen.\\
+Leider ist diese Erweiterung im Moment nur in DoveCot ab der Version 2.3.11 genutzt werden. \cite{boschSpecsUnofficialIMAP}
 
 \subsection{AT: Wer übernimmt das verschieben}
 
-\begin{itemize}
-	\item Alle Lösungsansätze schaffen nur die Grundlage um das waken/unsnoozen zu ermöglichen, das zurückmoven usw ist extra Aufgabe und muss durch den Server oder Client gemacht werden
-	\item welche Probleme treten beim sync auf [partielle Lösung]
-	\item IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)
-\end{itemize}
+Alle beschriebenen Lösungsansätze bieten teilweise oder vollumfänglich die Grundlage für eine Snooze Funktionalität. Allerdings ist der eigentliche Prozess des \hl{snoozen} und \hl{unsnoozen} noch nicht geregelt. Dies kann entweder durch den Server oder durch den Client passieren. Für den Fall, dass eine Clientseitige Implementierung angestrebt wird, ist es notwendig, dass alle Clients schnelle Updates über eine Veränderung auf dem Server bekommen, da das \hl{unsnoozen} theoretisch von vielen Clients gleichzeitig ausgeführt werden kann.\\
+Hierführ bietet sich der RFC7162\footnote{RFC7162 -IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{hhttps://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist Teil des Standards und weit verbreitet implementiert.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht Mailbox Änderungen in Bezug auf Flag und Metadaten schnell zu synconisieren.\cite{melnikovIMAPExtensionsQuick2014}
 
 \section{Fazit}
 \label{sec:LoesungFazit}
