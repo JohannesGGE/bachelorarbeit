@@ -97,24 +97,15 @@ Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welc
 
 \subsection{AT: Mailserver}
 
-\begin{itemize}
-	\item Was ist der Mailserver???, welche Aufgabe hat er? Wichtig in dieser Arbeit? MTA? (Dovecot Buch)
-\end{itemize}
-
-\iffalse
-
-Tatsächlich besteht ein Mailserver baukastenartig aus einer Vielzahl von Komponenten und Programmen und kommuniziert über verschiedene Protokolle. Das gilt auch für kommerzielle Lösungen, die diese Vielfalt unter einem Produktnamen anbieten. In den meisten Fällen lassen sich die verschiedenen Aufgaben auf mehrere Server verteilen, so dass \enquote{Der Mailserver} in Wahrheit aus mehreren Maschienen besteht. (S. 19)
-
-Über das Simple Mail Transport Protocol (SMTP) unterhalten sich die Mailserver miteinanderr, wenn sie E-Mails ans Ziel bringen wollen. [...] SMTP eignet sich jedoch nur für den Versand von Mail, nicht aber für den nutzerseitigen Empfang, sodass man per SMTP weder sein Postfach abfragen kann noch Mailverzeichnisse darin anlegen kann. Folglich hat ein Mail Transfer Agent (MTA), der die Aufgabe hat, von Clients oder anderen Servern übernommene Mails ans Ziel zu transportieren, nichts mit Empfangsmechanismen wie POP3, IMAP und dergleichen zu tun. (S. 20)
-
-
-
-BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
-
-\fi
-
+Ein Mailserver besteht aus einer Vielzahl von Komponenten und Programmen. Diese lassen sich in drei sogenannte Agents unterteilen. Den Mail Transport Agent (MTA), den Mail Delivery Agent (MDA) und den Mail User Agent (MUA). Diese Agents erfüllen verschiedene Aufgaben, welche auf einem oder mehreren Servern ausgeführt werden. 
+\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 19)
+Der MTA realisiert den asynchronen Email Betrieb, indem er Emails vom Nutzendenclient versendet oder Emails von anderen MTAs empfängt und weiterleitet. Das Simple Mail Transport Protocol (SMTP) ist dabei das Protokoll, über dass die MTAs kommmunizieren.\\
+Der MDA ist für die Bearbeitung der Email zuständig, wenn der aktuelle MTA das Ziel der Email ist. Er sogt dafür, dass die Email an der richtigen Stelle im mailstore (Email Speicher) für den adressierten Nutzenden abgespeichert wird.\\
+Da SMTP sich zwar für den Versand von Emails, aber nicht für das nutzerseitige empfangen und abfragen eignet, gibt es noch den MUA. Der MUA ist die Schnittstelle zum Nutzenden und stellt Zugang zum mailstore durch ein Zugriffsprotokoll wie POP3 oder IMAP zur verfügung. Dabei ist der MUA sowohl Teil des Clients, den der Nutzende benutzt, als auch serverseitig um die Anfragen durch POP3 oder IMAP zu bearbeiten.\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 20)\\
+Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der serverseitige Teil des MUA gemeint.
 
 \subsection{AT: IMAP}
+
 
 \begin{itemize}
 	\item Was ist IMAP im Vergleich zu POP3
@@ -123,9 +114,30 @@ BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 	\item Auf Thread Möglichkeit eingehen, oder unten bei Mailspring
 	\item Ordner/Mailbox Begriff erklären Sysnonym
 	\item im Zuge warum IMAP das Prinzip des Clients erklären
+	\item was sind extenstions?
+\end{itemize}
+
+\begin{itemize}
+	\item Protokoll der Sitzungsschicht
+	\item Request-Response und Multiple-Request-Response Verfahrensweise
+	\item zuverlässig, statefull, bestätigt
+	\item sync von E-Mail zwischen Clients und Server ähnlich Dateisytemsynchnisation
+	\item Nutzt Transmission Control Protocol (TCp)
 \end{itemize}
 
 \iffalse
+
+IMAP is a way of accessing electronic mail that is stored on a central server. [...]
+More precisely,IMAP is a way to retrieve messages from one or more mailboxes on a central server, without ever having to download a single message to local hard disk. The messages remain on the server at all times. [...]
+With IMAP, you don?t have to wonder which computer you were on when you downloaded and read a given message. You know it?s still on the server. (S. 16)
+
+Another distinguishing feature of IMAP is that, not only is your INBOX stored in a central location, but your mail folders (mailboxes, in IMAP parlance) are stored in a central location on the IMAP server as well. As long as you?ve got IMAP client software,* not only can you read your incoming email from just about anywhere on the Net, but you can access all the mail you archived in your mailboxes, too.
+(S. 17)
+
+
+MANAGING IMAP \cite{mulletManagingIMAP2000}
+
+----
 
 Der POP3-Server wartet, bis sich ein Nutzer erfolgreich einloggt, und übermittelt ihm dann die in seinem Postfach gespeicherten, ungelesenen Narichten. Je nach Client-Anforderung werden die übertragenen Nachrichten anschließend gelöscht, um Platz zu spren, oder als gelesen markiert und aufgehiben. Das ist nicht anspruchsvoll, und so gibt es wenig, was eine Software hier falsch machen kann. (S. 21)
 
@@ -136,6 +148,23 @@ Ein IMAP-Server stellt den Speicherplatz zur Verfügung und hält alle E-Mails vor
 Ein IMAP-Server ermöglicht es den Nutzern, von mehreren Computern aus parallel dasselbe Postfach zu pflegen, so dass sie, egal wo sie auf ihre Mails zugreifen, überall den identischen Datenbestand vorfinden, wodurch sich Synchronisation erübrigt. (S 22)
 
 Der gesamte Mailbestand verbleibt aber zentral auf dem Server. So können mehrere Mailclients problemlos parallel auf dasselbe Postfah zugreifen. (S. 39)
+
+(Capaabilities) Drauf antwortet der Server mit einer Präsentaion seiner Fähigkeiten, den Capabilities. Nicht jeder Server muss alle IMAP-Features unterstützen: Die über das Kernprotokoll hinausgehenden IMAP-Erweiterungen, die IMAP-Extenstions, sind stets optional. (S. 45)
+
+(List Command) Die Flags in der dritten Spalte verraten, ob das jeweilige Verzeichnis Unterordner (\textbackslash{HasChildren} - ja, \textbackslash{HasNoChildren} - nein) und Nachrichten beherbergt: In mit \textbackslash{Unmarked} gekennzeichnete Folder sind seit dem letzten Zugriff keine neuen Mails eingegenagen. (S. 46)
+
+Der Server teilt uns mit dem Stichwort \texttt{FLAGS} die in diesem Ordner zulässigen Flags für E-Mails mit, denn diese sind ja nicht fest vorgegeben. Meist wird es sich dabei um folgende Handeln: \textbackslash{Answered}, Deleted, Draft, Flagged, Seen, Recen, \textbackslash{*} (S. 46-47)
+
+Nun kann der Client Nachrichten ider auch nur Nachrichtenteile abrufen. Für den Aufbau des Inhaltsverzeichnisses reichen beispielsweise die Mail-header. Übder das Kommando \texttt{FETCH} lässt sich sehr genau steuern, welche E-Mails [...] und welche Teile dieser E-Mails übertragen werden. (S. 49)
+
+(Keywords) Neben den oben vorgestellten fünf offiziellen IMAP-Flags haben IMAP-Clients die Möglichkeit, beliebige weitere, selbstdefinierte Flags zu benutzen. Diese nennt man auch Keywords; sie unterscheiden sich von den Systemflags lediglich durch den fehlenden vorangestellten Backslash im Namen: \textbackslash{Seen} ist eines der offiziellen IMAP-Flags, \texttt{Huhu} ein selbstdefiniertes.
+Abgesehen von diesem Detail, werden selbstdefinierte und Systemflags auf gleiche Weise angesprochen und gesetzt.
+Keyword können demnach wie due normalen IMAP-Flags temporärer Natur sein (dann gehen sie bei jedem Ordner-Wechsel verloren) oder permanenter auf dem Server gespeichert werden (dann bleiben sie auch nach dem Ausloggen erhalten). (S. 145-146)
+
+(Extentions) IMAP ist nicht nur ein komplexes Protokoll, sondern auch ebenso komplex definiert. Neben RFC 3501, der IMAP in der seit März 2003 geltenden Version 4rev1 definiert, existieren unzählige weritre RFCs oder Internet-Drafts mit Erweiterungen, den IMAP-Extentions.
+Diese Vielfalt verweundert nicht, hat das IMAP-Protokoll mit seinem Kommando \texttt{CAPABILITY} selbst den Grundstein dafür gelegt, dass Server flexibel optionale Erweiterungen anbieten können, die sich die Erfinder von IMAP nie hätte träumen lassen.
+Die zahllosen Exentions sprengen leider den Rahmen dieserer Referenz, zumal dereren Unterstützung bei den IMAP-Clients häufig recht lückenhaft ist. (S. 348)
+
 
 BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 
@@ -153,6 +182,19 @@ BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 		\item Interoperabel
 	\end{itemize}
 \end{itemize}
+
+
+\iffalse
+
+Internet messaging is defined by a series of specifications that are free and open for all. Consequently, an Internet messaging system can be built using a variety of products from several vendors, with assuring that each product will interoperate with all the other products. This is especially important because the open standards defining the Internet itself make for a highly complex environment in which each component of a messaging model must know what to expect of the others. Communication standardization is the soul of the Internet. (S. 10)
+
+Before too long, however, the problem of how to best implement email was divided and conquered. As we?ve seen, a special-purpose protocol (SMTP) was developed exclusively for transport of the messages from one place to another.
+Other protocols were developed for accessing the mail once it arrived at the destination mailstore (IMAP and POP). Standards were developed for the format of messages themselves and for encapsulating the payload of those messages (MIME). With the standards in hand, it was an entirely manageable task for the various parts that make up Internet email to interoperate, because the means of doing so was a widely discussed and published set of industry standards. System administrators no longer needed to worry about whether or not the sendmail, QMail, and Postfix MTAs would talk to each other. Nor did they need to concern themselves with whether any IMAP-compliant client would be able to retrieve mail from their UW IMAP, Cyrus, or proprietary IMAP server. (S. 12)
+
+
+BUCH \cite{mulletManagingIMAP2000}
+
+\fi
 
 
 \chapter{AT: Exsitierende Implementierungen}
@@ -312,9 +354,20 @@ Angeleht an die Implementierung in Thunderbird, wo es ein \hl{Label} \enquote{La
 Ein anderer Ansatz basierend auf der Verwendung von \hl{Keywords}, ist die Implementierung des eM Clients. Das \hl{Label}, welches dort beim \hl{snoozen} gesetzt wird besteht aus der ersten Hälte \enquote{\$SnoozedUntil\_} und der zweiten Hälte, welche ein UNIX Timestamp ist, z.B. \enquote{162597600}. Dabei würde die erste Hälte die Aufgabe erfüllen, zu identifizeiren, welche Email \hl{gesnoozt} ist und die zweite Hälfte die Zeit definieren, wann die Email \hl{unsnoozt} werden soll. Das Problem dieses Ansatzen liegt im Design des \hl{Labels}. Da der UNIX Timestamp Teil des \hl{Labels} ist, ist jedes \hl{Label} unterschiedlich. Ausgenommen der Fall, dass zwei oder mehr Emails gleichzeitig \hl{gesnoozt} gesnoozt werden. Dies fürt dazu, dass bei jedem \hl{snoozen} ein neues \hl{Label} erstellt wird, welches dann durch den Mailserver gespeichert und bei jeder \enquote{SELECT} Anfrage zurückgegeben wird. Zwar definiert der IMAP Standard keine maximale Anzahl an \hl{Labeln}, welche durch die Clients erstellt werden dürfen, allerdings kann der Mailserver das Erstellen neuer \hl{Label} unterbinden, falls die Anzahl eine interne grenze überschreitet, indem die \hl{PERMAFLAG} Antwort kein \textbackslash* enthält. \cite{melnikovInternetMessageAccess2021} Außerdem nutzen manche Clients wie z.B. FairEmail die \hl{PERMAFLAG} Antwort um eine Liste an möglichen \hl{Labels} zu generieren, die einer Email zugewiesen werden können. Ein Heruasfiltern dieser \hl{Label} ist in diesem Fall wahrscheinlich ein annehmbarer Aufwand, den die Clients betreiben müssten. Aber auch generell entsteht durch diesen Ansatz eine sich schnell aufsummierende Masse an Daten, sowohl auf dem Mailserver als auch im Datenverkehr zwischen Client und Server, welche nur bis zu einem bestimmten Zeitpunkt gebraucht werden. Eine Möglichkeit \hl{Labels} zu löschen oder ein mechanismus, der dafür sorgt, dass ncht mehr verwendete \hl{Labels} Serverseitig gelöscht werden, wäre für diesen Ansatz wünschenswert und notwendig.
 
 \begin{itemize}
-	\item Was sind die IMAP Keywords??!? Wie unterscheiden sich Flags/Permaflags und der die anderen Begriffe (eher oben erklären, da bereits verwendet)
+	\item max flags ref dovecot buch und dovecot docs
 
 \end{itemize}
+
+\iffalse
+
+Dovecot veraltet individuelle Keywords in der Datei \texttt{dovecot-keywords}; dabei werden die Keywords zur Verwaltung durchnummeriert: 0 \$Junk, 1 \$NonJunk, 2 \$Test, 3 \$Firma,
+Gleichzeitig speichert Dovecot die Keywords einer E-Mail im Maildir-Dateinamen - allerdings nicht als Zahl, sondern als korrespondierender, kleingeschriebener (!) Buchstabe, also 0=a, 1=b, 2=c, 3=d usw. Eine Mail mit dem Flag \$Firma hätte also das Flag d gesetzt.
+Dovecot kann demnach maximal 26 Flags im Maildir-Namen verwalten (a - z, also 0 bis 25). Werden mehr Keywords gesetzt, werden diese in \texttt{dovecot.index.cache} geschrieben. Dovecot kann also durchaus mehr speichern; andere Programme könnten aus den Maildir-Daten aber nur 26 Flags erkennen - was für die Praxis aber ausreichen sollte. (S. 146)
+
+
+BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
+
+\fi
 
 \subsection{AT: Header bearbeiten}
 
@@ -362,6 +415,23 @@ Für ander Clients, die diesen Ansatz nicht implementieren, ensteht wie auch bei 
 Alle bis jetzt beschriebenen Lösungsansätze, mit ausnahme der Benutzung der Metadata Erweiterung, erfüllen die Aufgabe, erkennbar zu machen, welche Email gesnoozt ist, ohne eine extra Mailbox anzulegen. Das heißt aber auch, dass Clients, welche keine Implementierung einer dieser Ansätze verfolgen, zu Verwirrung und Unübersichtlichkeit führen können, wenn mehrere Clients benutzt werden. \cite{SnoozedEmailsStay2022} Es ist deshalb sinnvoll eine extra Mailbox anzulegen, welche \hl{gesnoozte} Emails aufbewahrt, bis sie wieder \hl{unsnoozed} werden. Dieses Verhalten gibt es bereits in vielen Clients, welche ein Snooze Feature implementiert haben. Allerdings gibt es in der Namensgebung dieser Mailbox, wie bereits erwähnt, viele Unterschiede. Ein einheitlicher Name wie z.B. \enquote{Snoozed} wäre hier sinnvoll.
 
 Für eine interoperable Lösung kann sich an der Idee der \enquote{Special-Use Mailbox} orientiert werden, welche im  RFC6154\footnote{RFC6154 - IMAP LIST Extension for Special-Use Mailboxes: \url{https://datatracker.ietf.org/doc/rfc6154/}} definert wird und bereits Teil des offiziellen IMAP Standards in der neusten Version (4rev2\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}) ist. Dabei gibt der Server beim Listen der Mailboxen bestimmte Attribute zurück, welche näher beschreiben, was in der Mailbox zu finden ist oder was dort hinein gehört. \cite{melnikovInternetMessageAccess2021} Es gibt definierte fest definierte Attribute, wie z.B. \enquote{\textbackslash{Archive}} oder \enquote{\textbackslash{Drafts}}, welche eine Mailbox für archivierte Nachrichten und eine Mailbox für Entwürfe spezifiziert. An dieser Stelle könnte eine Erweiterung des Standards um ein Attribut \enquote{\textbackslash{Snoozed}} angestrebt werden, welches dann für alle Clients klar definiert, welche Mailbox die Aufgabe hat \hl{gesnoozte} Emails aufzubewahren.
+
+\begin{itemize}
+	\item Nochmal umformulieren mit Buch Dovecot
+	\item durch special use attribute gelöstes Problem wird wieder neu aufgerollt, da kein Snoozed special use existiert
+\end{itemize}
+
+
+\iffalse
+
+Es war jahrelang - wohl eher jahrzehntelang - ein wirklich ärgerliches Dilemma, dass jeder Mailclient seine eigenen Vorstellungen davon hatte, wie der IMAP-Folder für gesendete Nachrichten heißen sollte: Sent, Sent Messages, Gesendete Nachrichten,...? Nachdem Outlook damit begann, diese Ordner auch noch mit übersetzten Namen anzulegen (\enquote{gesendete Objekte}), war das Chaos perfekt, wenn verschiedene Mailclients oder Webmailer gemeinsm in einem IMAP-Account arbeiten sollten und sich jeder Mailclient am Ende des an Folder-Struktur anlegte, was er glaubte an Namen verwenden zu müssen.
+Die Krönung war, dass viele Mailclients für diese \enquote{speziellen Ordner} Namen anzeigten, die von den tatsächlichen IMAP-Namen abwichen. So konnte man sich am Ende nue sicher sein, wie der dahinterligende IMAP-Folder tatsächlich hieß.
+RFC 6154 definiert darum eine IMAP-Erweiterung, über die sich Mailclients mit dem Server abstimmen, welche IMAP-Namen diese Special-Use Mailboxen haben. So lassen sich zentral einheitliche IMAP-Foldernamen vorgeben, während jeder Client seinem User einen beliebigen, selbst gewählten Namen vorgaukeln kann. (S. 65)
+
+
+BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
+
+\fi
 
 \subsection{AT: Savedate}
 
