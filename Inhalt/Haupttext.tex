@@ -94,9 +94,29 @@ Im Kontext von Emails hat Snooze eine ähnliche Bedeutung. Emails, welche im Mome
 
 \subsection{AT: RFCs}
 
+\enquote{Ein Request for Comments (RFC) ist ein formales Dokument der Internet Engineering Task Force (IETF), das Spezifikationen und organisatorische Hinweise zu Themen im Zusammenhang mit dem Internet und Computernetzwerken enthält, wie z. B. Routing, Adressierung und Transporttechnologien.}\cite{WhatRequestComments} \\
+RFCs werden durch die IETF, das Internet Architecture Board (IAB), die Internet Research Task Force (IRTF) oder durch unabhänige Einreichende erstellt. In der Regel beginnen RFCs als Internet-Drafts, die von einer Einzelperson oder einer kleinen Gruppe geschrieben werden. Durch die IETF wird der Draft dann durch eine Arbeitsgruppe überarbeitet und verbessert. Solch eine Arbeitsgruppe besteht aus Freiwilligen Personen auf der ganzen Welt und beinhaltet unter anderem Hardwarehersteller, Softwareentwickler und Netzbetreiber. Unabhänige Einreichungen werden dabei seltener durch eine Arbeitsgruppe betrachtet.  \cite{RFCs} \cite{WhatRequestComments} 
+
+Nicht alle Internet-Drafts werden zu einem RFC, aber ein RFC ist trotzdem nicht gleich ein tatsächlicher Internet Standard.\cite{WhatRequestComments}  Basierend auf dem Inhalt und dem Reifegrad eines RFCs wird diesem ein Label zugeordnet. Dabei gibt es die tatsächlich Standard definierenden Labels:
+
 \begin{itemize}
-	\item RFCs hier erklären? Was ist das und wie funktionierts
+	\item \textbf{Proposed standard:} \enquote{Stabil, gut verstanden und allgemein als nützlich angesehen}\cite{editorRequestCommentsRFC2019}
+	\item \textbf{Draft standard:}  \enquote{Stabil genug, um Implementierungen des Standards in Anwendungen und Netzwerktechnologie zu entwickeln}\cite{editorRequestCommentsRFC2019}
+	\item \textbf{Internet standard:} \enquote{Technisch ausgereift, weit verbreitet und von großem Nutzen für die Internetgemeinschaft}\cite{editorRequestCommentsRFC2019}
 \end{itemize}
+
+Und im weiteren gibt es die beschreibende RFCs, welche die folgenden Label besitzen:
+
+\begin{itemize}
+	\item \textbf{Experimental:} \enquote{Forschungsprotokolle, die so dokumentiert sind, dass sie den Forschern als praktische Referenz dienen.}  \cite{WhatRFCWhat}
+	\item \textbf{Best Current Practice:} \enquote{Es handelt sich dabei um die aktuellen Veröffentlichungen von RFCs in denen Verfahren und Protokolle beschrieben werden, die sich im praktischen Einsatz bestens bewährt haben. Ohne das Protokoll oder Verfahren zu spezifizieren, beschreiben diese RFC-Dokumente die Möglichkeiten wie das entsprechende Protokoll benutzt oder konfiguriert werden kann um eine Interoperabilität mit anderen Protokollen zu erreichen.} \cite{lipinskiBestCurrentPractice}
+	\item \textbf{Informational:} \enquote{Dabei handelt es sich um Protokolle, die von anderen Organisationen entwickelt wurden, z. B. von offiziellen Normungsorganisationen und kommerziellen Netzwerkunternehmen. Diese wurden manchmal als RFCs veröffentlicht, um eine Standardreferenz für die IETF zu schaffen.} \cite{WhatRFCWhat}
+	\item \textbf{Historic:} \enquote{Ältere Protokolle, die in der Regel überholt sind oder nicht verwendet werden.} \cite{WhatRFCWhat}
+\end{itemize}
+
+Jeder RFC besitzt eine eindeutige Nummer, welche aufsteigend verteilt werden. Sobald ein RFC veröffentlicht ist, kann er nicht mehr bearbeitet werden. Für eine Änderung ist dann ein neues Dokument nötig. \enquote{Daher ersetzen einige RFCs andere. Die verdrängten RFCs werden als deprecated, obsolete oder sogar obsoleted bezeichnet.} \cite{WhatRFCWhat}
+
+Basierend auf diesen RFCs implementieren Software Entwickler, Hardware-Hersteller und Netzbetreiber ihre Lösungen.\cite{RFCs}
 
 \section{AT: E-Mail and IMAP}
 \label{sec:EmailAndIMAP}
