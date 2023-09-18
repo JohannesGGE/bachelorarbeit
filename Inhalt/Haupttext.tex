@@ -92,10 +92,14 @@ Es gibt verschiedene Kategorien der Interoperabilität:
 
 Im Kontext von Emails hat Snooze eine ähnliche Bedeutung. Emails, welche im Moment nicht relevant sind, werden aus dem Sichtfeld entfernt und erscheinen nach einer bestimmten Zeit wieder. Dann kann entschieden werden, ob es jetzt Zeit ist die Email zu bearbeiten oder ob man noch einmal Snooze drückt, wie beim Wecker am Morgen. \cite{SnoozeEmailSeptember2023} \cite{HowUseEmail}
 
-\subsection{AT: RFCs}
+\subsection{AT: Open Standards und RFCs}
 
-\enquote{Ein Request for Comments (RFC) ist ein formales Dokument der Internet Engineering Task Force (IETF), das Spezifikationen und organisatorische Hinweise zu Themen im Zusammenhang mit dem Internet und Computernetzwerken enthält, wie z. B. Routing, Adressierung und Transporttechnologien.}\cite{WhatRequestComments} \\
-RFCs werden durch die IETF, das Internet Architecture Board (IAB), die Internet Research Task Force (IRTF) oder durch unabhänige Einreichende erstellt. In der Regel beginnen RFCs als Internet-Drafts, die von einer Einzelperson oder einer kleinen Gruppe geschrieben werden. Durch die IETF wird der Draft dann durch eine Arbeitsgruppe überarbeitet und verbessert. Solch eine Arbeitsgruppe besteht aus Freiwilligen Personen auf der ganzen Welt und beinhaltet unter anderem Hardwarehersteller, Softwareentwickler und Netzbetreiber. Unabhänige Einreichungen werden dabei seltener durch eine Arbeitsgruppe betrachtet.  \cite{RFCs} \cite{WhatRequestComments} 
+\begin{itemize}
+	\item Noch ein bisschen allgeein auf Open Standards eingehen.
+\end{itemize}
+
+\enquote{Ein Request for Comments (RFC) ist ein formales Dokument der Internet Engineering Task Force (IETF)\footnote{Internet Engineering Task Force (IETF): \url{https://www.ietf.org/}}, das Spezifikationen und organisatorische Hinweise zu Themen im Zusammenhang mit dem Internet und Computernetzwerken enthält, wie z. B. Routing, Adressierung und Transporttechnologien.}\cite{WhatRequestComments} \\
+RFCs werden durch die IETF, das Internet Architecture Board (IAB)\footnote{Internet Architecture Board (IAB) \url{https://www.iab.org/}}, die Internet Research Task Force (IRTF) \footnote{Internet Research Task Force (IRTF) \url{https://irtf.org/}} oder durch unabhänige Einreichende erstellt. In der Regel beginnen RFCs als Internet-Drafts, die von einer Einzelperson oder einer kleinen Gruppe geschrieben werden. Durch die IETF wird der Draft dann durch eine Arbeitsgruppe überarbeitet und verbessert. Solch eine Arbeitsgruppe besteht aus Freiwilligen Personen auf der ganzen Welt und beinhaltet unter anderem Hardwarehersteller, Softwareentwickler und Netzbetreiber. Unabhänige Einreichungen werden dabei seltener durch eine Arbeitsgruppe betrachtet.  \cite{RFCs} \cite{WhatRequestComments} 
 
 Nicht alle Internet-Drafts werden zu einem RFC, aber ein RFC ist trotzdem nicht gleich ein tatsächlicher Internet Standard.\cite{WhatRequestComments}  Basierend auf dem Inhalt und dem Reifegrad eines RFCs wird diesem ein Label zugeordnet. Dabei gibt es die tatsächlich Standard definierenden Labels:
 
@@ -130,6 +134,12 @@ Der MDA ist für die Bearbeitung der Email zuständig, wenn der aktuelle MTA das Z
 Da SMTP sich zwar für den Versand von Emails, aber nicht für das nutzerseitige empfangen und abfragen eignet, gibt es noch den MUA. Der MUA ist die Schnittstelle zum Nutzenden und stellt Zugang zum mailstore durch ein Zugriffsprotokoll wie POP3 oder IMAP zur verfügung. Dabei ist der MUA sowohl Teil des Clients, den der Nutzende benutzt, als auch serverseitig um die Anfragen durch POP3 oder IMAP zu bearbeiten.\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 20)\\
 Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der serverseitige Teil des MUA gemeint.
 
+\subsection{AT: Was ist eine Email?}
+
+\begin{itemize}
+	\item ???Was ist eine Email????
+\end{itemize}
+
 \subsection{AT: IMAP}
 
 Wie bereits erwähnt ist IMAP ein Protokoll um auf den mailstore eines Mailservers zuzugreifen. Es ist ein statusbehaftetes und bestätigendes Protokoll der Anwendungsschicht des OSI-Referenzmodells und nutzt das Transmission Control Protocol (TCP) zur übertragung. Die neuste Version von IMAP ist IMAP 4rev2 und definiert im RFC 9051\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}.\\
@@ -144,7 +154,11 @@ Eine weitere Funktionalität von IMAP, die in dieser Arbeit wichtig wird, sind di
 
 \subsection{AT: Nextcloud Mail App}
 
+Nextcloud\footnote{Nextcloud: \url{https://nextcloud.com/}} ist eine Business Suite vergleichbar mit Google Workspace oder Microsoft 365 mit dem großen Unterschied, dass Nextcloud als Open Source Projekt komplett frei zugänglich ist. Es kann für private Zwecke auf dem Heimrechner oder auf einem Cloud-Server installiert werden. Aber auch Unternehmen, Organisationen oder Einrichtungen können Nextcloud für ihre Zwecke selbst hosten. Unter anderem dadurch ist Nextcloud DSGVO konform und gerade für öffentliche Stellen oder Unternehmen mit sensiblen Daten interessant. Nextcloud wurde ursprünglich als Fork von OwnCloud entwickelt und bietet eine breite Palette von Funktionen, darunter Dateisynchronisation, Kalender, Kontakte, Aufgabenmanagement und vieles mehr. Die Plattform ist darauf ausgelegt, Datenschutz und Sicherheit zu gewährleisten, indem sie Benutzenden die Kontrolle über ihre Daten gibt. \cite{onlineOwncloudVsNextcloud2019}
 
+Nextcloud als Kernsoftare bietet eine Vielzahl an Erweiterungen, welche durch sogenannte Apps zur verfügung gestellt und einfach in der Software installiert und aktiviert werden können. Dazu zählen auch die Groupware Apps. \enquote{Nextcloud Groupware integriert Kalender, Kontakte, Mail und andere Produktivitätsfunktionen, und hilft Teams dadurch ihre Arbeit schneller, einfacher und zu ihren eigenen Spielregeln zu erledigen.} \cite{Groupware}
+
+Die Nextcloud Mail App ermöglicht den Benutzenden, Emails direkt in ihrer Nextcloud-Instanz zu lesen, zu senden und zu empfangen. Dabei fungiert die App als ein IMAP Email Client, welcher mehrere Emailkonten verschiednerer Anbieter (welche Zugriff über IMAP ermöglichen) in einer einzigen Oberfläche zusammenführen und verwalten kann. Die Nextcloud hat dabei keinen eigenen Mailserver sondern ist nur als Client nutzbar. Weitere Funktionen, welche die Nextcloud Mail App mitbringt, ist das Filtern, Sortieren, und Markieren von Nachrichten. Aber auch eine Integration in andere Nextcloud Apps ist vorhanden. So können Nutzende ihre Termine und Veranstaltungen aus der Kalender App im Zusammenhang mit ihren E-Mails direkt in der Mail App verwalten oder Aufgaben erstellen, welche in der Nextcloud Tasks App angezeigt werden. Unter anderem wird auch Ende-zu-Ende-Verschlüsselung mit OpenPGP und S/MIME sowie das verwalten geteilter Postfächer unterstützt.\cite{Groupware}\cite{UsingMailAppa}
 
 \chapter{AT: Problemstellung in Mail}
 \label{sec:Problemstellung}
