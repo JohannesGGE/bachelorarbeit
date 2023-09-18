@@ -94,11 +94,21 @@ Im Kontext von Emails hat Snooze eine ähnliche Bedeutung. Emails, welche im Mome
 
 \subsection{AT: Open Standards und RFCs}
 
-\begin{itemize}
-	\item Noch ein bisschen allgeein auf Open Standards eingehen.
-\end{itemize}
+Es gibt keine offizielle Defintion für Open Standards (Offener Standards). Dennoch gibt es eine Definition der FSFE\footnote{Free Software Foundation Europe (FSFE): \url{https://fsfe.org/}}, welche sich an der Definition des Europäischen Rahmenprogramms zur Interoperabilität (EIF) der Europäischen Komission orientiert.\cite{DefinitionOffeneStandards}
+Demnach ist ein Offener Standard ein Format oder Protokoll, das
 
-\enquote{Ein Request for Comments (RFC) ist ein formales Dokument der Internet Engineering Task Force (IETF)\footnote{Internet Engineering Task Force (IETF): \url{https://www.ietf.org/}}, das Spezifikationen und organisatorische Hinweise zu Themen im Zusammenhang mit dem Internet und Computernetzwerken enthält, wie z. B. Routing, Adressierung und Transporttechnologien.}\cite{WhatRequestComments} \\
+\begin{enumerate}
+	\item \enquote{von der Öffentlichkeit vollinhaltlich geprüft und verwendet werden kann;}
+	\item \enquote{ohne jegliche Komponenten oder Erweiterungen ist, die von Formaten oder Protokollen abhängen, die selbst nicht der Definition eines Offenen Standards entsprechen;}
+	\item \enquote{frei von rechtlichen Klauseln oder technischen Einschränkungen ist, die seine Verwendung von jeglicher Seite oder mit jeglichem Geschäftsmodell behindern;}
+	\item \enquote{unabhängig von einem einzelnen Anbieter koordiniert und weiterentwickelt wird, in einem Prozess, der einer gleichberechtigten Teilnahme von Wettbewerbern und Dritten offen steht;}
+	\item \enquote{in verschiedenen vollständigen Implementierungen von verschiedenen Anbietern oder als vollständige Implementierung gleichermaßen für alle Beteiligten verfügbar ist.} \cite{DefinitionOffeneStandards}
+\end{enumerate}
+
+
+\enquote{Ein Offener Standard ist zunächst ein technischer Standard, der in Freier und Offener Software eingesetzt wird. Es handelt sich dabei um eine Einigung auf eine gemeinsame Norm, die es ermöglicht, Informationen frei und ohne Veränderungen zu speichern (Format) oder zu übertragen (Protokoll). Das bedeutet, dass andere Menschen auf die Technik oder Inhalte Dritter aufbauen oder sie in anderen Kontexten weiterentwickeln können. Im Gegensatz dazu stünde ein \enquote{geschlossener} Standard, also z. B. eine proprietäre Anwendung, an der nur ein bestimmtes Unternehmen die Rechte hat, Veränderungen vorzunehmen oder überhaupt den Code einzusehen. Der Gedanke hinter Offenen Standards ist also der gleiche wie hinter Offener Software und Offenen Daten: Sie sollen öffentlich zugänglich, ihre Verwendung nicht rechtlich oder technisch eingeschränkt sein und die Beteiligung von Dritten ermöglichen.}\cite{OffeneStandardsUeberblick}
+
+Eine Art solch einen Offenen Standard zu definieren ist ein RFC. \enquote{Ein Request for Comments (RFC) ist ein formales Dokument der Internet Engineering Task Force (IETF)\footnote{Internet Engineering Task Force (IETF): \url{https://www.ietf.org/}}, das Spezifikationen und organisatorische Hinweise zu Themen im Zusammenhang mit dem Internet und Computernetzwerken enthält, wie z. B. Routing, Adressierung und Transporttechnologien.}\cite{WhatRequestComments} \\
 RFCs werden durch die IETF, das Internet Architecture Board (IAB)\footnote{Internet Architecture Board (IAB) \url{https://www.iab.org/}}, die Internet Research Task Force (IRTF) \footnote{Internet Research Task Force (IRTF) \url{https://irtf.org/}} oder durch unabhänige Einreichende erstellt. In der Regel beginnen RFCs als Internet-Drafts, die von einer Einzelperson oder einer kleinen Gruppe geschrieben werden. Durch die IETF wird der Draft dann durch eine Arbeitsgruppe überarbeitet und verbessert. Solch eine Arbeitsgruppe besteht aus Freiwilligen Personen auf der ganzen Welt und beinhaltet unter anderem Hardwarehersteller, Softwareentwickler und Netzbetreiber. Unabhänige Einreichungen werden dabei seltener durch eine Arbeitsgruppe betrachtet.  \cite{RFCs} \cite{WhatRequestComments} 
 
 Nicht alle Internet-Drafts werden zu einem RFC, aber ein RFC ist trotzdem nicht gleich ein tatsächlicher Internet Standard.\cite{WhatRequestComments}  Basierend auf dem Inhalt und dem Reifegrad eines RFCs wird diesem ein Label zugeordnet. Dabei gibt es die tatsächlich Standard definierenden Labels:
@@ -134,11 +144,14 @@ Der MDA ist für die Bearbeitung der Email zuständig, wenn der aktuelle MTA das Z
 Da SMTP sich zwar für den Versand von Emails, aber nicht für das nutzerseitige empfangen und abfragen eignet, gibt es noch den MUA. Der MUA ist die Schnittstelle zum Nutzenden und stellt Zugang zum mailstore durch ein Zugriffsprotokoll wie POP3 oder IMAP zur verfügung. Dabei ist der MUA sowohl Teil des Clients, den der Nutzende benutzt, als auch serverseitig um die Anfragen durch POP3 oder IMAP zu bearbeiten.\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 20)\\
 Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der serverseitige Teil des MUA gemeint.
 
+\iffalse
 \subsection{AT: Was ist eine Email?}
 
 \begin{itemize}
 	\item ???Was ist eine Email????
 \end{itemize}
+\fi
+
 
 \subsection{AT: IMAP}
 
