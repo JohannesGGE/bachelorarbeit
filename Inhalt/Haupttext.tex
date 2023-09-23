@@ -214,8 +214,19 @@ Die E-Mail Kommunikation ist Teil unseres alltäglichen Lebens geworden. Hauptauf
 Eine Strategie ist das \enquote{One-Touch-Modell}: \enquote{Alle E-Mails werden gelesen und dann abgelegt oder gelöscht, so dass der Posteingang leer bleibt, außer für neue E-Mails.} \cite{jerejianContributionEmailVolume2013} Informative E-Mails werden gelöscht oder archiviert und E-Mails, welche eine Antwort erfordern, werden erst beantwortet und danach archiviert oder gelöscht. \cite{whittakerEmailOverloadExploring1996} Es stellte sich aber heraus, dass es E-Mails gibt, die nicht mit dieser einfachen Herangehensweie bearbeitet werden können. Beispielsweise muss man für eine Antwort ersteinmal eine Rechearche durchführen oder man weiß nicht, ob eine Informative E-Mail relevant für einen ist. Dies führt dazu, dass man E-Mail wieder im Posteingang liegen lässt und somit zu einem späteren Zeitpunkt nocheinmal entscheiden kann, was zu tun ist.\cite{jerejianContributionEmailVolume2013} \cite{whittakerEmailOverloadExploring1996} \cite{szostekDealingMyEmails2011}\\
 Eine Strategie, die sich dieses Problems bewusst ist, ist die Methode \enquote{Inbox Zero}. Dabei wird auch angestrebt in der Inbox nur ungelesene E-Mails zu haben. Es stehen aber mehr Aktionen zur verfügung diese zu bearbeiten. Ziel ist es, diese Aktionen für sich selber zu definieren, sodass man für jede E-Mail, die in der Inbox landet schnell eine Aktion ausführen kann. Das kann z.B. Antworten, Löschen, Archivieren oder Warten sein. Für die einzelnen Aktionen wird eine Mailbox angelegt, mit der sich dann, zu bestimmten Zeiten, beschäftigt wird. \cite{googletechtalksInboxZero2007} In irgendeiner Weise wird es eine Aktion geben, welche für E-Mails gedacht ist, die nicht direkt bearbeitet werden können, weil z.B. Informationen fehlen. Das Verschieben in eine Mailbox und das regelmäßige überprüfen dieser ist sicherlich eine bessere Methode, als die E-Mail in der Inbox zu lassen. Doch was wäre, wenn es eine Automatisierung gibt, die eine E-Mail, die unter die beschriebene Aktion fällt aus dem Sichtfeld entfernt und nach einer definierten Zeit wieder in der Inbox anzeigt? Genau das ist die Snooze Funktion. Mit dieser Möglichkeit lässt sich die Strategie der Inbox Zero noch einfacher umsetzen, da die Inbox alle E-Mail enthält, die auf eine Aktion warten.
 
-
 \iffalse
+
+\begin{itemize}
+	\item Wie lassen sich Konzepte von Inbox Zero dder GTD im E-Mil Management umsetzen?
+	\begin{itemize}
+		\item Nochmal die Key Methodik von Inbox Zero ermittel und beschrieben
+		\item Gibt es dafür schon Mechanismen die das möglich machen (Verwalten in Mailboxen, verschieben, Taggen)
+		\item Hinführen, dass eine Snooze Funktion notwendig ist, da effizienter und automatisierte Schritte abgearbeitet werden
+	\end{itemize}
+\end{itemize}
+
+
+
 
 \begin{itemize}
 	\item Forscher haben festgestellt, dass die E-Mail neben der reinen Kommunikation noch viele andere Funktionen erfüllt, vor allem die Archivierung von Informationen und das Aufgabenmanagement . Diese Funktionen der E-Mail sind natürlich mit verschiedenen Arten von Verhaltensweisen im Umgang mit Nachrichten verbunden, die das Gefühl der E-Mail-Überlastung verstärken oder verringern können. \cite{dabbishEmailOverloadWork2006}
@@ -251,30 +262,20 @@ Eine Strategie, die sich dieses Problems bewusst ist, ist die Methode \enquote{I
 \section{AT: Warum IMAP}
 \label{sec:WhyIMAP}
 
+Um eine Snooze Funktion nutzen zu können, muss sie durch den E-Mail Client, den man benutzt, implementiert werden. \\
+Es gibt propräritäre E-Mail Clients, wie z.B. Gmail, bei denen nicht genau gesagt werden kann, wie sie auf die Daten des Google Mailservers zugreifen. Neben dieser eigenen propräritären E-Mail Postfächer,beiten die meisten E-Mail Clients zumindest die Möglichkeit E-Mail Postfächer über IMAP hinzuzufügen. Dabei wird das Standardtisierte und offene Protokoll IMAP genutzt um die E-Mails auf dem Mailserver zu verwalten. IMAP ist die empfohlene Methode um von mehreren verschiedenen Geräten oder Programmen auf ein Postfach zuzugreifen. \cite{WasSindIMAP}
+Wenn eine Snooze Funktion Clientübergreifend funktionieren soll, also eine gesnoozte E-Mail in Clients A auch in Clients B gesnoozt ist, ist es notwendig eine interoperble Lösung dafür zu finden. IMAP als Protokoll, mit dem man auf die allermeisten Mailserver zugreifen kann, ist diesbezüglich das Mittel der Wahl um eine interoperable Lösung zu implementieren.
 
-
-
-
-Alle Aktionen könnnen ausgeführt werden, aber das Zurückstellen noch nicht, nur mit manuellem aufwand, aber nicht automatisertem zurückschieben
+Im nächsten Kapitel werden die existierenden Lösungen einer Snooze Funktion ermittlt und geschaut, wie diese sich verhalten und ob es bereits Ansätze zur Interoperabilität gibt.
 
 \begin{itemize}
-	\item Wie lassen sich Konzepte von Inbox Zero dder GTD im E-Mil Management umsetzen?
-	\begin{itemize}
-		\item Nochmal die Key Methodik von Inbox Zero ermittel und beschrieben
-		\item Gibt es dafür schon Mechanismen die das möglich machen (Verwalten in Mailboxen, verschieben, Taggen)
-		\item Hinführen, dass eine Snooze Funktion notwendig ist, da effizienter und automatisierte Schritte abgearbeitet werden
-	\end{itemize}
-	\item Warum braucht es dafür eine Erweirerung von IMAP?
-	\begin{itemize}
-		\item Weil Nutzung von mehreren Clients (Zahlen)
-		\item Wenn mehrere Clients von unterschiedlichen Anbietern wird meistens IMAP genutzt
-		\item Weil IMAP ein offener Standard für Verwaltung von E-Mail management und deshlab sollte hier durch eine offener erweiterung das ganze interoperabel gelöst werden. Damit kann dann alle Clients nutzen
-	\end{itemize}
+	\item \hl{Bisschen klarer formulieren}
 \end{itemize}
 
-Im nächsten Kapitel werden die existierenden Lösungen zu dier Funtionalität betrchtet und geschaut, wie diese sich verhalten und ob es evt schon interoperabilität in Teilen gibt.
 
 \iffalse
+
+
 
 Internet messaging is defined by a series of specifications that are free and open for all. Consequently, an Internet messaging system can be built using a variety of products from several vendors, with assuring that each product will interoperate with all the other products. This is especially important because the open standards defining the Internet itself make for a highly complex environment in which each component of a messaging model must know what to expect of the others. Communication standardization is the soul of the Internet. (S. 10)
 
