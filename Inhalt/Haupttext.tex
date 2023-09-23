@@ -90,7 +90,8 @@ Als erstes werden in einem einführenden Kapitel Begriffe und Themen erklärt, die
 
 \subsection{Getting Things Done und Inbox Zero}
 
-Viele stehen vor dem Problem, dass ihr E-Mail Posteingang \hl{(im folgenden INBOX genannt)} überfüllt ist mit E-Mails, welche noch beantwortet werden müssen. Das E-Mail Postfach öffnen führt zu Stress, und es werden immer mehr E-Mails obwohl man sein bestes gibt diese zu bearbeiten. Es scheint so, als ob die Fähigkeit mit der Masse an E-Mails klar zu kommen, entscheided ist über den Erfolg, den man vorallem im Job hat. Die Inbox wird als To-Do Liste, Kalender und Postfach in einem genutzt. \cite{googletechtalksInboxZero2007} Dieses Konzept führt gezwungener Maßen zu Problemen. \\
+Viele stehen vor dem Problem, dass ihr E-Mail Posteingang \hl{(im folgenden INBOX genannt)} überfüllt ist mit E-Mails, welche noch beantwortet werden müssen. Das E-Mail Postfach öffnen führt zu Stress, und es werden immer mehr E-Mails obwohl man sein bestes gibt diese zu bearbeiten. \cite{barleyEmailSourceSymbol2011} \cite{dabbishEmailOverloadWork2006}
+
 Es gibt Konzepte, mit denen dieses Problem angegangen werden kann. Die meisten basieren auf Getting Things Done, was eine Produktivitätsstrategie ist, die das Ziel hat Aufgaben, Informationen, Probleme oder Projekte extern, also nicht im Kopf, zu verwalten. \cite{GettingThingsDone2023} David Allen hat diese Methode entwickelt und beschreibt in seinem Buch "Getting Things Done: The Art of Stress-Free Productivity", wie Sie funktioniert und anzuwenden ist. \hl{Buch ref?}\\
 Auf der allgemeinen Getting Things Done Methode basieren andere Strategien, welche sich auf das E-Mail Management spezialisieren. Inbox Zero ist eine davon, welche von Merlin Mann erstmalig definiert wurde und nicht das Ziel hat keine E-Mails mehr in der Inbox zu haben, wie man es durch den Namen annehmen könnte, sondern eher darauf bezogen ist, kein Stress bei der Bearbeitung der Inbox zu haben. \cite{WhatInboxZero2019} Es geht nicht darum alle E-Mails in der Inbox zu beantworten sondern alle E-Mails zu bearbeiten. Das heißt, dass man sich Aktionen definiert, welche man auf die zu bearbeitende E-Mail anwendet. Das kann das Beantworten der E-Mail sein aber genauso das Löschen oder Zurückstellen der E-Mail. Wichtig ist, dass man ohne viel überlegen entscheidet, welche Aktion auszuführen ist und sich nach ausführen der nächsten E-Mail widmet. \cite{googletechtalksInboxZero2007}
 
@@ -200,17 +201,78 @@ Nextcloud als Kernsoftare bietet eine Vielzahl an Erweiterungen, welche durch so
 
 Die Nextcloud Mail App ermöglicht den Benutzenden, E-Mails direkt in ihrer Nextcloud-Instanz zu lesen, zu senden und zu empfangen. Dabei fungiert die App als ein IMAP E-Mail Client, welcher mehrere E-Mailkonten verschiednerer Anbieter (welche Zugriff über IMAP ermöglichen) in einer einzigen Oberfläche zusammenführen und verwalten kann. Die Nextcloud hat dabei keinen eigenen Mailserver sondern ist nur als Client nutzbar. Weitere Funktionen, welche die Nextcloud Mail App mitbringt, ist das Filtern, Sortieren, und Markieren von Nachrichten. Aber auch eine Integration in andere Nextcloud Apps ist vorhanden. So können Nutzende ihre Termine und Veranstaltungen aus der Kalender App im Zusammenhang mit ihren E-Mails direkt in der Mail App verwalten oder Aufgaben erstellen, welche in der Nextcloud Tasks App angezeigt werden. Unter anderem wird auch Ende-zu-Ende-Verschlüsselung mit OpenPGP und S/MIME sowie das verwalten geteilter Postfächer unterstützt.\cite{Groupware}\cite{UsingMailAppa}
 
-\chapter{AT: Problemstellung in Mail}
+\chapter{AT: Problemstellung von E-Mail}
 \label{sec:ProblemstellungInMail}
 
+In diesem Kapitel wird genau erläutert, warum eine Snooze Funktion notwendig ist und warum dafür eine Erweiterung des IMAP Protokolls nötig ist.
+
+\section{AT: Mailmanagement}
+\label{sec:mailmanagement}
+
+
+Die E-Mail Kommunikation ist Teil unseres alltäglichen Lebens geworden. Hauptaufgabe ist die Kommunikation zwischen zwei oder mehr Personen. Archivierung von Informationen, Aufgabenmanagement, Planung von Terminen oder Speicherung von Namen und Adressen sind nur einige Beispiele für Funktionen, die E-Mails bzw. das E-Mail Postfach neben der reinen Kommunikation noch erfüllt. \cite{dabbishEmailOverloadWork2006} \cite{whittakerEmailOverloadExploring1996} Gerade das Aufgabenmanagement wird gerne im E-Mail Postfach erledigt. Der E-Mail-Posteingang wird regelmäßig auf eingehende Mitteilungen überprüft und lenkt damit die Aufmerksamkeit auch auf E-Mails, welche sich noch im Posteingang befinden. Somit wird man immer wieder an seine noch zu erledigende Aufgaben erinnert. Wenn aber an einem Tag zu viele E-Mail eintreffen oder man einen Tag keine Möglichkeit hat, seine E-Mails abzurufen kann diese Stratgie zu Überforderung und Stress führen, da es zu viel wird und man keinen Überblick mehr hat. Generell wurde herausgefunden, dass ein erhötes E-Mail Aufkommen zu eines stärkeren Gefühl der Überlastung führt. \cite{barleyEmailSourceSymbol2011} \cite{dabbishEmailOverloadWork2006} Der Ansatz das E-Mail Postfach häufig abzurufen und E-Mails schnell zu bearbeiten führt zu vielen Aufgabenwechseln und Aufgabenunterbrechungen. Es gibt Hinweise, dass dieses Verhalten negativ auf das Wohlbefinden einwirkt. \cite{kushlevCheckingEmailLess2015} Es gibt aber auch Hinweise, dass man der Überlastung entgegen wirken kann \enquote{entweder durch den Einsatz von Software, die die Nutzung von E-Mails erleichtert, oder durch die Anwendung effektiver Taktiken zur Nutzung von E-Mails als Kommunikationsmittel.} \cite{dabbishEmailOverloadWork2006}
+Eine Strategie ist das \enquote{One-Touch-Modell}: \enquote{Alle E-Mails werden gelesen und dann abgelegt oder gelöscht, so dass der Posteingang leer bleibt, außer für neue E-Mails.} \cite{jerejianContributionEmailVolume2013} Informative E-Mails werden gelöscht oder archiviert und E-Mails, welche eine Antwort erfordern, werden erst beantwortet und danach archiviert oder gelöscht. \cite{whittakerEmailOverloadExploring1996} Es stellte sich aber heraus, dass es E-Mails gibt, die nicht mit dieser einfachen Herangehensweie bearbeitet werden können. Beispielsweise muss man für eine Antwort ersteinmal eine Rechearche durchführen oder man weiß nicht, ob eine Informative E-Mail relevant für einen ist. Dies führt dazu, dass man E-Mail wieder im Posteingang liegen lässt und somit zu einem späteren Zeitpunkt nocheinmal entscheiden kann, was zu tun ist.\cite{jerejianContributionEmailVolume2013} \cite{whittakerEmailOverloadExploring1996} \cite{szostekDealingMyEmails2011}\\
+Eine Strategie, die sich dieses Problems bewusst ist, ist die Methode \enquote{Inbox Zero}. Dabei wird auch angestrebt in der Inbox nur ungelesene E-Mails zu haben. Es stehen aber mehr Aktionen zur verfügung diese zu bearbeiten. Ziel ist es, diese Aktionen für sich selber zu definieren, sodass man für jede E-Mail, die in der Inbox landet schnell eine Aktion ausführen kann. Das kann z.B. Antworten, Löschen, Archivieren oder Warten sein. Für die einzelnen Aktionen wird eine Mailbox angelegt, mit der sich dann, zu bestimmten Zeiten, beschäftigt wird. \cite{googletechtalksInboxZero2007} In irgendeiner Weise wird es eine Aktion geben, welche für E-Mails gedacht ist, die nicht direkt bearbeitet werden können, weil z.B. Informationen fehlen. Das Verschieben in eine Mailbox und das regelmäßige überprüfen dieser ist sicherlich eine bessere Methode, als die E-Mail in der Inbox zu lassen. Doch was wäre, wenn es eine Automatisierung gibt, die eine E-Mail, die unter die beschriebene Aktion fällt aus dem Sichtfeld entfernt und nach einer definierten Zeit wieder in der Inbox anzeigt? Genau das ist die Snooze Funktion. Mit dieser Möglichkeit lässt sich die Strategie der Inbox Zero noch einfacher umsetzen, da die Inbox alle E-Mail enthält, die auf eine Aktion warten.
+
+
+\iffalse
+
 \begin{itemize}
-	\item Wie kann kann Inbox Zero/GTD in Mail Clients aussehen, bzw. welche Möglichkeiten braucht man um diese Konzepte umsetzen zu können?
-	\item Warum ist es nötig/sinnvoll das über IMAP zu implementieren?
+	\item Forscher haben festgestellt, dass die E-Mail neben der reinen Kommunikation noch viele andere Funktionen erfüllt, vor allem die Archivierung von Informationen und das Aufgabenmanagement . Diese Funktionen der E-Mail sind natürlich mit verschiedenen Arten von Verhaltensweisen im Umgang mit Nachrichten verbunden, die das Gefühl der E-Mail-Überlastung verstärken oder verringern können. \cite{dabbishEmailOverloadWork2006}
+	\item E-Mail [...] für mehrere Zwecke verwendet wird: Zustellung und Archivierung von Dokumenten, Delegierung von Arbeitsaufgaben und Aufgabenverfolgung. Sie wird auch für die Speicherung von Namen und Adressen, für das Versenden von Erinnerungen, für Hilfeersuchen, für die Planung von Terminen und für die Bearbeitung von Anfragen an den technischen Support verwendet. \cite{whittakerEmailOverloadExploring1996}
+	\item dass die Mitarbeiter E-Mails als Erinnerungen für Dinge, die sie erledigen mussten, und für das Aufgabenmanagement im Allgemeinen verwendeten. Da der E-Mail-Posteingang häufig auf neue eingehende Mitteilungen überprüft wurde, war er ein besonders nützlicher Ort, um Nachrichten zu hinterlassen, die erledigt werden mussten. Ein höheres Aufkommen an eingehenden E-Mails bedeutete jedoch, dass diese Strategie der E-Mail-Bearbeitung insofern nach hinten losging, als Nachrichten schnell aus dem E-Mail-Horizont verschwanden. \cite{dabbishEmailOverloadWork2006}
+	
+	\item "E-Mail-Überlastung" [...], verwenden wir den Begriff wörtlich, um die Wahrnehmung der E-Mail-Nutzer zu bezeichnen, dass ihre eigene E-Mail-Nutzung außer Kontrolle geraten ist, weil sie mehr E-Mails erhalten und versenden, als sie bewältigen, finden oder effektiv verarbeiten können. \cite{dabbishEmailOverloadWork2006}
+	\item Wenn E-Mails maximal 3x am Tag gecheckt werden reduziert das Stress Level und verbessert das Wohlempfinden \cite{kushlevCheckingEmailLess2015}
+	\item Wir fanden heraus, dass ein höheres E-Mail-Volumen mit einem stärkeren Gefühl der E-Mail-Überlastung verbunden war, aber diese Beziehung wurde durch bestimmte E-Mail-Management-Strategien abgemildert. \cite{dabbishEmailOverloadWork2006}
+	\item  Schließlich deuten unsere Ergebnisse darauf hin, dass sich die Koordination am Arbeitsplatz verbessern würde, wenn die Arbeitnehmer die E-Mail-Überlastung in den Griff bekämen - entweder durch den Einsatz von Software, die die Nutzung von E-Mails erleichtert, oder durch die Anwendung effektiver Taktiken zur Nutzung von E-Mails als Kommunikationsmittel. \cite{dabbishEmailOverloadWork2006}
+	
+	\item Ein gängiger Ansatz zur Bewältigung des Posteingangs ist das häufige Abrufen von E-Mails und die schnelle Beantwortung eingehender Nachrichten, was zu häufigen Aufgabenwechseln und Aufgabenunterbrechungen führt. Einige Forschungsergebnisse deuten jedoch darauf hin, dass das Unterbrechen und Wechseln zwischen Aufgaben dem Wohlbefinden abträglich sein kann. \cite{kushlevCheckingEmailLess2015}
+	
+	
+	\item Es wurde ein "One-Touch-Modell" angenommen: Alle E-Mails werden gelesen und dann abgelegt oder gelöscht, so dass der Posteingang leer bleibt, außer für neue E-Mails. Dieses Modell konnte jedoch nicht bestätigt werden, da die Teilnehmer dazu neigten, gelesene Nachrichten im Posteingang zu belassen, um sie zu einem späteren Zeitpunkt abzulegen, und ihr Ablageverhalten reichte von denen, die häufig ablegten, über diejenigen, die sporadisch ablegten, bis hin zu denjenigen, die überhaupt nicht ablegten. Die Forscher vermuteten, dass das Modell aus zwei Gründen ungestützt blieb: Es gab eine große Menge an empfangenen E-Mails und die Teilnehmer nutzten E-Mails als Aufgabenerinnerung. \cite{jerejianContributionEmailVolume2013}
+	\item Ein einfaches One-Touch-Modell für E-Mails könnte davon ausgehen, dass eingehende Nachrichten, die informativ sind, d. h. keine Antwort erfordern, gelesen und dann je nach Relevanz entweder gelöscht oder abgelegt werden. Eingehende Nachrichten, die Teil einer Korrespondenz sind (d. h. eine Antwort erfordern), werden beantwortet und dann entweder gelöscht oder abgelegt. Nach dem One-Touch-Modell können sich die Informationen also in zwei möglichen Zuständen befinden: ungelesen und abgelegt. Der Posteingang des Benutzers sollte zu jedem Zeitpunkt nur aus einer kleinen Anzahl ungelesener eingehender Nachrichten bestehen, während der Rest des Postfachs aus abgelegten Elementen besteht. \cite{whittakerEmailOverloadExploring1996}
+	
+	\item Es ist schwer für manche E-Mail tz entscheiden, was damit zu tun ist und ob sie später evt nocheinmal relevant werden \cite{whittakerEmailOverloadExploring1996} \cite{szostekDealingMyEmails2011}
+	
+	
 	\begin{itemize}
-		\item Interoperabel
+		\item Das führt dazu, dass die INBOX mit diesem Mails überfüllt und wir die wichtigen E-Mails suchen müssen
+		\item Snooze könnte hier abhilfe schaffen und dafür sorgen, dass diese E-Mails aus dem Blick verschwinden und später, wenn man evt weiß, was man mit dieser Nachricht machen will neu entscheiden kann.
+	\end{itemize}
+	\item Whittaker und Sidner konnten qualitativ nachweisen, dass Personen, die ihre E-Mails häufig ablegen, das Gefühl haben, die Kontrolle über ihre E-Mails zu haben. Die Forscher stellen jedoch mehrere Probleme bei der häufigen Ablage fest, darunter den kognitiven Aufwand für die Erstellung der Ordner, "fehlgeschlagene Ordner", die zwar erstellt, aber nicht verwendet werden, und den Verlust wichtiger Erinnerungen, die in den Ordnern verborgen sind. \cite{dabbishEmailOverloadWork2006}
+	
+	
+	\item Wie in der Literatur vorhergesagt, haben wir festgestellt, dass Je mehr Zeit die Menschen mit der Bearbeitung von E-Mails verbrachten, desto größer war ihr Gefühl der Überlastung, und je mehr E-Mails sie bearbeiteten, desto größer war ihre wahrgenommene Fähigkeit zur Bewältigung. \cite{barleyEmailSourceSymbol2011}
+\end{itemize}
+
+\fi
+
+\section{AT: Warum IMAP}
+\label{sec:WhyIMAP}
+
+
+
+
+
+Alle Aktionen könnnen ausgeführt werden, aber das Zurückstellen noch nicht, nur mit manuellem aufwand, aber nicht automatisertem zurückschieben
+
+\begin{itemize}
+	\item Wie lassen sich Konzepte von Inbox Zero dder GTD im E-Mil Management umsetzen?
+	\begin{itemize}
+		\item Nochmal die Key Methodik von Inbox Zero ermittel und beschrieben
+		\item Gibt es dafür schon Mechanismen die das möglich machen (Verwalten in Mailboxen, verschieben, Taggen)
+		\item Hinführen, dass eine Snooze Funktion notwendig ist, da effizienter und automatisierte Schritte abgearbeitet werden
+	\end{itemize}
+	\item Warum braucht es dafür eine Erweirerung von IMAP?
+	\begin{itemize}
+		\item Weil Nutzung von mehreren Clients (Zahlen)
+		\item Wenn mehrere Clients von unterschiedlichen Anbietern wird meistens IMAP genutzt
+		\item Weil IMAP ein offener Standard für Verwaltung von E-Mail management und deshlab sollte hier durch eine offener erweiterung das ganze interoperabel gelöst werden. Damit kann dann alle Clients nutzen
 	\end{itemize}
 \end{itemize}
 
+Im nächsten Kapitel werden die existierenden Lösungen zu dier Funtionalität betrchtet und geschaut, wie diese sich verhalten und ob es evt schon interoperabilität in Teilen gibt.
 
 \iffalse
 
