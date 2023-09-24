@@ -538,14 +538,36 @@ Hierführ bietet sich der RFC7162\footnote{RFC7162 -IMAP Extensions: Quick Flag C
 \section{Fazit}
 \label{sec:LoesungFazit}
 
+Es ist zu sehen, dass es verschiedene Lösungsansätze gibt, die ermöglichen würden, eine Snooze Funktion interoperabel zu implementieren. Dabei gibt es nicht \enquote{die} eine Lösung, sondern mehrere Teillösungen, die zusammen eine ganzheitliche Lösung schaffen könnten. 
+
+Dabei haben die Teillösungen unterschiedliche Eigenschaften, die mehr oder weniger dazu beitragen, dass Sie von den Clients implementiert werden würden und die Grundlage für eine Standarderweiterung bereitstellen. Die wohl wichtigste Eigenschaft, die einen positiven Beitrag leistet, ist die Verwendung des bereits existierenden Standards oder die Nutzung breit implementierter Erweiterungen des Standards. Hier können alle Ansätze Pluspunkte sammeln, lediglich der Teillösungen Metadata und Savedate können hier nicht auf vollstädnige Unterstützung setzen. Die Metadata Erweiterung ist dabei noch verbreiteter implementiert als die Savedate Erweterung.\\
+Eine einfache Implementierung für die Clients, erhöht außerdem den Anreiz für Entwickelnde die Lösung auch in ihren Client einzubauen. Hier hat die Keyword Teillösung klar die besten Vorraussetzungen. Aber auch die Implementierung einer Special-Use Mailbox sollte sehr einfach sein, wenn die Special-Use Mailboxen im allgemeinen bereits implementiert sind.\\
+Welche Folgen für anderer Clients entstehen, die die Lösung nicht implementieren ist auch wichtig. Clients, die sich gegen die Implementierung entscheiden oder die Funktionalität im Moment noch nicht haben, sollten keine größeren Nachteile entstehen, die beispielsweise den Nutzenden verwirrend könnten. Wie beschrieben hat der Ansatz mit einer Referenz E-Mail den Nachteil, dass Clients ohne diese Lösung, E-Mails angezeigt bekommen, die nur der Speicherung von Metadaten dienen und somit Verwirrung stiften.\\
+Eigenschaften, die eher negativen Einfluss haben sind des Weiteren der Bedarf an Serverseitiger Implementierung zusätzlich zur Implmenentierung in den einzelnen Clients, wie es bei dem Keyword Ansatz der Fall ist, um überflüssige Keywords wieder zu löschen. Auch die Verwendung von Mechanismen, die durch den Server engeschränkt werden können, sind als negative Eigenschaft zu betrachten. Das betrifft ebenfalls den Keyword Ansatz, aber auch die Metadaten Erweiterung. \\
+Als letztes ist eine \enquote{Ausnutzung} bestimmter Mechanismen oder Strukturen in der Hinsicht als negativ zu betrachten, dass, wenn sie das Konzept des eigentlichen Mechanismuses umgehen und somit für Verwirrung im Verständnis des allgemeinen Mechanismuses schaffen. Der Ansatz den E-Mail Header zu bearbeiten fällt unter diese Eigenschaft, da IMAP nicht dazu gedacht ist, den Inhalt der Mail zu ändern sondern lediglich die Hülle, also den Briefumschlag mit bestimmten extra Informationen auszustatten.  
+
+\iffalse
+
+
 \begin{itemize}
 	\item noch einmal die erarbeiteten Kriterien (Serverseitig, einfach implementierbar, Implementiert, ... etc.) zusammentragen und ggf. wichten
+	\begin{itemize}
+		\item einfach implementierbar (Keywords)
+		\item bereits standardtiseirt und verbreitet (Metadata, Keywords)
+		\item Erscheinungsbild/Folgen für Clients, die nicht implementieren (Ref Email)
+		
+		\item Bedarf an Serverseitiger Änderung/Implementierung (Keywords)
+		\item Ausnutzung im Sinne des Erfinders, nicht magie, die nicht logisch ist (HEADER)
+		\item Servserseitge Beschrönkung möglich (Keywords, Metadata (min. 10 einträge))
+	\end{itemize}
 \end{itemize}
 
 
 \begin{itemize}
 	\item (JMAP (nicht IMAP aber, sollte erwähnt werden), vlt aber eher bei sparkmail.)
 \end{itemize}
+
+\fi
 
 \section{AT: Nextcloud Mail App}
 \label{sec:LoesungNextcloud}
@@ -560,11 +582,22 @@ Hierführ bietet sich der RFC7162\footnote{RFC7162 -IMAP Extensions: Quick Flag C
 \chapter{AT: Vorschlag Standarderweiterung}
 \label{sec:VorschlagStandard}
 
+Um einen konkreten Vorschlag zu machen, wie eine interoperable Lösung aussheen könnte betrachten wir das Fazit des letzen kapitel und die Erkentniise aus der Nextcloud Mail App
+
+Mit den zusammengetragenen Informationen ist es möglich eine Standarderweiterung vorzuschlagen, die wie folgt aussihet:
+
+Es gibt nicht die EINE Lösung, aber das sehe ich aus den und den Punkten, als die beste an.
+
+Nur das in RFC aufnehmen, was bereits etabliert, sonst bhindert dieser Teil das ganze Packet
+
 \begin{itemize}
 	\item Was ist RFC?
 	\item Wie könnte ein RFC für eine Snooze aussehen
 	\begin{itemize}
 		\item Flags erweitern um Snoozed
 		\item Special use mailboxes erweitern um Snoozed oder zumindest einheitlicher Name
+		\item Welche/n Lösungsansatz wird angestrebt?
+		\item Qick Flag Changes Resynchronisation CONDSTORE and Quick Mailbox Resync QRESYNC
+		\item 
 	\end{itemize}
 \end{itemize}
