@@ -572,11 +572,18 @@ Als letztes ist eine \enquote{Ausnutzung} bestimmter Mechanismen oder Strukturen
 \section{AT: Nextcloud Mail App}
 \label{sec:LoesungNextcloud}
 
-\begin{itemize}
-	\item Welcher Lösungsansatz passt am besten in die App
-	\item horde (was kann, was nicht)
-	\item 
-\end{itemize}
+Die ermittelten Lösungsansäte oder Teillösungen werden jetzt auf ihre Tauglichkeit anhand der Nextcloud Mail App getestet. ...
+
+Anstatt das Rad neu zu erfinden bedient sich die Nextcloud Mail App an der bereits existierenden IMAP Client library\footnote{IMAP Client library: \url{https://dev.horde.org/imap_client/index.php}} des Horde\footnote{Horde: \url{https://www.horde.org/}} Frameworks. \cite{MailAppsApp} Die IMAP Client library ist eine PHP library, welche eine vollständig abstrahierte Schnittstelle zu einem IMAP/POP3-Server bietet.\cite{HordeImap_ClientPHP} Laut der Webseite ist sie schneller, performanter und effizienter als die durch PHP mitgelieferte IMAP Extention\footnote{PHP IMAP Extention: \url{https://www.php.net/manual/de/book.imap.php}}.\cite{HordeImap_ClientPHPa} Die library ist streng RFC konform (IMAP4rev1) \cite{Imap_ClientLibraryHordea} und funktioniert mit allen gänigen IMAP Servern. \cite{HordeImap_ClientPHPa} Des Weiteren unterstützt sie die IMAP Extentions CONDSTORE und QRESYNC (RFC7162) sowie Access Control Lists (ACLs) (RFC2086, RFC4314). Darüber hinaus werden auch noch die weitere IMAP extentions unterstützt: MULTIAPPEND, BINARY, CATENATE, UIDPLUS, ESEARCH, THREAD/SORT, ESORT, LIST-STATUS, SPECIAL-USE, und MOVE.\cite{HordeImap_ClientPHPa}
+
+Durch die RFC konfome Umsetzung des IMAP4rev1 Standards, werden Keywords unterstützt und der beschriebene Lösungsansatz mit Keywords ist möglich.\\
+Auch die Lösungsansätze eines extra E-Mail Headers und einer Referenz E-Mail sind theoretisch umsetzbar. Das Backend der Mail App müsste zwar an ein paar Stellen angepasst werden, aber die IMAP Client library steht diesem Ansatz nicht im Weg.\\
+Beim Lösungsansatz mit der Metadaten Erweiterung sieht es anders aus, die IMAP Client library hat für diese Erweiterung keine Implementierung. Um eine Umsetzung in der Nextcloud Mail App zu ermöglichen, müsste die IMAP Client library um diese Erweiterung angepasst werden. \hl{RAW IMAP COMMANDS??}\\
+Die Teillösung einer Special-Use Mailbox für gesnoozte E-Mails ist bei einer Standarderweiterung einfach möglich, da der Mechanismus im Grundlegenden bereits durch die Special-Use Mailbox Erweiterung implementiert ist.\\
+Auch bei der Savedate Teillösung ist die Nextcloud Mail App auf die noch nicht existierende Implementierung in der IMAP Client library angewiesen.\\
+Für die schnelle und konflikfreie Resynchronisierung bietet die IMAP Client library eine Implementierung von den IMAP Extentions CONDSTORE und QRESYNC. Demnach ist auch diese Teillösung umsetzbar.
+
+\hl{Kombi aus Keyword oder Header + Secial use + Constore/Qresync wäre am besten für Mail App}
 
 
 \chapter{AT: Vorschlag Standarderweiterung}
