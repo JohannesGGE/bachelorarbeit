@@ -480,7 +480,7 @@ Das neue Header Feld enthät sowohl den genau Zeitpunt des \hl{snooze} (at) als a
 Da dieser Lösungsansatz die Header einer E-Mail bearbeitet, sind auch noch weitere Einflüsse zu beachten. Es könnte die Frage aufkommen, in wie weit durch das Bearbeiten der Header Verschlüsselung und Signierung durch S/MIME beieinflusst werden können. Diesbezüglich ist bei richitger Implementierung allerdings keine Gefahr zu beführchten. S/MIME kann durch das einschließen bestimmter Header in einen sogenannten \enquote{message/rfc822 wrapper}, auch nicht Inhaltsbezogene Header wie z.B. den \enquote{To} Header schützen. \cite{schaadSecureMultipurposeInternet2019} \cite{resnickInternetMessageFormat2001} Allerdings sind diese explizit auszuwählen. Es gibt äußere Header, welche für S/MIME nicht relevant sind. Wenn der \textit{X-Snoozed} Header als einer dieser äußeren hinzugefügt wird, ergibt sich somit kein Einfluss auf S/MIME.\\
 Auch Erweiterungen, wie RFC7508\footnote{RFC7508 - Securing Header Fields with S/MIME \url{https://datatracker.ietf.org/doc/rfc7508/}} basieren auf der Auswahl bestimmter Header, welche geschützt werden und es erlauben, Header hinzuzufügen ohne die Sicherheitsmechanismen \hl{kaputt} zu machen. \cite{cailleuxSecuringHeaderFields2015}
 
-Ein Problem dieses Ansatztes ist, dass die Header einer E-Mail eig. nicht durch den empfangenden Client bearbeitet werden. \hl{Dazu gibts ja IMAP und Erweiterungen, um die Nachricht an sich unberührt zu lassen... Hier irgendwie noch begründen}
+Ein Problem dieses Ansatztes ist, dass die Header einer E-Mail eig. nicht durch den empfangenden Client bearbeitet werden. \hl{Dazu gibts ja IMAP und Erweiterungen, um die Nachricht an sich unberührt zu lassen... Hier irgendwie noch begründen. Alle Clients müssten diese Funktionalität implementieren}
 
 \subsection{AT: Metadaten Speichern}
 
@@ -533,7 +533,9 @@ Leider ist diese Erweiterung im Moment nur in DoveCot ab der Version 2.3.11 genu
 \subsection{AT: Wer übernimmt das verschieben}
 
 Alle beschriebenen Lösungsansätze bieten teilweise oder vollumfänglich die Grundlage für eine Snooze Funktionalität. Allerdings ist der eigentliche Prozess des \hl{snoozen} und \hl{unsnoozen} noch nicht geregelt. Dies kann entweder durch den Server oder durch den Client passieren. Für den Fall, dass eine Clientseitige Implementierung angestrebt wird, ist es notwendig, dass alle Clients schnelle Updates über eine Veränderung auf dem Server bekommen, da das \hl{unsnoozen} theoretisch von vielen Clients gleichzeitig ausgeführt werden kann.\\
-Hierführ bietet sich der RFC7162\footnote{RFC7162 -IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{hhttps://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist Teil des Standards und weit verbreitet implementiert.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht Mailbox Änderungen in Bezug auf Flag und Metadaten schnell zu synconisieren.\cite{melnikovIMAPExtensionsQuick2014}
+Hierführ bietet sich der RFC7162\footnote{RFC7162 - IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{hhttps://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist Teil des Standards und weit verbreitet implementiert.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht Mailbox Änderungen in Bezug auf Flag und Metadaten schnell zu synconisieren.\cite{melnikovIMAPExtensionsQuick2014}
+
+\hl{Verbreitung nennen?}
 
 \section{Fazit}
 \label{sec:LoesungFazit}
@@ -545,6 +547,10 @@ Eine einfache Implementierung für die Clients, erhöht außerdem den Anreiz für En
 Welche Folgen für anderer Clients entstehen, die die Lösung nicht implementieren ist auch wichtig. Clients, die sich gegen die Implementierung entscheiden oder die Funktionalität im Moment noch nicht haben, sollten keine größeren Nachteile entstehen, die beispielsweise den Nutzenden verwirrend könnten. Wie beschrieben hat der Ansatz mit einer Referenz E-Mail den Nachteil, dass Clients ohne diese Lösung, E-Mails angezeigt bekommen, die nur der Speicherung von Metadaten dienen und somit Verwirrung stiften.\\
 Eigenschaften, die eher negativen Einfluss haben sind des Weiteren der Bedarf an Serverseitiger Implementierung zusätzlich zur Implmenentierung in den einzelnen Clients, wie es bei dem Keyword Ansatz der Fall ist, um überflüssige Keywords wieder zu löschen. Auch die Verwendung von Mechanismen, die durch den Server engeschränkt werden können, sind als negative Eigenschaft zu betrachten. Das betrifft ebenfalls den Keyword Ansatz, aber auch die Metadaten Erweiterung. \\
 Als letztes ist eine \enquote{Ausnutzung} bestimmter Mechanismen oder Strukturen in der Hinsicht als negativ zu betrachten, dass, wenn sie das Konzept des eigentlichen Mechanismuses umgehen und somit für Verwirrung im Verständnis des allgemeinen Mechanismuses schaffen. Der Ansatz den E-Mail Header zu bearbeiten fällt unter diese Eigenschaft, da IMAP nicht dazu gedacht ist, den Inhalt der Mail zu ändern sondern lediglich die Hülle, also den Briefumschlag mit bestimmten extra Informationen auszustatten.  
+
+\begin{itemize}
+	\item Hier muss noch mehr rauskommen, was jetzt guter Lösungsansatz und was schlechter Lösungsansatz ist
+\end{itemize}
 
 \iffalse
 
@@ -585,26 +591,41 @@ Für die schnelle und konflikfreie Resynchronisierung bietet die IMAP Client libr
 
 \hl{Kombi aus Keyword oder Header + Secial use + Constore/Qresync wäre am besten für Mail App}
 
-
-\chapter{AT: Vorschlag Standarderweiterung}
+\section{AT: Vorschlag Standarderweiterung}
 \label{sec:VorschlagStandard}
 
-Um einen konkreten Vorschlag zu machen, wie eine interoperable Lösung aussheen könnte betrachten wir das Fazit des letzen kapitel und die Erkentniise aus der Nextcloud Mail App
+Mit dem gesammelten Erkentnissen kann nun ein Vorschlag für eine Erweiterung des IMAP Standards erfolgen. Mithilfe dieses Vorschlages kann ein Internet Draft formuliert und im besten Fall ein Standardisierungprozess in gang gesetzt werden.
 
-Mit den zusammengetragenen Informationen ist es möglich eine Standarderweiterung vorzuschlagen, die wie folgt aussihet:
+Obwohl der Lösungsansatz mit Keywords als auch der Lösungsansatz, welcher die Header bearbeitet, für eine interoperable Lösung gleichermaßen geeignet sind, wird der Keyword Lösungsansatz für die Standarderweiterung \hl{vorgeschlagen/schlage ich vor?}. Grund dafür ist, dass das Bearbeiten der Header keine Aufgabe ist, die ein E-Mail Client normalerweise macht und gegen das Konzept, was IMAP hat arbeitet. Des Weiteren müsste jeder Client diesen Mechanismus ersteinmal implementieren. Der Mechanismus zum setzen eines Keywords ist in den vielen E-Mail Clients bereits vorhanden und bedarf nur eines geringen Implementierungsaufwandes.
 
-Es gibt nicht die EINE Lösung, aber das sehe ich aus den und den Punkten, als die beste an.
+Des Weiteren wird die Verwendung einer extra Mailbox für gesnoozte E-Mails vorgeschlagen. Zusätzlich soll ein neues Attribut \enquote{\textbackslash{Snoozed}} in der \texttt{LIST} Antwort (RFC9051 (IMAP4rev2) 7.3.1 List Response) hinzugefügt werden, welches einen neuen \enquote{special-use} definiert. Der Mailserver kann dann über die \texttt{LIST} Antwort eine bestimmte Mailbox als \enquote{Snoozed Mailbox} bestimmen.
 
-Nur das in RFC aufnehmen, was bereits etabliert, sonst bhindert dieser Teil das ganze Packet
+Für eine schnelle und konflikfreie Synchonisation, wird die Implementierung des RFC7162 (IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)) vorgeschlagen.
+
+\hl{Damit keine Speicher/Bandreibtenüberflutung stattfindet, soll der Mailserver regelmäßig Labels , welche until abgelaufen ist löschen ODER einen Befehl zur verfügung stellen, mitdem sich der tag permanent entfernen lassen lässt.}
+
+Im folgenden wird der Ablauf des Snoozens nocheinmal mit diesem Vorschlag in Form eines Sequenzdiagramms beschrieben....
+
+\chapter{AT: Fazit}
+\label{sec:Fazit}
+
+\section{AT: Zusammenfassung}
+\label{sec:Zusammenfassung}
+
+Diese Arbeit hat sich mit den Möglichkeiten beschäftigt, eine Snooze Funktion interoperabel über das IMAP Protokoll umzusetzen. Es wurde erläutert, warum der Bedarf für solch eine Funktionalität existiert und warum für eine interoperable Lösung das IMAP Protokoll notwendig ist.\\
+Um einen Überblick zu bekommen, wurden verschiedene E-Mail Clients auf eine bereits existierende Implementierung untersucht. Bei der Untersuchung hat sich heraugestellt, dass es bereits einige E-Mail Clients mit einer Implementierung einer Snooze Funktionalität gibt. Die Implementierungen waren aber in den meisten Fällen auf den Client oder den Dienst, den man benutzt, beschränkt. Eine interoperablen Ansatz haben nur der eM Client sowie das roundcube-snooze Plugin für den Roundcube Client aufgewiesen.\\
+Als nächstes wurde disskutiert, welche Lösungsansätze es gibt und inwieweit diese für eine Standarderweiterung geeignet sind. Dazu wurde zuerst definiert, was eine Snooze Funktionalität für Aufgaben erfüllen muss. Danach wurden sowohl die Lösungsansätze aus den existierenden Implementierungen, als auch neue Ideen auf eine theoretische Tauglichkeit untersucht. Dabei kam heraus, dass es nicht die eine perfekte Lösung gibt. Es gibt verschiedene Koponenten, die durch Ausnutzung existierender Funktionalität oder Nutzung, einen bestimmten Teil der Funktionalität umsetzen können. Aus einem Zusammenspiel mehrer dieser Komponenten lässt sich eine Gesamtlösung zusammenbauen.\\
+Um eine Praxistauglichkeit zu bewerten, wurden die einzelnen Teillösungen anhand der Nextcloud Mail App untersucht. Dabei wurde festgestellt, dass ein es Teillösungen gab, die aus Sicht der Nextcould Mail App nicht für eine Implementierung geeignet sind, da der zusätzliche Aufwand extrem groß wäre.\\
+Zuletzt wurde mit den Erkentnissen aus der Diskussion und den Erkentnissen aus der Untersuchung anhand der Nextcloud Mail App, ein Vorschlag gemacht, wie eine Standarderweiterung aussehen könnte.
+
+\section{AT: Ausblick}
+\label{sec:Ausblick}
 
 \begin{itemize}
-	\item Was ist RFC?
-	\item Wie könnte ein RFC für eine Snooze aussehen
+	\item Die Entwickung eines Standards ist mühsam und Zeitaufwendig, kann aber bei Erfolg einiges möglich machen
+	\item In dieser Arbeit wurde aufgezeigt, wie Lösungen aussehen können und es wurde ein konkreter Vorschlag für eine Erweiterung gemacht
+	\item Basieredn darauf könnte ein Internet Draft geschrieben werde, welcher im Standardisierungsporzess zu einem RFC wird.
 	\begin{itemize}
-		\item Flags erweitern um Snoozed
-		\item Special use mailboxes erweitern um Snoozed oder zumindest einheitlicher Name
-		\item Welche/n Lösungsansatz wird angestrebt?
-		\item Qick Flag Changes Resynchronisation CONDSTORE and Quick Mailbox Resync QRESYNC
 		\item 
 	\end{itemize}
 \end{itemize}
