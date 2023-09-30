@@ -1,15 +1,15 @@
-\chapter{AT: Einführendes Kapitel}
+\chapter{Einführendes Kapitel}
 \label{sec:Intro}
 
 
 Die E-Mail ist mit der ersten Benutzung in den 1980ern bereits eine alte Technologie.\cite{XlinkStadtwikiKarlsruhea} Dennoch ist sie immer noch ein sehr weit verbreitetes Kommunikationsmittel. Viele haben mindestens 2 E-Mail-Adressen, \cite{EMailNutzung2021} um ihre persönlichen E-Mails zu verwalten. Dazu kommen E-Mail-Adressen im Beruflichen Kontext. Auf der persöhnlichen Haupt-E-Mail-Adresse ist es nicht ungewöhnlich, dass 20 E-Mails pro Tag \cite{EMailNutzung2021} eingehen. Wenn man die E-Mails aus den anderen persöhnlichen und beruflichen E-Mail-Adressen dazurechnet, kommt schnell eine große Zahl heraus. \hl{Je mehr E-Mails wir bearbeiten müssen, desto mehr Zeit muss auch eingeplant werden.} Die Mehrheit überprüft ihre E-Mails mindestens zweimal am Tag. Und ein Viertel sogar mehr als fünfmal am Tag. \cite{EMailNutzung2021} Nicht selten ist das Überprüfen der E-Mails eine stressige Aufgabe. Man kommt einfach nicht hinterher. \cite{barleyEmailSourceSymbol2011} Viele E-Mail-Clients versprechen, dass sie das E-Mail-Management einfacher und effizienter machen. Dazu bieten sie verschiedene Möglichkeiten. Eine davon ist die Snooze-Funktionalität, welche es ermöglicht, E-Mails für eine gewisse Zeit aus dem Blickfeld verschwinden zu lassen, um sie zu einem späteren Zeitpunkt noch einmal bearbeiten zu können.
 
-\section{AT: Problemstellung}
+\section{Problemstellung}
 \label{sec:Problemstellung}
 
 Es gibt E-Mail-Clients, welche die Snooze-Funktion bereits implementieren, es gibt \hl{aber auch viele, die es nicht tun.} Unter denen, die diese Funktion bereits implementiert haben, gibt es allerdings durchaus gravierende Unterschiede in der Umsetzung. Obwohl die Mehrheit der Nutzenden auf große Anbieter zurückgreift \cite{EmailClientMarketa}, ist es gerade für Personen, die Wert darauf legen, nicht von den großen Marken wie Google oder Microsoft abhänig zu sein, wichtig, einen offenen Standard zu haben, mit dem das E-Mail-Management möglich ist. Da E-Mail ein offener Standard ist, gibt es auch einen Standard für das E-Mail-Managment, also das Verwalten des Postfachs. Dieser Standard heißt IMAP (Internet Message Access Protocol). Wenn nun neue Funktionen erfunden werden, um das E-Mail-Management zu verbessern, ist es notwendig, dass diese auch ihren Weg in den offenen Standard finden, um allen Clients eine Implementierung zu ermöglichen. Für die Snooze-Funktion gibt es noch keine Standardisierung, weshalb zu sehen ist, dass viele Clients die Funktion sehr unterschiedlich und nicht interoperabel implementieren. Somit lässt sich diese Funktion nicht Client-übergreifend nutzen. Es fehlt ein einheitlicher Lösungsansatz in Form einer Standarderweiterung des IMAP-Protokolls, der definiert, wie diese Funktionalität aussieht und damit eine interoperabele Umsetzung ermöglicht.
 
-\section{AT: Zielstellung}
+\section{Zielstellung}
 \label{sec:Zielstellung}
 
 Das Ziel dieser Arbeit ist, die bestehenden Implementierungen der einzelnen Clients zu analysieren und herauszufinden, inwieweit sich diese Lösungen als interoperable Lösung bereits nutzen lassen. Weiterhin soll geschaut werden, welche Möglichkeiten der IMAP-Standard noch bietet, um eine Snooze-Funktion interoperabel umsetzen zu können. \\
@@ -21,7 +21,7 @@ Um zu bewerten, wie umsetzbar diese Lösungsansätze sind, wird dies am Beispiel d
 \end{itemize}
 
 
-\section{AT: Aufbau}
+\section{Aufbau}
 \label{sec:Aufbau}
 
 Als erstes werden in einem einführenden Kapitel Begriffe und Themen erklärt, die für das Verständnis dieser Arbeit wichtig sind. Dann wird genauer beschrieben, warum es einen interoperablen Ansatz braucht und welche Aufgabe eine Snooze-Funktion im effizienten E-Mail-Management erfüllt. Das Kapitel \ref{sec:ExistierendeImpl} beschäftigt sich mit der Betrachtung der existierenden Implementierungen der E-Mail-Clients. Darauf folgt die Analyse der existierenden Lösungen in Verbindung mit dem Ermitteln anderer Lösungsansätze für eine interoperable Implementierung. Diese werden dann anhand der Nextcloud Mail-App \hl{überprüft}. Im letzten Kapitel wird beschrieben, wie eine Standard-Erweiterung für eine Snooze-Funktion aussehen könnte.
@@ -82,10 +82,10 @@ Als erstes werden in einem einführenden Kapitel Begriffe und Themen erklärt, die
 \fi
 
 
-\chapter{AT: What is it, How it works}
+\chapter{Was ist das, was heißt das}
 \label{sec:HowItWorks}
 
-\section{AT: Allgemein}
+\section{Allgemein}
 \label{sec:General}
 
 \subsection{Getting Things Done und Inbox Zero}
@@ -95,7 +95,7 @@ Viele stehen vor dem Problem, dass ihr E-Mail-Posteingang \hl{(im Folgenden INBO
 Es gibt Konzepte, mit denen dieses Problem angegangen werden kann. Die meisten basieren auf Getting Things Done, was eine Produktivitätsstrategie ist, die das Ziel hat, Aufgaben, Informationen, Probleme oder Projekte extern, also nicht im Kopf, zu verwalten. \cite{GettingThingsDone2023} David Allen hat diese Methode entwickelt und beschreibt in seinem Buch \enquote{Getting Things Done: The Art of Stress-Free Productivity}\footnote{Getting Things Done: The Art of Stress-Free Productivity - ISBN 978-0143126560}, wie sie funktioniert und anzuwenden ist.\\
 Auf der allgemeinen Getting Things Done-Methode basieren andere Strategien, welche sich auf das E-Mail-Management spezialisieren. Inbox Zero ist eine davon, welche von Merlin Mann erstmalig definiert wurde und nicht das Ziel hat, keine E-Mails mehr in der Inbox zu haben, wie man es durch den Namen annehmen könnte, \hl{sondern eher darauf bezogen ist, keinen Stress} bei der Bearbeitung der Inbox zu haben. \cite{WhatInboxZero2019} Das Ziel ist nicht, alle E-Mails in der Inbox zu beantworten, sondern alle E-Mails zu bearbeiten. Das heißt, dass man sich Aktionen definiert, welche man auf die zu bearbeitende E-Mail anwendet. Das kann das Beantworten der E-Mail sein, aber genauso das Löschen oder Zurückstellen der E-Mail. Wichtig ist, dass man ohne viel Überlegen entscheidet, welche Aktion auszuführen ist, und sich nach Ausführen der nächsten E-Mail widmet. \cite{googletechtalksInboxZero2007}
 
-\subsection{AT: Interoperabilität}
+\subsection{Interoperabilität}
 
 Für eine Snooze-Funktion, welche von mehreren Clients aus übergreifend genutzt werden kann, ist Interoperabilität entscheidend. Laut dem IEEE\footnote{Institute of Electrical and Electronics Engineers (IEEE): \url{https://www.ieee.org/}} Standard Computer Dictionary ist Interoperabilität \enquote{die Fähigkeit von zwei oder mehreren Systemen oder Komponenten, Informationen auszutauschen und die ausgetauschten Informationen zu nutzen.} \cite{IEEEStandardComputer} Es gibt aber nicht nur diese eine Definition. Eine andere Definition durch ETSI\footnote{European Telecommunications Standards Institute (ETSI): \url{https://www.etsi.org/}} beschreibt Interoperabilität als \enquote{die Fähigkeit von Geräten verschiedener Hersteller (oder verschiedener Systeme), über dieselbe Infrastruktur (dasselbe System) oder über eine andere beim Roaming miteinander zu kommunizieren}. \cite{anthonyAchievingTechnicalInteroperability2008} (Vgl. S. 5)\\
 
@@ -111,13 +111,13 @@ Für eine Snooze-Funktion, welche von mehreren Clients aus übergreifend genutzt w
 
 Der Fokus dieser Arbeit liegt auf der technischen und syntaktischen Interoperabilität, da geklärt werden soll, in welcher Form bestimmte Informationen zu einer E-Mail gespeichert und an andere Clients übermittelt werden können.
 
-\subsection{AT: Snooze}
+\subsection{Snooze}
 
 \enquote{Das Wort snooze kommt aus der englischen Sprache. Übersetzt bedeutet es, \enquote{ein Nickerchen machen} oder \enquote{dösen}. Snooze finden wir heute vor allem in Verbindung mit dem Wecker oder Smartphone. Damit wird eine spezielle Funktion bezeichnet. Im Snooze-Modus wird das Wecksignal in der Regel für 9 Minuten unterbrochen. Diese Unterbrechung lässt sich beliebig oft wiederholen. Der Snooze-Modus wird auch als Schlummertaste bzw. \enquote{zzz} gekennzeichnet.}\cite{martinSnoozeFunktionVom2021}
 
 Im Kontext von E-Mails hat Snooze eine ähnliche Bedeutung. E-Mails, welche im Moment nicht relevant sind, werden aus dem Sichtfeld entfernt und erscheinen nach einer bestimmten Zeit wieder. Dann kann entschieden werden, ob es jetzt Zeit ist, die E-Mail zu bearbeiten, oder ob man noch einmal Snooze drückt, wie beim Wecker am Morgen. \cite{SnoozeEmailSeptember2023} \cite{HowUseEmail}
 
-\subsection{AT: Open Standards und RFCs}
+\subsection{Open Standards und RFCs}
 
 Es gibt keine offizielle Definition für Open Standards (Offener Standard). Die FSFE\footnote{Free Software Foundation Europe (FSFE): \url{https://fsfe.org/}} bietet eine an dem Europäischen Rahmenprogramm zur Interoperabilität (EIF) der Europäischen Komission orientierte Definition.\cite{DefinitionOffeneStandards} Demnach ist ein offener Standard ein Format oder Protokoll, das
 
@@ -156,10 +156,10 @@ Jeder RFC besitzt eine eindeutige Nummer, welche aufsteigend verteilt wird. Soba
 
 Basierend auf diesen RFCs implementieren Software-Entwickelnde, Hardware-Herstellende und Netzbetreibende ihre Lösungen.\cite{RFCs}
 
-\section{AT: E-Mail and IMAP}
+\section{E-Mail and IMAP}
 \label{sec:EmailAndIMAP}
 
-\subsection{AT: Mailserver}
+\subsection{Mailserver}
 
 Ein Mailserver besteht aus einer Vielzahl von Komponenten und Programmen. Diese lassen sich in drei sogenannte Agents unterteilen. Den Mail Transport Agent (MTA), den Mail Delivery Agent (MDA) und den Mail User Agent (MUA). Diese Agents erfüllen verschiedene Aufgaben, welche auf einem oder mehreren Servern ausgeführt werden. 
 \cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 19)
@@ -177,7 +177,7 @@ Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der ser
 \fi
 
 
-\subsection{AT: IMAP}
+\subsection{IMAP}
 
 \hl{Wie bereits erwähnt} ist IMAP ein Protokoll, um auf den Mailstore eines Mailservers zuzugreifen. Es ist ein statusbehaftetes und bestätigendes Protokoll der Anwendungsschicht des OSI-Referenzmodells und nutzt das Transmission Control Protocol (TCP) zur Übertragung. Die neueste Version von IMAP ist IMAP 4rev2 und definiert im RFC 9051\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}.\\
 Im Gegensatz zum defacto Standardverhalten beim Abruf von E-Mails über POP3 werden die Nachrichten nicht komplett heruntergeladen und dann vom Mailserver gelöscht oder als gelesen markiert. Der Mailclient fungiert beim Zugriff über IMAP als eine Art Fernsteuerung für das auf dem Mailserver existierende Postfach und ermöglicht eine vollständige E-Mail-Verwaltung, einschließlich Erstellung und Speicherung neuer E-Mails auf dem Server. Auch die Modifikation von E-Mail ist möglich. Allerdings ist dazu das Herunterladen und Löschen der alten E-Mail sowie das Hochladen der neuen (modifizierten) E-Mail notwendig.
@@ -195,7 +195,7 @@ Eine weitere Funktionalität von IMAP, die in dieser Arbeit wichtig wird, sind di
 	\item Modifikation von Emails visualisieren
 \end{itemize}
 
-\subsection{AT: Nextcloud Mail App}
+\subsection{Nextcloud Mail-App}
 
 Nextcloud\footnote{Nextcloud: \url{https://nextcloud.com/}} ist eine Business-Suite vergleichbar mit Google Workspace oder Microsoft 365 mit dem großen Unterschied, dass Nextcloud als Open-Source-Projekt komplett frei verfügbar ist. Es kann für private Zwecke auf dem Heimrechner oder auf einem Cloud-Server installiert werden. Aber auch Unternehmen, Organisationen oder Einrichtungen können Nextcloud für ihre Zwecke selbst hosten. Unter anderem dadurch ist Nextcloud DSGVO-konform und gerade für öffentliche Stellen oder Unternehmen mit sensiblen Daten interessant. Nextcloud wurde ursprünglich als Fork von OwnCloud entwickelt und bietet eine breite Palette von Funktionen, darunter Dateisynchronisation, Kalender, Kontakte, Aufgabenmanagement und vieles mehr. Die Plattform ist darauf ausgelegt, Datenschutz und Sicherheit zu gewährleisten, indem sie Benutzenden die Kontrolle über ihre Daten gibt. \cite{onlineOwncloudVsNextcloud2019}
 
@@ -208,7 +208,7 @@ Die Nextcloud Mail App ermöglicht den Benutzenden, E-Mails direkt in ihrer Nextc
 
 In diesem Kapitel wird genau erläutert, warum eine Snooze-Funktion notwendig ist und warum dafür eine Erweiterung des IMAP-Protokolls nötig ist.
 
-\section{AT: Mailmanagement}
+\section{AT: E-Mail-Management verursacht Stress}
 \label{sec:mailmanagement}
 
 
@@ -290,7 +290,7 @@ BUCH \cite{mulletManagingIMAP2000}
 \fi
 
 
-\chapter{AT: Exsitierende Implementierungen}
+\chapter{AT: Was existiert bereits}
 \label{sec:ExistierendeImpl}
 
 In diesem Kapitel werden verschiedenste E-Mail-Clients betrachtet und beschrieben, ob und in welcher Form sie eine Snooze-Funktionalität implementieren. Die Auswahl der betrachteten Clients basiert auf drei Schwerpunkten:\\
@@ -317,13 +317,13 @@ Die verschiedenen Clients werden in vier Gruppen unterteilt.\\
 	\item wie wurde die snooze funktion getestet? Wurde traffic angeschaut? welcher mailserver (dovecot) wurde benutzt, welche extentions sind dort aktiviert? Wurde der metadaten ext gar nicht ausprobiert?!?
 \end{itemize}
 
-\section{AT: Keine Implementierung}
+\section{Keine Implementierung}
 \label{sec:NoImpl}
 
 Bei der Analyse von bestehenden Implementierungen einer Snooze-Funktionalität haben sich einige E-Mail-Clients herausgestellt, welche diese Funktionalität gar nicht implementiert haben. Darunter fallen der Android-E-Mail-Client K-9 \footnote{K-9: \url{https://k9mail.app/}}, OpenExchangeMail \footnote{Open-Xchange Email: \url{https://www.open-xchange.com/products/ox-cloud}}, Yahoo Mail \footnote{Yahoo Mail: \url{https://overview.mail.yahoo.com/}}, Windows Live Mail\footnote{Windows Live Mail: \url{https://apps.microsoft.com/store/detail/mail-und-kalender/9WZDNCRFHVQM}}, SnappyMail \footnote{SnappyMail: \url{https://snappymail.eu/}}, Rainloop \footnote{Rainloop: \url{https://www.rainloop.net/}}, Tutanota \footnote{Tutanota: \url{https://tutanota.com/}}, Posteo \footnote{Posteo: \url{https://posteo.de/de}}, ProtonMail \footnote{ProtonMail: \url{https://proton.me/mail}}, Cypht \footnote{Cypht: \url{https://cypht.org/}} oder Evolution \footnote{Evolution: \url{https://wiki.gnome.org/Apps/Evolution}}.
 
 
-\section{AT: Lokale Implementierung}
+\section{Lokale Implementierung}
 \label{sec:LocalImpl}
 
 \hl{Es gibt aber auch E-Mail-Clients}, welche die Snooze-Funktionalität implementiert haben, aber diese nur in dem jeweiligen Client nutzbar ist. Die folgenden Clients fallen darunter:
@@ -340,7 +340,7 @@ Nachdem der definierte \hl{unsnooze}-Zeitpunkt erreicht ist, wird die E-Mail wie
 Thunderbird\footnote{Thunderbird: \url{https://www.thunderbird.net/de/}} hat keine Snooze-Funktionalität. Allerdings gibt es ein Add-On mailmindr\footnote{mailmindr: \url{https://mailmindr.net/de/}}, welches lokales \hl{Snoozen} in Thunderbird ermöglicht. Dabei werden die E-Mails in eine vom Nutzenden definierte Mailbox verschoben. Beim \hl{Unsnoozen} wird neben dem Zurückschieben der E-Mail noch eine Funktionalität ausgeführt, die vom Nutzenden definiert wird. Beispielsweise das Markieren als ungelesen der E-Mail.\\
 Thunderbird bietet die Möglichkeit, den E-Mails Keywords zuzuordnen. Dazu gibt es fünf vordefinierte Keywords, wobei das fünfte Keyword \enquote{Later} heißt. Intern wird dieses als \enquote{\$label5} geführt. Diese fünf Keywords werden auch von anderen E-Mail-Clients wie z.B. der Nextcloud Mail App verwendet. In Thunderbird lässt sich nach diesem Keywords filtern, was auch eine Möglichkeit bietet, E-Mails zu verstecken und zu einem anderen Zeitpunkt erneut anzuschauen.
 
-\section{AT: Environment Implementierung}
+\section{Proprietäre Implementierung}
 \label{sec:EnvironmentImpl}
 
 Clients, welche es auf verschiedenen Plattformen gibt, z.B. als App und Web-Client, haben meistens eine Syncronisation der Metadaten im Hintergrund über einen Nutzendenaccount. Dabei ist die Snooze-Funktionalität in diesen Clients meist übergreifend nutzbar, aber nicht über diese Umgebung hinaus. Die folgenden Clients bzw. Anbieter fallen darunter:
@@ -373,7 +373,7 @@ Wenn eine E-Mail in Fastmail \hl{gesnoozt} wird, dann wird sie aus der Mailbox, 
 Zoho Mail\footnote{Zoho Mail: \url{https://www.zoho.com/de/mail/}} bietet die Snooze-Funktionalität.\cite{SnoozeEmailsLater} Aber auch hier ist der IMAP-Zugriff ein kostenpflichtiges Feature.\cite{ZohoMailFlexibles} In Zoho Mail wird beim \hl{Snoozen} die E-Mail unter dem Reiter \enquote{Snoozed} gelistet und aus der ehemaligen Mailbox entfernt. Beim \hl{unsnoozen} wird die E-Mail in die Inbox verschoben (egal, aus welcher Mailbox heraus sie \hl{gesnoozt} wurde) und der ungelesen Status wird nicht geändert. Auch wird die E-Mail nicht an den Anfang der Inbox sortiert.
 
 
-\section{AT: Interoperable Implementierungen}
+\section{Interoperable Implementierung}
 \label{sec:InteropImpl}
 
 Im Folgenden werden Implementierungen in E-Mail-Clients betrachtet, welche einen interoperablen Ansatz verfolgen und somit theoretisch von allen E-Mail-Clients benutzt werden können.
@@ -401,29 +401,29 @@ In den eM-Clients werden die E-Mails mit solch einem Keyword, bei dem der Timest
 Da das Keyword durch andere E-Mail-Clients abgerufen werden kann, ist es theoretisch möglich, dass auch andere Clients die E-Mail \hl{gesnoozt} darstellen.
 
 
-\section{AT: Fazit}
+\section{Fazit}
 \label{sec:FazitExistingSolution}
 
 Es gibt verschiedene Möglichkeiten zur Implementierung einer Snooze-Funktionalität. \hl{Teilweise sehr unterschiedlich, aber oft auch mit gleichen Ansätzen.} Es wurde beobachtet, dass oft versucht wird, auf lokale Implementierungen zu setzen. Viele Clients legen eine extra Mailbox an, um die gesnootzen E-Mails dorthin zu verschieben. Das ist in gewisser Weise eine Möglichkeit für andere Clients zumindest zu erkennen, welche E-Mails gesnoozt sind und welche nicht. Allerdings sind die Namen dieser Mailboxen nicht einheitlich und unterscheiden sich sogar teilweise in der eigenen Umgebung, wie es bei Outlook der Fall ist. Auch das Verhalten der Clients nach dem Unsnoozen unterscheidet sich stark. Vom Reinen wieder einblenden bis als ungelesen an den Anfang der Mailbox sortieren und mit einem besonderen Symbol markieren, ist alles dabei.
 Nichtsdestotrotz gibt es auch Lösungsansätze, welche versuchen, eine interoperable Implementierung zu nutzen. Auf diese und andere interoperable Ansätze wird im nächsten Kapitel näher eingegangen.
 
-\chapter{AT: Diskussion Lösungsansätze}
+\chapter{Diskussion Lösungsansätze}
 \label{sec:DisskussionLoesung}
 
 Das folgende Kapitel widmet sich, nach der Analyse existierender Lösungen im vorherigen Kapitel, dem schaffen/beleuchten/analysieren interoperablen Lösungen für eine Snooze-Funktion. Dabei werden Ansätze von den bereits existierenden Implementierugen noch einmal aufgegriffen und neue/andere Ansätze beleuchtet. Das Ziel ist, dass die Ansätze/Lösungen nicht dazu führen, dass andere Clients, welche diesen Ansatz/Lösung nicht implementiert haben, verwirrt werden \hl{FORMULIERUNG} und wie bei Gmail z.B. gesnoozte E-Mails nicht mehr aufzufinden sind. Im besten Fall ist auch für Clients ohne die Implementierung eines Ansatzes erkennbar, dass eine E-Mail gesnoozt ist. \\
 Der Fokus liegt auf der Verwendung bereits existierender Funktionalitäten im IMAP-Protokoll oder Erweiterungen dieser durch sogenannte Extentions. Aber auch das Ausnutzen der Strucktur einer E-Mail ist ein bevorzugter Ansatz. Grund dafür ist, dass je näher man am Standard bleibt oder auf bereits etablierte Erweiterungen setzt, umso wahrscheinlicher ist am Ende auch, dass die eigene Implementierung eines Ansatzes Verbreitung findet.
 
-\section{AT: Was muss möglich sein}
+\section{Was muss Snooze können}
 \label{sec:WasMussMoeglich}
 
 \hl{Um die Lösungsansätze bewerten zu können, ist es notwendig, noch einmal klar zu formulieren, welche Aufgaben eine Snooze-Funktion erfüllen muss und welche Funktionen darüber hinaus wünschenswert wären, damit man von einem interoperablen Ansatz eines Snooze-Features sprechen kann.} Diese Aufgaben sind technischer Natur und beschreiben, was der E-Mail-Client für Möglichkeiten haben muss. Es geht hierbei nicht um den genauen Umgang der Clients mit den Informationen und die damit einhergehende Schnittstelle zum Nutzenden. Den Clients sollte selbst überlassen sein, wie die zur Verfügung gestellten Möglichkeiten genutzt werden, solange sie den technischen Vorgaben für die Speicherung und Übermittlung der Daten des Lösungsansatzes folgen. Ob es eine oder mehrere Auswahlmöglichkeiten gibt, wie lange eine E-Mail gesnoozt wird, darf sich beispielsweise von Client zu Client unterscheiden. \\
 \hl{Aufgaben, die erfüllt werden müssen, sind, dass E-Mails, welche gesnoozt sind, für alle Clients in irgendeiner Weise als diese erkennbar sind.} Ebenfalls muss die Information, bis wann eine E-Mail gesnoozt ist, durch den Client ermittelbar sein. Auch muss sichergestellt werden, dass der Aufweckprozess einer E-Mail keine Inkonsistenz erzeugt, wenn Beispielsweise mehrere Clients gleichzeitig versuchen, eine E-Mail aufzuwecken. \\
 Für den Fall, dass die E-Mail beim Snoozen in eine andere Mailbox verschoben wird, ist es wünschenswert, wenn der Name der Mailbox, aus der die E-Mail kommt, gespeichert wird. Dadurch kann die E-Mail wieder zurück in diese Mailbox verschoben werden, wenn die E-Mail wieder aufgeweckt wird. Für den Fall, dass diese Information nicht ermittelbar ist, kann die E-Mail aber immer in die INBOX verschoben werden, weshalb diese Information nicht zwangsläufig ermittelbar sein muss. Ebenfalls wünschenswert wäre die Möglichkeit für den Client zu ermitteln, seit wann eine E-Mail wieder aufgewacht ist. Damit könnte sich eine Sortierung der aufgewachten E-Mail an den Anfang der Mailbox realisieren lassen. Ähnlich zu der Information, seit wann eine E-Mail aufgewacht wurde, kann die Information, wann eine E-Mail gesnoozt wurde, für die Darstellung durch den Client interessant sein. Aber da die E-Mail sowieso aus dem Blickfeld verschwinden soll, wenn sie gesnoozt ist, ist diese Information für eine Snooze-Funktionalität nicht wirklich erforderlich.
 
-\section{AT: Welche Möglichkeiten gibts}
+\section{Welche Lösungsansätze gibt es}
 \label{sec:WelcheMoegGibts}
 
-\subsection{AT: Keywords}
+\subsection{Keywords}
 
 Der erste Lösungsansatz, der beleuchtet wird, ist die Verwendung von Keywords, welche durch den IMAP-Standard definiert werden. Wie bereits erläutert können diese von den Clients erstellt und den einzelnen E-Mails zugeordnet werden. Es ist zwar möglich, dass der Mailserver das Erstellen eigener Keywords nicht gestattet, was aber nur sehr selten der Fall ist.
 
@@ -442,7 +442,7 @@ BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 
 \fi
 
-\subsection{AT: Header bearbeiten}
+\subsection{E-Mail-Header}
 
 Der nächste Lösungsansatz ist das Bearbeiten des E-Mail-Headers, wie es das Roundcube-Plugin roundcube-snooze umsetzt. Dabei wird der E-Mail, welche \hl{gesnoozt} wird, ein neues \hl{Headerfeld} \textit{X-Snoozed} hinzugefügt. Im Folgenden ist noch einmal das bereits verwendete Beispiel aufgeführt: 
 
@@ -460,7 +460,7 @@ Auch Erweiterungen wie RFC7508\footnote{RFC7508 - Securing Header Fields with S/
 
 Ein Problem dieses Ansatzes ist, dass die Header einer E-Mail eig. nicht durch den empfangenden Client bearbeitet werden. \hl{Dazu gibt es ja IMAP und Erweiterungen, um die Nachricht an sich unberührt zu lassen... Hier irgendwie noch begründen. Alle Clients müssten diese Funktionalität implementieren}
 
-\subsection{AT: Metadaten Speichern}
+\subsection{Metadata-Erweiterung}
 
 Ein weiterer Lösungsansatz ist die Verwendung der RFCs 5257\footnote{RFC5257 - Internet Message Access Protocol - ANNOTATE Extension \url{https://datatracker.ietf.org/doc/html/rfc5257}} (Internet Message Access Protocol - ANNOTATE Extension) und 5464\footnote{RFC5464 - The IMAP METADATA Extension \url{https://datatracker.ietf.org/doc/html/rfc5464}} (The IMAP METADATA Extension). Beide Erweiterungen funktionieren sehr ähnlich. Die Annotate Extention ermöglicht es, zu jeder E-Mail seperate Informationen abzuspeichern, die Metadata Extension dagegen zu Mailboxen und auf Server-Ebene. Die Annotate Extention ist eine experimentelle Erweiterung von 2008.\cite{dabooInternetMessageAccess2008} Sie wird nur von wenigen Mailservern implementiert.\cite{boschSpecsUnofficialIMAP} Gerade DoveCot als verbreitetster IMAP-Mailserver \cite{OpenEmailSurvey} unterstützt diese Erweiterung nicht. Die Metadata-Erweiterung dagegen ist ein Proposed Standard und wird von Dovecot ab der Version 2.2.7 implementiert. Andere Mailserver wie z.B. Gmail oder Microsoft Exchange implementieren diese Erweiterung nicht.\cite{boschSpecsUnofficialIMAP} Leider muss selbst in Dovecot diese Erweiterung von einer administrierenden Person erst aktiviert werden.\cite{IMAPMETADATADovecot} Es wird im Folgenden der Lösungsansatz anhand der Metadata-Erweiterung erklärt, obwohl die Annotate-Erweiterung eine bessere Grundlage für das Snooze-Feature bietet, da Informationen direkt auf E-Mail-Ebene abgespeichert werden können. Für die Metadaten-Erweiterung spricht in diesem Fall aber die bereits existierende Standardisierung und somit vorhandene Implementierung in manchen IMAP Mailservern.
 
@@ -468,13 +468,13 @@ Die Metadata-Erweiterung führt neue IMAP-Befehle ein für das Setzen und Abrufen 
 Die oberste Hirachrchie-Ebene besteht aus zwei Möglichkeiten: \enquote{/private} und \enquote{/shared}. Unter private sind Einträge zu finden, welche nur durch den eingeloggten Nutzenden abgerufen werden können. Unter shared befinden sich Einträge, welche für alle Nutzenden, die Zugriff auf diese Mailbox oder den Server haben, abrufbar sind. Die nächste Hirarchiebene besteht aus vordefinierten Möglichkeiten wie z.B. \enquote{/private/comment} oder \enquote{/shared/comment} für eine Notiz zur Mailbox. An dieser Stelle könnte man ansetzen und eine Eintrag \enquote{/private/snoozed} für eine spezielle Snoozed Mailbox erzeugen. In diese Mailbox werden die \hl{gesnoozten} E-Mails verschoben und als Wert des Eintrages wird einen JSON-Objekt gespeichert, welches zu allen in der Mailbox befindlichen E-Mails die notwendigen Snooze Informationen abspeichert. Der Mailserver kann die Einträge pro Mailbox begrenzen. Bei Unterstützung der Erweiterung wird aber eine Mindestanzahl von 10 Einträgen pro Mailbox sichergestellt.\cite{dabooIMAPMETADATAExtension2009}
 
 
-\subsection{AT: Referenz E-Mail}
+\subsection{Referenz-E-Mail}
 
 Ein weiterer Ansatz ist das Speichern der Snooze-Informationen in einer extra E-Mail ähnlich zur Implementierung, die Mailspring verwendet, um E-Mails an den Anfang der Inbox zu sortieren. Beim Snoozen würde dabei eine neue E-Mail erzeugt werden, welche \hl{per Referenz} der eigentlichen E-Mail angehängt wird. Über ein Attribut dieser neuen E-Mail, welches definiert ist, kann dann die E-Mail im Client ausgeblendet, sodass nur die eigentliche \hl{gesnoozte} E-Mail sichtbar ist. Für dieses Attribut gibt es mehrere Möglichkeiten. Beispielsweise kann ein Keyword \enquote{Hidden} eingeführt werden, welches den Clients mitteilt, dass die E-Mail mit diesem Keyword unsichtbar sein soll. Es kann auch ein Header in der E-Mail einen bestimmten Wert haben. Beispielsweise könnte man den Subject Header auf \enquote{SNOOZEDMETADATA} setzen. Wichtig ist, dass dieses Attribut einheitlich und eindeutig definiert ist. Im Body der E-Mail könnten dann die Informationen zum Snooze der eigentlichen E-Mail in Form z.B. eines JSON-Objekts stehen.
 
 Für andere Clients, die diesen Ansatz nicht implementieren, entsteht wie auch bei Mailspring eine extra E-Mail, die eigentlich keinen relevanten für den Nutzenden hat.  Viele E-Mail-Clients bieten im Moment zwar die Thread-Funktionalität und würden die extra E-Mail nur bei Auswahl der eigentlichen E-Mail anzeigen, trotzdem kann dies zu Unübersichtlichkeit und Verwirrung führen.
 
-\subsection{AT: Dedicated Mailbox}
+\subsection{Special-Use-Mailbox}
 
 Alle bis jetzt beschriebenen Lösungsansätze, mit ausnahme der Benutzung der Metadata-Erweiterung, erfüllen die Aufgabe, erkennbar zu machen, welche E-Mail gesnoozt ist, ohne eine extra Mailbox anzulegen. Das heißt aber auch, dass Clients, welche keine Implementierung einer dieser Ansätze verfolgen, zu Verwirrung und Unübersichtlichkeit führen können, wenn mehrere Clients benutzt werden.\cite{SnoozedEmailsStay2022} Es ist deshalb sinnvoll, eine extra Mailbox anzulegen, welche \hl{gesnoozte} E-Mails aufbewahrt, bis sie wieder \hl{unsnoozed} werden. Dieses Verhalten gibt es bereits in vielen Clients, welche ein Snooze Feature implementiert haben. Allerdings gibt es in der Namensgebung dieser Mailbox, wie bereits erwähnt, viele Unterschiede. Ein einheitlicher Name wie z.B. \enquote{Snoozed} wäre hier sinnvoll.
 
@@ -491,7 +491,7 @@ BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 
 \fi
 
-\subsection{AT: Savedate}
+\subsection{Savedate-Erweiterung}
 
 Eine Aufgabe, die für eine Snooze-Funktionalität nicht entscheidend ist, aber zu einem besseren Nutzendenerlebnis beiträgt, ist das Sortieren an den Anfang nach dem \hl{Unsnoozen}. Dafür beitet sich die IMAP-Erweiterung RFC8514\footnote{RFC8514 - Internet Message Access Protocol (IMAP) - SAVEDATE Extension: \url{https://datatracker.ietf.org/doc/html/rfc8514/}} (Internet Message Access Protocol (IMAP) - SAVEDATE Extension) an. Diese Erweiterung definiert ein neues E-Mail-Attribut \enquote{save date}. Dieser Zeitpunkt ist der Zeitpunkt, an dem die E-Mail in die Mailbox gekommen ist, in der sie sich gerade befindet. Sobald eine E-Mail also von einer Inbox in eine andere verschoben wird, ändert sich dieses Attribut auf die aktuelle Zeit. Abgerufen werden kann dieses Attribut über den \textit{FETCH}-Befehl.\\
 Wenn man davon ausgeht, dass eine E-Mail beim \hl{Snoozen} in eine andere Mailbox verschoben wird und beim \hl{Unsnoozen} wieder zurückgeschoben wird, kann man die E-Mails der Mailbox nach diesem Attribut sortieren und würde E-Mails, welche gerade \hl{gewaked} sind, am Anfang der Mailbox angezeigt bekommen.\\
@@ -501,14 +501,14 @@ Leider ist diese Erweiterung im Moment nur in DoveCot ab der Version 2.3.11 genu
 	\item In welchem Standard Status befindet sich das???
 \end{itemize}
 
-\subsection{AT: Wer übernimmt das verschieben}
+\subsection{Quick-Resynchronization-Erweiterung}
 
 Alle beschriebenen Lösungsansätze bieten teilweise oder vollumfänglich die Grundlage für eine Snooze-Funktionalität. Allerdings ist der eigentliche Prozess des \hl{Snoozen} und \hl{Unsnoozen} noch nicht geregelt. Dies kann entweder durch den Server oder durch den Client passieren. Für den Fall, dass eine clientseitige Implementierung angestrebt wird, ist es notwendig, dass alle Clients schnelle Updates über eine Veränderung auf dem Server bekommen, da das \hl{Unsnoozen} theoretisch von vielen Clients gleichzeitig ausgeführt werden kann.\\
 Hierfür bietet sich der RFC7162\footnote{RFC7162 - IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{https://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist Teil des Standards und weit verbreitet implementiert.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es, mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client Schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht, Mailbox-Änderungen in Bezug auf Flags/Keywords und Metadaten schnell zu synchronisieren.\cite{melnikovIMAPExtensionsQuick2014}
 
 \hl{Verbreitung nennen?}
 
-\section{Fazit}
+\section{AT: Fazit}
 \label{sec:LoesungFazit}
 
 Es gibt verschiedene Lösungsansätze, die ermöglichen, eine Snooze-Funktion interoperabel zu implementieren. Dabei gibt es nicht \enquote{die} eine Lösung, sondern mehrere Teillösungen, die in Kombinationen eine ganzheitliche Lösung schaffen.
@@ -564,7 +564,7 @@ Als letztes ist eine \enquote{Ausnutzung} bestimmter Mechanismen oder Strukturen
 
 \fi
 
-\section{AT: Nextcloud Mail App}
+\section{AT: Tauglichkeit anhand der Nextcloud Mail-App}
 \label{sec:LoesungNextcloud}
 
 Die ermittelten Lösungsansätze oder Teillösungen werden jetzt auf ihre Tauglichkeit anhand der Nextcloud Mail App getestet. ...
@@ -580,7 +580,7 @@ Für die schnelle und konfliktfreie Resynchronisierung bietet die IMAP Client Lib
 
 \hl{Kombi aus Keyword oder Header + Secial use + Constore/Qresync wäre am besten für Mail App}
 
-\section{AT: Vorschlag Standarderweiterung}
+\section{Vorschlag Standarderweiterung}
 \label{sec:VorschlagStandard}
 
 Mit den gesammelten Erkentnissen kann nun ein Vorschlag für eine Erweiterung des IMAP-Standards erfolgen. Mithilfe dieses Vorschlages kann ein Internet Draft formuliert und im besten Fall ein Standardisierungsprozess in Gang gesetzt werden.
@@ -599,10 +599,10 @@ Durch den Klick des Nutzenden auf einen Snooze-Button oder eine andere Art des T
 Der Client hat die Aufgabe regelmäßig, zu schauen, ob eine oder mehrere E-Mails in der Snoozed-Mailbox ein Keyword besitzen, bei dem der UNIX-Timestamp in der Vergangenheit liegt. Dazu ermittelt der Client den aktuellen UNIX-Timestamp und vergleicht ihn mit dem des Keywords. Wie oft diese Überprüfung stattfindet, ist dem Client selbst überlassen. Es wird empfohlen, eine Überprüfung bei Start des Clients durchzuführen, um einen aktuellen Stand zu erzeugen.\\
 Wenn eine oder mehrere E-Mails gefunden wurden, werden diese E-Mails in die Inbox zurückgeschoben und das \enquote{\textbackslash{\$SnoozedUntil\_X}} Keyword entfernt, wobei X der UNIX-Timestamp ist.
 
-\chapter{AT: Fazit}
+\chapter{Fazit}
 \label{sec:Fazit}
 
-\section{AT: Zusammenfassung}
+\section{Zusammenfassung}
 \label{sec:Zusammenfassung}
 
 Diese Arbeit hat sich mit den Möglichkeiten beschäftigt, eine Snooze-Funktion interoperabel über das IMAP-Protokoll umzusetzen. Es wurde erläutert, warum der Bedarf für solch eine Funktionalität existiert und warum für eine interoperable Lösung das IMAP-Protokoll notwendig ist.\\
@@ -611,7 +611,7 @@ Als nächstes wurde diskutiert, welche Lösungsansätze es gibt und inwieweit diese
 Um eine Praxistauglichkeit zu bewerten, wurden die einzelnen Teillösungen anhand der Nextcloud Mail-App untersucht. Dabei wurde festgestellt, dass es Teillösungen gab, die aus Sicht der Nextcould Mail App nicht für eine Implementierung geeignet sind, da der zusätzliche Aufwand extrem groß wäre.\\
 Zuletzt wurde mit den Erkentnissen aus der Diskussion und den Erkentnissen aus der Untersuchung anhand der Nextcloud Mail-App, ein Vorschlag gemacht, wie eine Standarderweiterung aussehen könnte.
 
-\section{AT: Ausblick}
+\section{Ausblick}
 \label{sec:Ausblick}
 
 Die Entwicklung eines Standards ist ein mühsamer Prozess, der sich oft mehrere Jahre hinziehen kann. Mit dieser Arbeit wurde eine Grundlage geschaffen, um den Prozess einer Standardisierung in Gang zu setzen. Wenn der Vorschlag für eine Erweiterung des IMAP-Standards in Form eines Internet Drafts eingereicht wird, kann eine Standardisierung in den nächsten Jahren passieren. Andernfalls wird es \hl{meiner Meinung nach} dazu kommen, dass sich der aktuelle Trend weiterentwickelt und noch mehr E-Mail-Clients ihre eigenen Lösungen entwickeln, die nicht interoperabel sind.
