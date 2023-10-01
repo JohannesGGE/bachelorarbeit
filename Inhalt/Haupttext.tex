@@ -477,20 +477,12 @@ BUCH \cite{heinleinDovecotPOP3IMAPServer2014}
 
 Eine Aufgabe, die für eine Snooze-Funktionalität nicht entscheidend ist, aber zu einem besseren Nutzendenerlebnis beiträgt, ist das Sortieren an den Anfang nach dem \hl{Unsnoozen}. Dafür beitet sich die IMAP-Erweiterung RFC8514\footnote{RFC8514 - Internet Message Access Protocol (IMAP) - SAVEDATE Extension: \url{https://datatracker.ietf.org/doc/html/rfc8514/}} (Internet Message Access Protocol (IMAP) - SAVEDATE Extension) an. Diese Erweiterung definiert ein neues E-Mail-Attribut \enquote{save date}. Dieser Zeitpunkt ist der Zeitpunkt, an dem die E-Mail in die Mailbox gekommen ist, in der sie sich gerade befindet. Sobald eine E-Mail also von einer INBOX in eine andere verschoben wird, ändert sich dieses Attribut auf die aktuelle Zeit. Abgerufen werden kann dieses Attribut über den \textit{FETCH}-Befehl.\\
 Wenn man davon ausgeht, dass eine E-Mail beim \hl{Snoozen} in eine andere Mailbox verschoben wird und beim \hl{Unsnoozen} wieder zurückgeschoben wird, kann man die E-Mails der Mailbox nach diesem Attribut sortieren und würde E-Mails, welche gerade \hl{gewaked} sind, am Anfang der Mailbox angezeigt bekommen.\\
-Leider ist diese Erweiterung im Moment nur in DoveCot ab der Version 2.3.11 genutzt werden.\cite{boschSpecsUnofficialIMAP}
-
-\begin{itemize}
-	\item \hl{Verbreitung nennen}
-\end{itemize}
+Leider kann diese Erweiterung im Moment nur in Dovecot ab der Version 2.3.11 genutzt werden.\cite{boschSpecsUnofficialIMAP}
 
 \subsection{Quick-Resynchronization-Erweiterung}
 
 Alle beschriebenen Lösungsansätze bieten teilweise oder vollumfänglich die Grundlage für eine Snooze-Funktionalität. Allerdings ist der eigentliche Prozess des \hl{Snoozen} und \hl{Unsnoozen} noch nicht geregelt. Dies kann entweder durch den Server oder durch den Client passieren. Für den Fall, dass eine clientseitige Implementierung angestrebt wird, ist es notwendig, dass alle Clients schnelle Updates über eine Veränderung auf dem Server bekommen, da das \hl{Unsnoozen} theoretisch von vielen Clients gleichzeitig ausgeführt werden kann.\\
-Hierfür bietet sich der RFC7162\footnote{RFC7162 - IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{https://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist Teil des Standards und weit verbreitet implementiert.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es, mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client Schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht, Mailbox-Änderungen in Bezug auf Flags/Keywords und Metadaten schnell zu synchronisieren.\cite{melnikovIMAPExtensionsQuick2014}
-
-\begin{itemize}
-	\item \hl{Verbreitung nennen}
-\end{itemize}
+Hierfür bietet sich der RFC7162\footnote{RFC7162 - IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC): \url{https://datatracker.ietf.org/doc/html/rfc7162}} an. Diese Erweiterung ist zwar noch nicht Teil des IMAP Standards in der Version IMAP4rev2, allerdings wird die Implementierung ausdrücklich empfohlen. \cite{melnikovInternetMessageAccess2021} Die tatsächliche Implementierung in den Mailservern ist dementsprechend gut.\cite{boschSpecsUnofficialIMAP} Die \enquote{Conditional Store} Funktionalität ermöglicht es, mehrere Änderungen innerhalb einer Mailbox zu koordinieren und sicherzustellen, dass immer nur ein Client Schreibzugriff hat. Zusätzlich wird ein Mechanismus definiert, welcher es ermöglicht, Mailbox-Änderungen in Bezug auf Flags/Keywords und Metadaten schnell zu synchronisieren.\cite{melnikovIMAPExtensionsQuick2014}
 
 \section{AT: Fazit}
 \label{sec:LoesungFazit}
