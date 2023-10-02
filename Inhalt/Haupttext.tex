@@ -155,16 +155,15 @@ Basierend auf diesen RFCs implementieren Software-Entwickelnde, Hardware-Herstel
 
 \subsection{Mailserver}
 
-Ein Mailserver besteht aus einer Vielzahl von Komponenten und Programmen. Diese lassen sich in drei sogenannte Agents unterteilen. Den Mail Transport Agent (MTA), den Mail Delivery Agent (MDA) und den Mail User Agent (MUA). Diese Agents erfüllen verschiedene Aufgaben, welche auf einem oder mehreren Servern ausgeführt werden. 
-\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 19)
-Der MTA realisiert den asynchronen E-Mail-Betrieb, indem er E-Mails vom Nutzendenclient versendet oder E-Mails von anderen MTAs empfängt und weiterleitet. Das Simple Mail Transport Protocol (SMTP) ist dabei das Protokoll, über das die MTAs kommunizieren.\\
-Der MDA ist für die Bearbeitung der E-Mail zuständig, wenn der aktuelle MTA das Ziel der E-Mail ist. Er sorgt dafür, dass die E-Mail an der richtigen Stelle im Mailstore (E-Mail-Speicher) für den adressierten Nutzenden abgespeichert wird.\\
-Da SMTP sich zwar für den Versand von E-Mails, aber nicht für das nutzerseitige Empfangen und Abfragen eignet, gibt es noch den MUA. Der MUA ist die Schnittstelle zum Nutzenden und stellt Zugang zum Mailstore durch ein Zugriffsprotokoll wie POP3 oder IMAP zur Verfügung. Dabei ist der MUA sowohl Teil des Clients, den der Nutzende benutzt, als auch serverseitig, um die Anfragen durch POP3 oder IMAP zu bearbeiten.\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 20)\\
-Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der serverseitige Teil des MUA gemeint.
+Ein Mailserver besteht aus verchiedenen Komponenten. Die Abbildung \ref{fig:mailflow} zeigt, wie Mailserver und die Schnittstelle zum E-Mail-Client funktionieren.\\
+Der E-Mail-Client ist der Mail User Agent (MUA) und nutzt das Simple Mail Transport Protocol (SMTP) zum Versenden von E-Mails an einen Mail Transfer Agent (MTA). Der Mail Transfer Agent ist für den Transport zu anderen Mailservern zuständig. Auch hier wird SMTP verwendet. Der empfangende Mail Transfer Agent entscheidet, ob die E-Mail weitergesendet werden muss oder ob das Ziel einer E-Mail erreicht ist. Bei Erreichen des Ziel-Mailservers übergibt der Mail Transfer Agent die E-Mail dem Mail Delivery Agent (MDA), welcher dafür sorgt, dass die E-Mail in dem richtigen Postfach für den Nutzenden abgelegt wird. Nun kann der Nutzende sich über ein Zugriffsprotokoll wie POP3 oder IMAP zum Mailserver verbinden und die E-Mails herunterladen bzw. verwalten. Diese IMAP-Schnittstelle zur Verwaltung der E-Mails auf dem Mailserver ist für diese Arbeit von Interesse.\cite{mulletManagingIMAP2000} (Vgl. S. 4) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 19-20)
 
-\begin{itemize}
-	\item \hl{Visualisieren und Text dementsprehend anpassen}
-\end{itemize}
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.9\textwidth]{Abbildungen/mailflow.png}}
+	\caption{Funktionsweise Mailserver und Schnittstelle zum E-Mail-Client\cite{WieRichteIch}}
+	\label{fig:mailflow}
+\end{figure}
 
 \iffalse
 \subsection{AT: Was ist eine E-Mail?}
@@ -176,13 +175,23 @@ Wenn in dieser Arbeit von \textit{dem Mailserver} die Rede ist, dann ist der ser
 
 
 \subsection{IMAP}
+\label{subsec:imap}
 
-IMAP ist ein Protokoll, um auf den Mailstore eines Mailservers zuzugreifen. Es ist ein statusbehaftetes und bestätigendes Protokoll der Anwendungsschicht des OSI-Referenzmodells und nutzt das Transmission Control Protocol (TCP) zur Übertragung. Die neueste Version von IMAP ist IMAP4rev2 und definiert im RFC 9051\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}.\\
-Im Gegensatz zum defacto Standardverhalten beim Abruf von E-Mails über POP3 werden die Nachrichten nicht komplett heruntergeladen und dann vom Mailserver gelöscht oder als gelesen markiert. Der E-Mail-Client fungiert beim Zugriff über IMAP als eine Art Fernsteuerung für das auf dem Mailserver existierende Postfach und ermöglicht eine vollständige E-Mail-Verwaltung, einschließlich Erstellung und Speicherung neuer E-Mails auf dem Server. Auch die Modifikation von E-Mail ist möglich. Allerdings ist dazu das Herunterladen und Löschen der alten E-Mail sowie das Hochladen der neuen (modifizierten) E-Mail notwendig. \hl{(Visualisieren und anhand von Bild beschreiben)}
-\cite{mulletManagingIMAP2000} (Vgl. S. 16) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 21) \cite{lebeauAnswerIMAPEditing2013} \\
-\enquote{Ein IMAP-Server stellt den Speicherplatz zur Verfügung und hält alle E-Mails vorrätig [...]. Auch die serverseitige Suche nach Absendern oder Textblöcken ist möglich, darüber hinaus erlaubt IMAP das Markieren von E-Mails, etwa als gelesen, ungelesen oder beantwortet - oder gar mit völlig wahlfreien Schlagwörtern zur eigenen Markierung.} \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 21, 22)
+IMAP ist ein Protokoll, um auf den Mailstore eines Mailservers zuzugreifen. Es ist ein statusbehaftetes und bestätigendes Protokoll der Anwendungsschicht des OSI-Referenzmodells und nutzt das Transmission Control Protocol (TCP) zur Übertragung. Die neueste Version von IMAP ist IMAP4rev2 und definiert im RFC 9051\footnote{RFC9051 - Internet Message Access Protocol (IMAP) - Version 4rev2: \url{https://datatracker.ietf.org/doc/html/rfc9051}}.
+
+Im Gegensatz zum defacto Standardverhalten beim Abruf von E-Mails über POP3 werden die Nachrichten nicht komplett heruntergeladen und dann vom Mailserver gelöscht oder als gelesen markiert. Der E-Mail-Client fungiert beim Zugriff über IMAP als eine Art Fernsteuerung für das auf dem Mailserver existierende Postfach und ermöglicht eine vollständige E-Mail-Verwaltung, einschließlich Erstellung und Speicherung neuer E-Mails auf dem Server.\cite{mulletManagingIMAP2000} (Vgl. S. 16) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 21)
+Das Bearbeiten von E-Mails ist nicht Teil des Protokolls. Dennoch lassen sich E-Mails mithilfe anderer IMAP-Mechanismen bearbeiten.\cite{lebeauAnswerIMAPEditing2013} Abbildung \ref{fig:editmail} zeigt den Ablauf in Form eines Sequenzdiagramms. \\
+Zuerst lädt sich der E-Mail-Client die E-Mail über eine \texttt{FETCH}- Anfrage herunter. Durch den \texttt{STORE}-Befehl wird der E-Mail als nächstes der \texttt{\textbackslash{Deleted}} Flag gesetzt. Mit dem \texttt{EXPUNGE}-Befehl können nun die mit \texttt{\textbackslash{Deleted}} markierten E-Mails vom Mailserver gelöscht werden. Im nächstes Schritt wird die heruntergeladene E-Mail lokal bearbeitet und danach mit dem \texttt{APPEND}-Befehl auf dem Mailserver gespeichert. Dieser Ablauf führt dazu, dass die E-Mail sowohl vom Mailserver als auch von anderen Clients als komplett neue E-Mail betrachtet wird.\\
+\enquote{Auch die serverseitige Suche nach Absendern oder Textblöcken ist möglich, darüber hinaus erlaubt IMAP das Markieren von E-Mails, etwa als gelesen, ungelesen oder beantwortet - oder gar mit völlig wahlfreien Schlagwörtern zur eigenen Markierung.} \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 21, 22)
 Mit IMAP ist es möglich, von mehreren Clients parallel auf dasselbe Postfach zuzugreifen und dieses zu bearbeiten, da der Datenbestand auf dem zentralen Server vorliegt und der Client die benötigten Daten abfragt. \cite{mulletManagingIMAP2000} (Vgl. S. 16) \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 39)
 IMAP bietet außerdem die Möglichkeit, die E-Mails in sogenannten Mailboxes bzw. Ordnern zu organisieren. \cite{mulletManagingIMAP2000} (Vgl. S. 17)
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.9\textwidth]{Abbildungen/mermaid-editmail.png}}
+	\caption{Ablauf des Bearbeitens einer E-Mail über IMAP}
+	\label{fig:editmail}
+\end{figure}
 
 IMAP bietet sogenannte Flags, welche den Status einer Mailbox oder E-Mail beschreiben. Wenn über den \texttt{LIST} Command die Mailboxen abgefragt werden, kann beispielsweise anhand des \texttt{\textbackslash{Unmarked}} Flags ermittelt werden, ob eine Mailbox seit dem letzten Zugriff neue E-Mails empfangen wurde. Wenn der Flag gesetzt ist, bedeutet das, es befinden sich neue E-Mails in der Mailbox.\cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 46) Auch die einzelnen E-Mails können geflaggt sein. Dazu stellt IMAP sogenannte System Flags bereit: \texttt{\textbackslash{Seen}}, \texttt{\textbackslash{Answered}}, \texttt{\textbackslash{Flagged}}, \texttt{\textbackslash{Deleted}}, \texttt{\textbackslash{Draft}}, \texttt{\textbackslash{Recent}}. Es gibt aber auch Keywords, welche von der Serverimplementierung abhängen. Keywords beginnen nicht mit einem \texttt{\textbackslash}. \enquote{Abgesehen von diesem Detail, werden selbstdefinierte Keywords und Systemflags auf gleiche Weise angesprochen und gesetzt.} \cite{heinleinDovecotPOP3IMAPServer2014} (Vgl. S. 146) Manche Keywords sind bereits durch den IMAP-Standard definiert und sollten von den Mailservern unterstützt werden: \texttt{\$Forwarded}, \texttt{\$MDNSent}, \texttt{\$Junk}, \texttt{\$NotJunk}, \texttt{\$Phishing}. Darüber hinaus können eigene Keywords durch den Client gesetzt werden, wenn dies durch den Server erlaubt ist.\\
 Bei Auswahl einer Mailbox durch den Client, was vor jedem Zugriff auf den Inhalt einer Mailbox notwendig ist, sendet der Server unter anderem eine Antwort mit dem Stichwort \texttt{FLAGS}, welche die in dieser Mailbox zulässigen Flags/Keyword für E-Mails listet. Die Antwort \texttt{PERMANENTFLAGS} listet die durch den Client anwendbaren Flags/Keywords. Wenn diese Antwort \texttt{\textbackslash{*}} enthält, dann ist es dem Client erlaubt, eigene Keywords zu setzen.\cite{melnikovInternetMessageAccess2021}
@@ -445,7 +454,7 @@ Das neue Headerfeld enthält sowohl den genauen Zeitpunkt des \hl{snooze} (at) al
 Da dieser Lösungsansatz die Header einer E-Mail bearbeitet, sind auch noch weitere Einflüsse zu beachten. Es könnte die Frage aufkommen, inwieweit durch das Bearbeiten der Header Verschlüsselung und Signierung durch S/MIME beeinflusst werden können. Diesbezüglich ist bei richtiger Implementierung allerdings keine Gefahr zu befürchten. S/MIME kann durch das Einschließen bestimmter Header in einen sogenannten \enquote{message/rfc822 Wrapper}, auch nicht Inhaltsbezogene Header wie z.B. den \enquote{To}-Header schützen.\cite{schaadSecureMultipurposeInternet2019} \cite{resnickInternetMessageFormat2001} Allerdings sind diese explizit auszuwählen. Es gibt äußere Header, welche für S/MIME nicht relevant sind. Wenn der \textit{X-Snoozed}-Header als einer dieser Äußeren hinzugefügt wird, ergibt sich somit kein Einfluss auf S/MIME.\\
 Auch Erweiterungen wie RFC7508\footnote{RFC7508 - Securing Header Fields with S/MIME \url{https://datatracker.ietf.org/doc/rfc7508/}} basieren auf der Auswahl bestimmter Header, welche geschützt werden und es erlauben, Header hinzuzufügen, ohne die Sicherheitsmechanismen \hl{kaputt} zu machen. \cite{cailleuxSecuringHeaderFields2015}
 
-Ein Problem dieses Ansatzes ist, dass die Header einer E-Mail normalerweise nicht durch den empfangenden Client bearbeitet werden. Das IMAP Protokoll bietet Möglichkeiten E-Mails zu organisieren und kategorisieren ohne dabei die eigentliche E-Mail zu bearbeiten. Darüber hinaus müssten die meisten Clients die Funktionalität des Bearbeitens ersteinmal implementieren.
+Ein Problem dieses Ansatzes ist, dass IMAP als serverseitiges Management-Protokoll gedacht ist. Das Bearbeiten von E-Mails und deren Header ist kein Bestandteil von IMAP.\cite{melnikovInternetMessageAccess2021} Dennoch kann eine E-Mail bearbeitet werden, indem sie, wie unter \ref{subsec:imap} beschrieben gelöscht wird und eine neue E-Mail erzeugt und abgespeichert wird.\cite{lebeauAnswerIMAPEditing2013} Diese Funktionalität müssten die Clients erstmal implementieren.
 
 \subsection{Metadata-Erweiterung}
 
@@ -497,10 +506,14 @@ Hierfür bietet sich der RFC7162\footnote{RFC7162 - IMAP Extensions: Quick Flag C
 Es gibt verschiedene Lösungsansätze, die ermöglichen, eine Snooze-Funktion interoperabel zu implementieren. Dabei gibt es nicht \enquote{die} eine Lösung, sondern mehrere Teillösungen, die in Kombinationen eine ganzheitliche Lösung schaffen.
 
 Mit Sicht auf eine angestrebte Standardisierung gibt es besser und schlechter geeignete Teillösungen.Am wichtigsten ist die Verwendung des bereits existierenden Standards oder die Nutzung bereits implementierter Erweiterungen des Standards. Sowohl die Verwendung von Keywords als auch die Special-Use-Mailbox setzen auf bereits standardisierte Mechanismen im IMAP-Protokoll. Für die Verwendung von Keywords mit UNIX-Timestamp ist es empfehlenswert, einen Mechanismus zu implementieren, der dafür sorgt, dass nicht mehr benutzte Keywords gelöscht werden. Der Lösungsansatz funktioniert aber auch ohne diesen Mechanismus.\\
-Das Bearbeiten des Headers und das Erzeugen einer Referenz-E-Mail bedienen sich ebenfalls Mechanismen des IMAP-Protokolls. Zusätzlich wird dabei aber noch das E-Mail-Format an sich ausgenutzt, indem die E-Mail bearbeitet wird.\\
-Die Metadata-Erweiterung, die Savedate-Erweiterung und die Quick-Resynchonization-Erweiterung sind Erweiterungen und damit optional für den Mailserver. Die serverseitigen Implementierungen durch die Mailserver fallen dementsprechend unterschiedlich aus. Der \enquote{Conditional Store} Teil der Quick-Resynchonization-Erweiterung ist dabei noch am weitesten verbreitet implementiert. Die Metadata-Erweiterung und die Savedate-Erweiterung sind zwar in Dovecot implementiert, aber in anderen wichtigen Mailservern wie z.B. Gmail nicht.\\
-Eine weitere sehr wichtige Eigenschaft betrifft das Ausnutzen von Mechanismen. Je näher der neue Lösungsansatz an dem bereits existierenden Mechanismus bzw. dem Konzept dahinter, desto besser. Besonders kritisch ist der Teillösungsansatz zu betrachten, der den E-Mail-Header bearbeitet. Das Bearbeiten des Headers ist theoretisch möglich, ist aber von der Konzeption keine gute Idee. IMAP ermöglicht es, mit Flags und Keywords E-Mails zu kategorisieren und Informationen über diese abzuspeichern, ohne dabei die E-Mail an sich zu bearbeiten. Dieses Konzept würde mit dem Bearbeiten des Headers einer E-Mail durch den Client \hl{aufgeweicht} werden. Auch das Erzeugen einer Referenz-E-Mail, welche lediglich dazu dient, Informationen abzuspeichern, ist konzeptionell nicht zielführend.\\
-Für andere Clients, welche den Lösungsansatz noch nicht implementieren, sollten, wenn möglich, keine Nachteile entstehen. Das Erzeugen einer Referenz-E-Mail ist hierbei das Negativbeispiel. Alle Clients ohne Implementierung sehen die E-Mail, welche nur die Informationen speichert, als normale E-Mail. Dies kann zu großer Verwirrung und Unübersichtlichkeit führen. Auch die Nutzung von Keywords mit UNIX-Timestamp kann zu geringer Verwirrung führen, wenn der Client alle Keywords einer E-Mail anzeigt. Oder auch, wenn die zurückgegebenen Keywords als Optionen zur Verfügung stehen, die der E-Mail zugeordnet werden können.\\
+Das Bearbeiten des Headers und das Erzeugen einer Referenz-E-Mail bedienen sich auch teilweise Mechanismen des IMAP-Protokolls. Zusätzlich wird dabei aber noch das E-Mail-Format an sich ausgenutzt, indem die E-Mail bearbeitet wird.
+
+Die Metadata-Erweiterung, die Savedate-Erweiterung und die Quick-Resynchonization-Erweiterung sind Erweiterungen und damit optional für den Mailserver. Die serverseitigen Implementierungen durch die Mailserver fallen dementsprechend unterschiedlich aus. Der \enquote{Conditional Store} Teil der Quick-Resynchonization-Erweiterung ist dabei noch am weitesten verbreitet implementiert. Die Metadata-Erweiterung und die Savedate-Erweiterung sind zwar in Dovecot implementiert, aber in anderen wichtigen Mailservern wie z.B. Gmail nicht.
+
+Eine weitere sehr wichtige Eigenschaft betrifft das Ausnutzen von Mechanismen. Je näher der neue Lösungsansatz an dem bereits existierenden Mechanismus bzw. dem Konzept dahinter, desto besser. Besonders kritisch ist der Teillösungsansatz zu betrachten, der den E-Mail-Header bearbeitet. Das Bearbeiten des Headers ist theoretisch möglich, ist aber von der Konzeption keine gute Idee. IMAP ermöglicht es, mit Flags und Keywords E-Mails zu kategorisieren und Informationen über diese abzuspeichern, ohne dabei die E-Mail an sich zu bearbeiten. Für das Bearbeiten einer E-Mail ist IMAP nicht konzipiert. \cite{melnikovInternetMessageAccess2021} Das Bearbeiten der E-Mail-Header würde sich gegen das Konzept von IMAP richtien.
+
+Auch das Erzeugen einer Referenz-E-Mail, welche lediglich dazu dient, Informationen abzuspeichern, ist konzeptionell nicht zielführend. Für andere Clients, welche den Lösungsansatz noch nicht implementieren, sollten, wenn möglich, keine Nachteile entstehen. Das Erzeugen einer Referenz-E-Mail ist hierbei das Negativbeispiel. Alle Clients ohne Implementierung sehen die E-Mail, welche nur die Informationen speichert, als normale E-Mail. Dies kann zu großer Verwirrung und Unübersichtlichkeit führen. Auch die Nutzung von Keywords mit UNIX-Timestamp kann zu geringer Verwirrung führen, wenn der Client alle Keywords einer E-Mail anzeigt. Oder auch, wenn die zurückgegebenen Keywords als Optionen zur Verfügung stehen, die der E-Mail zugeordnet werden können.
+
 Auch eine einfache Implementierbarkeit trägt in gewissem Maß zu einem guten Lösungsansatz bei. Sowohl die Keyword-Teillösung als auch die Verwendung einer Special-Use-Mailbox ist sehr einfach für die Clients zu implementieren, da die Mechanismen bereits im IMAP-Protokoll definiert sind und in der Implementierung nur noch angepasst werden müssen.
 
 
@@ -575,10 +588,21 @@ Des Weiteren wird die Verwendung einer extra Mailbox für gesnoozte E-Mails vorge
 
 Für eine schnelle und konfliktfreie Synchonisation wird die Implementierung des RFC7162 (IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)) vorgeschlagen.
 
-Abbildung X zeigt den Ablauf des Snoozens mit der vorgeschlagenen Lösung noch einmal anschaulich.\\
-Durch den Klick des Nutzenden auf einen Snooze-Button oder eine andere Art des Triggers wird der Snooze-Prozess ausgelöst. Welche Optionen hier zur Verfügung stehen, ist dem Client selbst überlassen. Der E-Mail-Client ermittelt dann den UNIX-Timestamp für diesen Zeitpunkt. Die zu snoozende E-Mail wird als nächstes in die Mailbox mit dem Special-Use-Attribut \enquote{\textbackslash{Snoozed}} verschoben. Danach wird der E-Mail ein Keyword \enquote{\textbackslash{\$SnoozedUntil\_X}} zugewiesen, wobei das X durch den ermittelten UNIX-Timestamp ersetzt wird.\\
+Abbildung \ref{fig:erweiterungsvorschlag} zeigt den Ablauf des Snoozens mit der vorgeschlagenen Lösung noch einmal anschaulich.\\
+Durch den Klick des Nutzenden auf einen Snooze-Button oder eine andere Art des Triggers wird der Snooze-Prozess ausgelöst. Welche Optionen hier zur Verfügung stehen, ist dem Client selbst überlassen. Der E-Mail-Client ermittelt dann den UNIX-Timestamp für diesen Zeitpunkt. Als nächstes wird der E-Mail ein Keyword \enquote{\textbackslash{\$SnoozedUntil\_X}} zugewiesen, wobei das X durch den ermittelten UNIX-Timestamp ersetzt wird. Die zu snoozende E-Mail wird danach in die Mailbox mit dem Special-Use-Attribut \enquote{\textbackslash{Snoozed}} verschoben.\\
 Der Client hat die Aufgabe regelmäßig, zu schauen, ob eine oder mehrere E-Mails in der Snoozed-Mailbox ein Keyword besitzen, bei dem der UNIX-Timestamp in der Vergangenheit liegt. Dazu ermittelt der Client den aktuellen UNIX-Timestamp und vergleicht ihn mit dem des Keywords. Wie oft diese Überprüfung stattfindet, ist dem Client selbst überlassen. Es wird empfohlen, eine Überprüfung bei Start des Clients durchzuführen, um einen aktuellen Stand zu erzeugen.\\
 Wenn eine oder mehrere E-Mails gefunden wurden, werden diese E-Mails in die INBOX zurückgeschoben und das \enquote{\textbackslash{\$SnoozedUntil\_X}} Keyword entfernt, wobei X der UNIX-Timestamp ist.
+
+\begin{itemize}
+	\item \hl{Bisschen genauer beschreiben und Sequenzdiagramm überarbeiten}
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.9\textwidth]{Abbildungen/mermaid-vorschlag.png}}
+	\caption{\hl{TBD}}
+	\label{fig:erweiterungsvorschlag}
+\end{figure}
 
 \chapter{Fazit}
 \label{sec:Fazit}
