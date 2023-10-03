@@ -588,21 +588,26 @@ Des Weiteren wird die Verwendung einer extra Mailbox für gesnoozte E-Mails vorge
 
 Für eine schnelle und konfliktfreie Synchonisation wird die Implementierung des RFC7162 (IMAP Extensions: Quick Flag Changes Resynchronization (CONDSTORE) and Quick Mailbox Resynchronization (QRESYNC)) vorgeschlagen.
 
-Abbildung \ref{fig:erweiterungsvorschlag} zeigt den Ablauf des Snoozens mit der vorgeschlagenen Lösung noch einmal anschaulich.\\
+Abbildung \ref{fig:erweiterungsvorschlag} zeigt den Ablauf des Snoozens einmal anschaulich.\\
 Durch den Klick des Nutzenden auf einen Snooze-Button oder eine andere Art des Triggers wird der Snooze-Prozess ausgelöst. Welche Optionen hier zur Verfügung stehen, ist dem Client selbst überlassen. Der E-Mail-Client ermittelt dann den UNIX-Timestamp für diesen Zeitpunkt. Als nächstes wird der E-Mail ein Keyword \enquote{\textbackslash{\$SnoozedUntil\_X}} zugewiesen, wobei das X durch den ermittelten UNIX-Timestamp ersetzt wird. Die zu snoozende E-Mail wird danach in die Mailbox mit dem Special-Use-Attribut \enquote{\textbackslash{Snoozed}} verschoben.\\
-Der Client hat die Aufgabe regelmäßig, zu schauen, ob eine oder mehrere E-Mails in der Snoozed-Mailbox ein Keyword besitzen, bei dem der UNIX-Timestamp in der Vergangenheit liegt. Dazu ermittelt der Client den aktuellen UNIX-Timestamp und vergleicht ihn mit dem des Keywords. Wie oft diese Überprüfung stattfindet, ist dem Client selbst überlassen. Es wird empfohlen, eine Überprüfung bei Start des Clients durchzuführen, um einen aktuellen Stand zu erzeugen.\\
-Wenn eine oder mehrere E-Mails gefunden wurden, werden diese E-Mails in die INBOX zurückgeschoben und das \enquote{\textbackslash{\$SnoozedUntil\_X}} Keyword entfernt, wobei X der UNIX-Timestamp ist.
 
-\begin{itemize}
-	\item \hl{Bisschen genauer beschreiben und Sequenzdiagramm überarbeiten}
-\end{itemize}
 
 \begin{figure}[h]
 	\centering
 	\fbox{\includegraphics[width=0.9\textwidth]{Abbildungen/mermaid-vorschlag.png}}
-	\caption{\hl{TBD}}
+	\caption{Snooze-Prozess einer E-Mail}
 	\label{fig:erweiterungsvorschlag}
 \end{figure}
+
+In Abbidung \ref{fig:erweiterungsvorschlag2} ist der Aufweckprozess zu sehen. Der Client hat die Aufgabe regelmäßig, zu schauen, ob eine oder mehrere E-Mails in der Snoozed-Mailbox ein Keyword besitzen, bei dem der UNIX-Timestamp in der Vergangenheit liegt. Dazu ermittelt der Client den aktuellen UNIX-Timestamp und vergleicht ihn mit dem des Keywords. Wie oft diese Überprüfung stattfindet, ist dem Client selbst überlassen. Es wird empfohlen, eine Überprüfung bei Start des Clients durchzuführen, um einen aktuellen Stand zu erzeugen. Wenn eine oder mehrere E-Mails gefunden wurden, werden diese E-Mails in die INBOX zurückgeschoben und das \enquote{\textbackslash{\$SnoozedUntil\_X}} Keyword entfernt, wobei X der UNIX-Timestamp ist.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\includegraphics[width=0.9\textwidth]{Abbildungen/mermaid-vorschlag-2.png}}
+	\caption{Aufweckprozess von E-Mails}
+	\label{fig:erweiterungsvorschlag2}
+\end{figure}
+
 
 \chapter{Fazit}
 \label{sec:Fazit}
