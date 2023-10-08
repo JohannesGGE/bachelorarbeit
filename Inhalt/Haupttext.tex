@@ -141,8 +141,6 @@ Nicht alle Internet-Drafts werden zu einem RFC, aber ein RFC ist trotzdem nicht 
 	\item \textbf{Internet standard:} \enquote{Technisch ausgereift, weit verbreitet und von großem Nutzen für die Internetgemeinschaft}\cite{DefinitionRequestComments2019}
 \end{itemize}
 
-\clearpage
-
 Und im Weiteren gibt es die beschreibenden RFCs, welche die folgenden Label besitzen:
 
 \begin{itemize}
@@ -470,6 +468,8 @@ Da dieser Lösungsansatz die Header einer E-Mail bearbeitet, sind auch noch weite
 Auch Erweiterungen wie RFC7508\footnote{RFC7508 - Securing Header Fields with S/MIME \url{https://datatracker.ietf.org/doc/rfc7508/}} basieren auf der Auswahl bestimmter Header, welche geschützt werden und es erlauben, Header hinzuzufügen, ohne die Sicherheitsmechanismen zu beeinträchtigen.\cite{cailleuxSecuringHeaderFields2015}
 
 Ein Problem dieses Ansatzes ist, dass IMAP als serverseitiges Management-Protokoll gedacht ist. Das Bearbeiten von E-Mails und deren Header ist kein Bestandteil von IMAP.\cite{melnikovInternetMessageAccess2021} Dennoch kann eine E-Mail bearbeitet werden, indem sie, wie unter \ref{subsec:imap} beschrieben gelöscht wird und eine neue E-Mail erzeugt und abgespeichert wird.\cite{lebeauAnswerIMAPEditing2013} Dies führt zu zusätzlichem Datenaufwand bei der Übertragung und kann unter Umständen Beziehungen zwischen Daten beeinflussen, da die interne UID geändert wird. Darüber hinaus müssten die Clients diese Funktionalität erstmal implementieren.
+
+\clearpage
 
 \subsection{Metadata-Erweiterung und Annotate-Erweiterung}
 
